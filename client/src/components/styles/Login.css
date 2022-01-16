@@ -1,0 +1,81 @@
+.contenedor{
+    width: 80%;
+    display: flex;
+    margin-left:70px;
+    position: absolute;
+    top: 150px;
+    left: 100px;
+    font-family: 'Secular One';
+    
+}
+.contenedor__content{
+    
+    width:50%;
+}
+.contenedor_logo {
+    display: flex;
+    font-size: 18px;
+    
+}
+.contenedor_logo > img{
+    margin:0;
+}
+.contenedor_submit{
+    display: flex;
+    flex-direction: column;
+}
+.boton_log{
+    font-size:18px;
+    background-color:#1877F2;
+    color:white;
+    height:30px;
+    width: 20%;
+    border-radius:5px;
+    border:none;
+    margin: 20px;
+}
+.boton_log_google{
+    font-size:18px;
+    font-family: 'Roboto';
+    background-color:#ffffff;
+    color:rgba(0, 0, 0, 0.52);
+    height:30px;
+    width: 35%;
+    border-radius:5px;
+    border: 1px solid rgba(0, 0, 0, 0.178);
+    border-top: none;
+    margin: 20px;
+}
+input{
+    border: 3px solid rgba(255, 255, 255, 0.623);;
+    margin: 15px;
+    width: 80%;
+    height:30px;
+    font-size:18px;
+    
+    
+}
+input:focus{
+    outline: none
+}
+input::placeholder{
+   color: rgba(0, 0, 0, 0.787); 
+   font-weight: bold ;
+}
+input:hover{
+    border: 3px solid rgba(58, 150, 255, 0.746);
+    border-radius:5px
+}
+h1{
+    color: #787878;
+}
+h4 > a{
+    color: #7E90FF;
+    font-family: 'Poppins';
+    font-size:18px;
+}
+a{
+    text-decoration: none;
+    color: #000000;
+    
+}

@@ -1,5 +1,6 @@
+import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import { Routes, Route } from "react-router-dom";
+import Login from './components/Login';
 import NavBar from './components/NavBar.jsx'
 import SignUp from './pages/SignUp';
 import Home from './pages/Home'
@@ -13,9 +14,8 @@ function App() {
           <Home />
         </>} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/login"  element={<Login/>}/>
       </Routes>
-
-
     </div>
   );
 }
