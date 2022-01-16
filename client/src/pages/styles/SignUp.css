@@ -1,0 +1,20 @@
+.signup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup_header {
+  display: flex;
+  flex-direction: row;
+  background: red;
+}
+
+.signup_inputs {
+  display: flex;
+}
+
+.inputText {
+  background: orange;
+  margin: 20px;
+}

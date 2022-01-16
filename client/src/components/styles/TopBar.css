@@ -22,9 +22,9 @@
   transition: all 2s ease-in-out;
 }
 
-.loginButtons__button:hover { 
-    transition: all 2s ease-in-out;
-    transform: scale(1.5);
+.loginButtons__button:hover {
+  transition: all 2s ease-in-out;
+  transform: scale(1.5);
 }
 
 .cart {
@@ -58,6 +58,6 @@
   outline: none;
 }
 
-.searchForm__icon{
-    cursor: pointer;
+.searchForm__icon {
+  cursor: pointer;
 }
