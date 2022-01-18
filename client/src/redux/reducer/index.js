@@ -1,18 +1,16 @@
-import { POST_USER } from "../actions";
+import {GET_ALL_GALLERY} from '../actions/index.js' 
 
 const initialState = {
-    user: []
+    allGallery: []
 }
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        case POST_USER:
+        case GET_ALL_GALLERY: 
             return {
                 ...state,
-                user: [...state.user, action.payload]
+                allGallery: action.payload
             }
-
-
 
         default:
             return state;

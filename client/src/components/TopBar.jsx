@@ -7,13 +7,7 @@ import { MdShoppingBasket } from 'react-icons/md';
 
 function TopBar() {
     const history = useNavigate();
-
-    //     function onSubLogin(){
-    //         setTimeout(() =>{
-    //             history('/Login')
-    //             alert('Login')
-    //         }, 500)
-    //     }
+  
     return (
         <div className="topbar">
             <div className="topbar__content">
@@ -31,7 +25,8 @@ function TopBar() {
                 <div className='loginButtons'>
 
                     <button className='loginButtons__button'>
-                        <NavLink to="/Login">Login</NavLink></button>
+                        <NavLink to="/Login">Login</NavLink>
+                    </button>
 
                     <button className='loginButtons__button'>
                         <NavLink to="/signup">Create Account</NavLink>

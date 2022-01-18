@@ -1,11 +1,13 @@
+export const GET_ALL_GALLERY = 'ALL_GALLERY'
 
-export const POST_USER = 'POST_USER';
-
-
-export function postUser(dog) {
-    return {
-        type: POST_USER,
-        payload: dog
+export const getAllGallery = () => {
+    return async function dispatch(dispatch){
+        const response = await fetch('http://localhost:5040/home');
+        const json = await response.json();
+        dispatch({
+            type: GET_ALL_GALLERY,
+            payload: json
+        });
     }
 }
 
