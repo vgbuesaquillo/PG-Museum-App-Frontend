@@ -11,14 +11,15 @@ import signUpImg from '../images/signup.svg'
 const SignUp = () => {
     const dispatch = useDispatch();
     let navigate = useNavigate();
-    const [status, setStatus] = useState(false);
+    const [status, setStatus] = useState();
     const [user, setUser] = useState({
         username: '',
         email: '',
         password: '',
         passwordbis: '',
         gender: '',
-        status: status
+        status: status,
+        legal: ["ine", "folio"]
     });
     const [errors, setErrors] = useState({})
 
@@ -57,7 +58,20 @@ const SignUp = () => {
             navigate('/signup');
         }
     }
-    console.log(errors)
+
+    function handleCheck(e) {
+        console.log(e.target.checked)
+        console.log(status)
+        if (e.target.checked) {
+            setStatus({
+                ...user,
+                status: true
+            })
+        }
+        console.log("check")
+        console.log(user)
+    }
+
 
     return (<div className='signup'>
         <div className="signup__header">
@@ -107,8 +121,14 @@ const SignUp = () => {
                             <option value="otro" >Otro</option>
                         </select>
                         <div>
-                            <input type='checkbox' name="seller" value="seller" />
+                            <input type='checkbox' name="seller" value="seller" onChange={(e) => handleCheck(e)} />
                             <label for="opt-in">wants to be a seller</label>
+                        </div>
+                        <div>
+                            {user.status && user.legal.map((el, i) => {
+                                <p key={i}>{el}</p>
+                            })}
+                            <p>adfs</p>
                         </div>
                         <input type='submit' value="Sign up" className="buildClass" />
                     </div>
