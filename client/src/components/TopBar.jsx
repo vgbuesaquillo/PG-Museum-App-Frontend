@@ -12,7 +12,7 @@ function TopBar() {
             <div className="topbar__content">
                 <div className="searchForm">
                     <AiOutlineSearch className="searchForm__icon" />
-                    <input type="text" className="searchForm__input" placeholder="Search here..." />
+                    <input className="search__input" placeholder="Search here..." />
                     <GrFilter className="searchForm__icon" />
                 </div>
                 <div className='cart'>

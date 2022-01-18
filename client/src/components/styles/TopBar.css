@@ -1,13 +1,14 @@
 .topbar {
-  margin: 0.5vw 3vw 0vw 1vw;
-  /* background-color: red; */
-  padding: 1vw;
-  width: auto;
+  padding: 1rem;
+  width: 90%;
+  display: flex;
+  position: fixed;
+  justify-content: flex-end;
+  background-color: white;
 }
 
 .topbar__content {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
 }
 
@@ -20,11 +21,6 @@
   border: none;
   cursor: pointer;
   transition: all 2s ease-in-out;
-}
-
-.loginButtons__button:hover {
-  transition: all 2s ease-in-out;
-  transform: scale(1.5);
 }
 
 .cart {
@@ -42,22 +38,23 @@
   display: flex;
   align-items: center;
   width: auto;
-  height: auto;
-  margin: 0vw 2vw 0vw 2vw;
+  height: 40px;
   background: #f8f8f8;
   padding: 0.5vw;
-  border-radius: 10px;
+  border-radius: 30px;
 }
 
-.searchForm__input {
+.search__input {
   border: none;
-  background: #f8f8f8;
-}
-
-.searchForm__input:focus {
   outline: none;
+  background-color: transparent;
 }
 
-.searchForm__icon {
-  cursor: pointer;
+.search__input:focus{
+  outline: none
 }
+
+
+/* .searchForm__icon {
+  cursor: pointer;
+} */
