@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom"
 import { useDispatch } from 'react-redux';
-import { postUser } from "../redux/actions/index";
+// import { postUser } from "../redux/actions/index";
 
 import validate from '../utils/validateSignUp'
 import './styles/SignUp.css'
@@ -49,7 +49,7 @@ const SignUp = () => {
     function onSubmit(e) {
         if (Object.keys(errors).length === 0 && errors.constructor === Object) {
             e.preventDefault()
-            dispatch(postUser(user));
+            // dispatch(postUser(user));
             alert("Successfully post user")
             console.log("submit")
             navigate('/');

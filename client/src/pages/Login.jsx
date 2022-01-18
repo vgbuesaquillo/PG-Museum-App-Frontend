@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import './styles/Login.css'
 //import {FcGoogle} from 'react-icons/fc'
+import { BiX } from "react-icons/bi";
 import {VscGithub} from 'react-icons/vsc'
 import image from '../images/Group 1.svg'
 import image2 from '../images/undraw_working_from_anywhere_re_9obt.svg'
@@ -54,17 +55,17 @@ function Login(){
         
     }
     const handleLogin = async(response) => {
-        // const res = await fetch('/api/google-login', {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         token: response.tokenId,
-        //     }),
-        //     headers: {
-        //         'content-type': 'application/json',
-        //     },
-        // })
+        const res = await fetch('/api/google-login', {
+            method: 'POST',
+            body: JSON.stringify({
+                token: response.tokenId,
+            }),
+            headers: {
+                'content-type': 'application/json',
+            },
+        })
         console.log(response);
-        const data = await response.json();
+        const data = await response;
         setLoginData(data);
         localStorage.setItem('loginData', JSON.stringify(data));
     }
@@ -84,7 +85,8 @@ function Login(){
                 <div>
                     <div className= 'contenedor_logo'> 
                         <img src={image} alt="logo" className='navbar__logo'/>
-                        Museum
+                        <div>Museum</div>
+                        
                     </div>
                     <h1>Sing in</h1>
                     <form  >
@@ -114,9 +116,9 @@ function Login(){
 
                         <h4><a href="/">Olvidaste tu contraseña?</a></h4>
                         <div className = 'contenedor_submit'>
-                            <button className ="boton_log">Sing in</button>
+                            <div className ='div_log'><button className ="boton_log">Sing in</button></div>
                             
-                            <a href="/"><VscGithub/><b>GitHub</b></a>
+                            <a href="/"><VscGithub/><> </><b>GitHub</b></a>
                             {
                                 loginData? (
                                     <div>
@@ -124,13 +126,15 @@ function Login(){
                                         <button onClick={handleLogout}>Logout</button>
                                     </div>
                                 ): (
-                                   <GoogleLogin
+                                    <div className ='bott_google'>
+                                        <GoogleLogin
                                         clientId="359276887661-52enkr7gjhn5m9hm3e3t45jumqjnfnvj.apps.googleusercontent.com"
-                                        buttonText="Log in with Google"
+                                        buttonText="Sign In with Google"
                                         onSuccess={handleLogin}
                                         onFailure={handleFailure}
                                         cookiePolicy={'single_host_origin'}
-                                    /> 
+                                    /> </div>
+                                   
                                 )
                             }
                             
@@ -143,9 +147,10 @@ function Login(){
                 </div>
                 
             </div>
-            <div>
+            <div className="img_page">
                 <img src={image2} alt="imagen" />
             </div>
+            <div className="log_Bix"> <a href="/"><BiX/></a></div>
         </div>
     )
     
