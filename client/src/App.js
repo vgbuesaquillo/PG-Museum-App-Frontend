@@ -8,6 +8,7 @@ import Notification from './pages/Notification';
 import Favorite from './pages/Favorite';
 import Setting from './pages/Setting';
 import GitHub from './pages/GitHub';
+import Detail from './pages/Detail.jsx';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
         <Route path="/setting" element={<Setting />} />
         <Route path="/github" element={<GitHub />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/login"  element={<Login/>}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/:id" element={<Detail />} />
       </Routes>
     </div>
   );

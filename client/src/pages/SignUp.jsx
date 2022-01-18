@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom"
 import { useDispatch } from 'react-redux';
-
 import validate from '../utils/validateSignUp'
 import './styles/SignUp.css'
 import logo from '../images/logoapp.svg'
