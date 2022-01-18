@@ -4,6 +4,7 @@
   align-items: center;
   width: 8rem;
   height: 100vh;
+  position: fixed;
 }
 
 .navbar__content {

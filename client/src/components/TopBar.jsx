@@ -6,14 +6,7 @@ import { GrFilter } from 'react-icons/gr';
 import { MdShoppingBasket } from 'react-icons/md';
 
 function TopBar() {
-   // const history = useNavigate();
-    
-//     function onSubLogin(){
-//         setTimeout(() =>{
-//             history('/Login')
-//             alert('Login')
-//         }, 500)
-//     }
+
     return (
         <div className="topbar">
             <div className="topbar__content">
@@ -29,13 +22,11 @@ function TopBar() {
                     </div>
                 </div>
                 <div className='loginButtons'>
-{/* 
-//                     <button className='loginButtons__button' onClick={onSubLogin}>Login</button>
-//                     <button className='loginButtons__button'>Create Account</button> */}
 
-                    <button className='loginButtons__button'> 
-                        <NavLink to="/Login">Login</NavLink></button>
-                    
+                    <button className='loginButtons__button'>
+                        <NavLink to="/Login">Login</NavLink>
+                    </button>
+
                     <button className='loginButtons__button'>
                         <NavLink to="/signup">Create Account</NavLink>
                     </button>

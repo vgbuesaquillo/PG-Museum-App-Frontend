@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
+import { useDispatch } from 'react-redux';
+import { postUser } from "../redux/actions/index";
 
 import validate from '../utils/validateSignUp'
 import './styles/SignUp.css'
@@ -7,15 +9,19 @@ import logo from '../images/logoapp.svg'
 import signUpImg from '../images/signup.svg'
 
 const SignUp = () => {
-    const [errors, setErrors] = useState({})
+    const dispatch = useDispatch();
+    let navigate = useNavigate();
+    const [status, setStatus] = useState();
     const [user, setUser] = useState({
         username: '',
         email: '',
         password: '',
         passwordbis: '',
         gender: '',
-        status: false
+        status: status,
+        legal: ["ine", "folio"]
     });
+    const [errors, setErrors] = useState({})
 
     function onInputChange(e) {
         e.preventDefault()
@@ -41,20 +47,47 @@ const SignUp = () => {
     }
 
     function onSubmit(e) {
-        e.preventDefault()
-        console.log("submit")
+        if (Object.keys(errors).length === 0 && errors.constructor === Object) {
+            e.preventDefault()
+            dispatch(postUser(user));
+            alert("Successfully post user")
+            console.log("submit")
+            navigate('/');
+        } else {
+            alert("Missing fields in the form")
+            navigate('/signup');
+        }
     }
 
+    function handleCheck(e) {
+        console.log(e.target.checked)
+        console.log(status)
+        if (e.target.checked) {
+            setStatus({
+                ...user,
+                status: true
+            })
+        }
+        console.log("check")
+        console.log(user)
+    }
+
+
     return (<div className='signup'>
-        <div className="signup_header">
-            <img src={logo} alt="#" width="60px"></img>
-            <label>Museum</label>
+        <div className="signup__header">
+            <div>
+                <img src={logo} alt="#" width="60px"></img>
+                <label>Museum</label>
+            </div>
+            <div className="image__link" >
+                <NavLink to="/" className="navlink" >Start </NavLink>
+            </div>
         </div>
 
-        <div className='signup_inputs'>
+        <div className='signup__inputs'>
             <div className="inputText">
 
-                <div className="inputText_title">
+                <div className="inputText__title">
                     <label className="title__label">Sign up </label>
                     <br />
                     <span className="title__span">It's free, try it!</span>
@@ -64,22 +97,22 @@ const SignUp = () => {
                         <input onChange={onInputChange} name="username" type='text' value={user.username}
                             placeholder='Username' />
                     </div>
-                    {errors.username && <p className="errors">{errors.username}</p>}
+                    {errors.username && <p className="form__errors">{errors.username}</p>}
                     <div className="form__item">
-                        <input onChange={onInputChange} name="email" type='text' value={user.email}
+                        <input onChange={onInputChange} name="email" type='email' value={user.email}
                             placeholder='Email' />
                     </div>
-                    {errors.email && <p className="errors">{errors.email}</p>}
+                    {errors.email && <p className="form__errors">{errors.email}</p>}
                     <div className="form__item">
-                        <input onChange={onInputChange} name="password" type='text' value={user.password}
+                        <input onChange={onInputChange} name="password" type='password' value={user.password}
                             placeholder='Password' />
                     </div>
-                    {errors.password && <p className="errors">{errors.password}</p>}
+                    {errors.password && <p className="form__errors">{errors.password}</p>}
                     <div className="form__item">
-                        <input onChange={onInputChange} name="passwordbis" type='text' value={user.passwordbis}
+                        <input onChange={onInputChange} name="passwordbis" type='password' value={user.passwordbis}
                             placeholder='Repeat password' />
                     </div>
-                    {errors.passwordbis && <p className="errors">{errors.passwordbis}</p>}
+                    {errors.passwordbis && <p className="form__errors">{errors.passwordbis}</p>}
                     <div>
                         <select name="temperament" onChange={onSelectChange} defaultValue={'DEFAULT'} >
                             <option value="DEFAULT" disabled>Select gender:</option>
@@ -88,18 +121,23 @@ const SignUp = () => {
                             <option value="otro" >Otro</option>
                         </select>
                         <div>
-                            <input type='checkbox' name="seller" value="seller" />
+                            <input type='checkbox' name="seller" value="seller" onChange={(e) => handleCheck(e)} />
                             <label for="opt-in">wants to be a seller</label>
+                        </div>
+                        <div>
+                            {user.status && user.legal.map((el, i) => {
+                                <p key={i}>{el}</p>
+                            })}
+                            <p>adfs</p>
                         </div>
                         <input type='submit' value="Sign up" className="buildClass" />
                     </div>
                 </form>
             </div>
-            <img src={signUpImg} width="60%" alt="#" ></img>
+            <div className="inputImage">
+                <img src={signUpImg} width="50%" alt="#" className="image__image"></img>
+            </div>
 
-        </div>
-        <div>
-            <NavLink to="/" className="navlink" >Start </NavLink>
         </div>
 
     </div>
