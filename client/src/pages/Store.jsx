@@ -21,10 +21,10 @@ function Store(){
         pricing: "10.000$"
     }]
     return (
-        <div className="container">
-           <div className = 'top'>
+        <div className="container_cards">
+           <div className = 'top_cards'>
                 <div><h1>My Card/{'items'}</h1></div>
-                <div><Link to= '/'>Buy all</Link></div>
+                <div className = 'top_Link'><Link to= '/'><b>Buy all</b> </Link></div>
             </div> 
             <div>
                 <p>

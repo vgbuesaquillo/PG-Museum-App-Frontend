@@ -1,11 +1,14 @@
-.card{
+.card_cont{
     display: flex;
     justify-content:space-around;
-    width:100%;
+    width:90%;
     margin-top:2rem;
     
 }
-.card_info{
+.card_cont > div > img{
+    border-radius: 0.3rem;
+}
+.card__info{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -19,4 +22,34 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+.btn_green{
+    border: none;
+    background-color:#83ff775b;
+    color: #07f61b;
+    padding: 0.5rem;
+    width: 8rem;
+    border-radius: 0.5rem;
+}
+.btn_red{
+    border: none;
+    background-color:#ff76765b;
+    color: #f60707;
+    padding: 0.5rem;
+    width: 8rem;
+    border-radius: 0.5rem;
+}
+.btn_cont{
+    border: none;
+    width: 3rem;
+}
+
+.card__info > div > h2{
+    margin-top:12px;
+    margin-left: 0.5rem;
+}
+.card__info > div > h4{
+    color: #00000083;
+    font-size:22px;
+    margin-left: 0.5rem;
 }
