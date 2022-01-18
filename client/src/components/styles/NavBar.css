@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 8rem;
+  width: 6rem;
   height: 100vh;
   position: fixed;
 }
@@ -28,5 +28,9 @@
 
 .navigations__icon {
   font-size: 23px;
-  color: rgb(175, 175, 175);
+  color: rgb(207, 207, 207);
+}
+
+.active{
+  color: cornflowerblue;
 }

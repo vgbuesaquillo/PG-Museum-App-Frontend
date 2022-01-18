@@ -1,6 +1,16 @@
 .home {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  align-self: flex-end;
+  width: 90%;
+  margin-left: 10%
+}
+
+.galleryGrid{
+  display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    justify-items: center;
+    align-items: center;
+    row-gap: 20px;
+    padding-top: 5rem;
+    padding-bottom: 40px;
 }
