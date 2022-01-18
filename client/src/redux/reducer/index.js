@@ -12,7 +12,6 @@ export default function reducer(state = initialState, action) {
                 allGallery: action.payload
             }
 
-
         default:
             return state;
     }

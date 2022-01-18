@@ -1,27 +1,27 @@
 export default function validateLogin(user) {
     let errors = {};
     if (!user.username.trim()) {
-        errors.username = "username is required"
-    } else if (user.username.length < 4) {
-        errors.username = "username need to be four characters or more"
+        errors.username = "Username is required"
+    } else if (!/^[a-zA-Z0-9]{4,15}$/.test(user.username)) {
+        errors.username = "Username need to be four characters or more, only numeric or alphabetic characters"
     }
 
     if (!user.email) {
-        errors.email = "Height min is required"
-    } else if (!/^[0-9]+$/.test(user.email)) {
-        errors.email = "Please only enter numeric characters"
+        errors.email = "Email is required"
+    } else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(user.email)) {
+        errors.email = "Please enter a valid email"
     }
 
     if (!user.password) {
-        errors.password = "Height max is required"
-    } else if (!/^[0-9]+$/.test(user.password)) {
-        errors.password = "Please only enter numeric characters"
+        errors.password = "Password is required"
+    } else if (!/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/.test(user.password)) {
+        errors.password = "Password need to be eight characters or more; must have at least one digit, one special symbol or one uppercase character"
     }
 
     if (!user.passwordbis) {
-        errors.passwordbis = "passwordbis is required"
-    } else if (!/^[0-9]+$/.test(user.passwordbis)) {
-        errors.passwordbis = "Please only enter numeric characters"
+        errors.passwordbis = "Password is required"
+    } else if (user.password !== user.passwordbis) {
+        errors.passwordbis = "Passwords are not the same"
     }
 
     if (!user.gender) {
