@@ -30,8 +30,8 @@ function TopBar() {
                 </div>
                 <div className='loginButtons'>
 
-//                     <button className='loginButtons__button' onClick={onSubLogin}>Login</button>
-//                     <button className='loginButtons__button'>Create Account</button>
+{/* //                     <button className='loginButtons__button' onClick={onSubLogin}>Login</button>
+//                     <button className='loginButtons__button'>Create Account</button> */}
 
                     <button className='loginButtons__button'> 
                         <NavLink to="/Login">Login</NavLink></button>
