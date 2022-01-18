@@ -1,40 +1,20 @@
 .landing {
-  margin: 0.5vw 3vw 0vw 1vw;
-  padding: 1vw;
-  width: auto;
-  /* border: solid; */
+  width: 90%;
+  height: 500px;
   display: flex;
-}
-
-.landing__text {
-  top: 20px;
-  margin: 30px;
-  padding: 20px;
-}
-.landing__image {
-  margin: 10px;
+  align-items: center;
+  justify-content: space-between;
+  align-self: center;
 }
 
 .landing__text--in {
-  color: #7064fc;
-  font-size: 1.5em;
-  line-height: 1.5em;
-  font-weight: 900;
-  text-transform: uppercase;
+  color: gray;
+  font-size: 2em;
+  font-family: 'Poppins';
+  font-weight: bold;
+  width: 350px
 }
 
-.landing__text--midle {
-  color: #7064fc;
-  font-size: 2.5em;
-  line-height: 1.5em;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.landing__text--end {
-  color: #7064fc;
-  font-size: 1.5em;
-  line-height: 1.5em;
-  font-weight: 900;
-  text-transform: uppercase;
+.image__image{
+  width: 25rem
 }
