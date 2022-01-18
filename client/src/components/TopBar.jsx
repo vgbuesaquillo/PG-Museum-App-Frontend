@@ -6,8 +6,7 @@ import { GrFilter } from 'react-icons/gr';
 import { MdShoppingBasket } from 'react-icons/md';
 
 function TopBar() {
-    const history = useNavigate();
-  
+
     return (
         <div className="topbar">
             <div className="topbar__content">

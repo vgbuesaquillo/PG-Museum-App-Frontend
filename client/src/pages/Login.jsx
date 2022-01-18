@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+// import { app } from '../config/firebase-config'
+import { GoogleLogin } from 'react-google-login';
 import './styles/Login.css'
-import {FcGoogle} from 'react-icons/fc'
+//import {FcGoogle} from 'react-icons/fc'
 import {VscGithub} from 'react-icons/vsc'
-
 import image from '../images/Group 1.svg'
 import image2 from '../images/undraw_working_from_anywhere_re_9obt.svg'
 
@@ -31,6 +32,13 @@ function Login(){
     
     const [error, setError] = useState({});
 
+    const [loginData, setLoginData] = useState(
+        localStorage.getItem('loginData')
+            ? JSON.parse(localStorage.getItem('loginData'))
+            : null
+    );
+    // const  [user, setUser] = useState(null);
+
     
     
     function handleChange(e){
@@ -45,6 +53,30 @@ function Login(){
         }));
         
     }
+    const handleLogin = async(response) => {
+        // const res = await fetch('/api/google-login', {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         token: response.tokenId,
+        //     }),
+        //     headers: {
+        //         'content-type': 'application/json',
+        //     },
+        // })
+        console.log(response);
+        const data = await response.json();
+        setLoginData(data);
+        localStorage.setItem('loginData', JSON.stringify(data));
+    }
+    const handleFailure = (response) => {
+        console.log(response);
+    }
+    const handleLogout = () => {
+        localStorage.removeItem('loginData');
+        setLoginData(null);
+        
+    }
+    
 
     return(
         <div className= 'contenedor'>
@@ -83,8 +115,27 @@ function Login(){
                         <h4><a href="/">Olvidaste tu contraseña?</a></h4>
                         <div className = 'contenedor_submit'>
                             <button className ="boton_log">Sing in</button>
+                            
                             <a href="/"><VscGithub/><b>GitHub</b></a>
-                            <button className ="boton_log_google"><FcGoogle/> Sing In With Google</button>
+                            {
+                                loginData? (
+                                    <div>
+                                        <h2>You logged in as {loginData.email}</h2>
+                                        <button onClick={handleLogout}>Logout</button>
+                                    </div>
+                                ): (
+                                   <GoogleLogin
+                                        clientId="359276887661-52enkr7gjhn5m9hm3e3t45jumqjnfnvj.apps.googleusercontent.com"
+                                        buttonText="Log in with Google"
+                                        onSuccess={handleLogin}
+                                        onFailure={handleFailure}
+                                        cookiePolicy={'single_host_origin'}
+                                    /> 
+                                )
+                            }
+                            
+                            {/* <div class="g-signin2" data-onsuccess="onSignIn"></div> */}
+                            {/* <button className ="boton_log_google"><FcGoogle/> Sing In With Google</button> */}
                         </div>
                     </form>
                         
