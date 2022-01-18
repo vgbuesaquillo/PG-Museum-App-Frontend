@@ -1,7 +1,40 @@
 .landing {
   margin: 0.5vw 3vw 0vw 1vw;
-  /* background-color: red; */
   padding: 1vw;
   width: auto;
-  border: solid;
+  /* border: solid; */
+  display: flex;
+}
+
+.landing__text {
+  top: 20px;
+  margin: 30px;
+  padding: 20px;
+}
+.landing__image {
+  margin: 10px;
+}
+
+.landing__text--in {
+  color: #7064fc;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.landing__text--midle {
+  color: #7064fc;
+  font-size: 2.5em;
+  line-height: 1.5em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.landing__text--end {
+  color: #7064fc;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  font-weight: 900;
+  text-transform: uppercase;
 }
