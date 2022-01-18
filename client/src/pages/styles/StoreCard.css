@@ -1,0 +1,22 @@
+.card{
+    display: flex;
+    justify-content:space-around;
+    width:100%;
+    margin-top:2rem;
+    
+}
+.card_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: start;
+    width: 70%;
+    position: relative;
+    top:-3rem;
+}
+
+.card_bott{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
