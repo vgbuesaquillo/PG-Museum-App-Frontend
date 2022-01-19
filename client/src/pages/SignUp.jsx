@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom"
+import { BsFillXCircleFill } from "react-icons/bs";
 import { useDispatch } from 'react-redux';
 import validate from '../utils/validateSignUp'
 import './styles/SignUp.css'
@@ -77,7 +78,7 @@ const SignUp = () => {
                 <label>Museum</label>
             </div>
             <div className="image__link" >
-                <NavLink to="/" className="navlink" >Start </NavLink>
+                <NavLink to="/" className="navlink" ><BsFillXCircleFill /></NavLink>
             </div>
         </div>
 
@@ -119,7 +120,7 @@ const SignUp = () => {
                         </select>
                         <div>
                             <input type='checkbox' name="seller" value="seller" onChange={(e) => handleCheck(e)} />
-                            <label for="opt-in">wants to be a seller</label>
+                            <label htmlfor="opt-in">wants to be a seller</label>
                         </div>
                         <div>
                             {user.status && user.legal.map((el, i) => {
