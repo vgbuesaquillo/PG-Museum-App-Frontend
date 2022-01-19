@@ -35,7 +35,8 @@ const Home = () => {
         <div className='galleryGrid'>
             {
                 currentGalleries.map(art => {
-                    return <GalleryCard img={art.images} title={art.title} price={art.price} id={art.id} />
+                    return <GalleryCard img={art.images} title={art.title} price={art.price} id={art.id} key={art.id} />
+
                 })
             }
         </div>

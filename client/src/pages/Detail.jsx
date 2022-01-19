@@ -11,6 +11,7 @@ import './styles/Detail.css'
 
 const Detail = () => {
     let { id } = useParams()
+
     const artworkDetail = useSelector(state => state.allGallery);
     let artwork = artworkDetail.find(element => element.id === Number(id))
 
