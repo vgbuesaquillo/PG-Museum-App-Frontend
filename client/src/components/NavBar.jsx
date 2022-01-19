@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import './styles/NavBar.css'
 import image from '../images/Group 1.svg'
-import {MdShoppingBasket, MdOutlineFavorite} from 'react-icons/md'
+import {MdShoppingBasket, MdOutlineFavorite, MdHomeFilled} from 'react-icons/md'
 import {IoNotifications} from 'react-icons/io5'
 import {RiSettingsFill} from 'react-icons/ri'
 import {FaGithub} from 'react-icons/fa'
@@ -13,6 +13,7 @@ const NavBar = () => {
             <div className='navbar__content'>
                 <img src={image} alt="logo" className='navbar__logo'/>
                 <div className='navigations'>
+                    <Link  to='/'><MdHomeFilled className='navigations__icon'/></Link>
                     <Link  to='/store'><MdShoppingBasket className='navigations__icon'/></Link>
                     <Link to='/notification'><IoNotifications className='navigations__icon'/></Link>
                     <Link to='/favorite'><MdOutlineFavorite className='navigations__icon'/></Link>

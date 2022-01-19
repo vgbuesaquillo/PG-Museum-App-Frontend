@@ -48,10 +48,8 @@
   border: none;
   outline: none;
   background-color: transparent;
-}
-
-.search__input:focus{
-  outline: none
+  width: 200px;
+  margin: 0px;
 }
 
 
