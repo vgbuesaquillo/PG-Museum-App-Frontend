@@ -2,15 +2,15 @@
   display: flex;
   flex-direction: column;
   width: 90%;
-  margin-left: 10%
+  margin-left: 10%;
 }
 
-.galleryGrid{
+.galleryGrid {
   display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
-    justify-items: center;
-    align-items: center;
-    row-gap: 20px;
-    padding-top: 2rem;
-    padding-bottom: 40px;
+  grid-template-columns: 25% 25% 25% 25%;
+  justify-items: center;
+  align-items: center;
+  row-gap: 20px;
+  padding-top: 2rem;
+  padding-bottom: 40px;
 }

@@ -1,9 +1,20 @@
 import './styles/StoreCard.css'
 import { BiChevronLeftCircle } from "react-icons/bi";
 import { BiChevronRightCircle } from "react-icons/bi";
+import { useState } from 'react'
 
 
 function StoreCard({prop}){
+    const [cantidad, setCantidad ] = useState(0)
+
+    const buttMayor = (e) =>{
+        e.preventDefault();
+        setCantidad(cantidad + 1)
+    }
+    const buttMenor = (e) =>{
+        e.preventDefault();
+        cantidad >0 && setCantidad(cantidad - 1) 
+    }
     
     return(
 
@@ -22,7 +33,7 @@ function StoreCard({prop}){
             <div className="card_bott">
                 <button className="btn_green"><b>Buy</b> </button>
                 <button className='btn_red'><b>Delete</b> </button>
-                <div><button className ='btn_cont'>< BiChevronLeftCircle/></button>4<button className ='btn_cont'><BiChevronRightCircle/></button></div>
+                <div><button onClick={buttMenor} className ='btn_cont'>< BiChevronLeftCircle/></button>{cantidad}<button onClick={buttMayor} className ='btn_cont'><BiChevronRightCircle/></button></div>
                 
             </div>
         </div>

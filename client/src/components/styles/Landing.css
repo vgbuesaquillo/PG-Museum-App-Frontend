@@ -1,7 +1,7 @@
 .landing {
   margin-top: 4rem;
   width: 90%;
-  height: 400px;
+  height: 45ch;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -11,9 +11,9 @@
 .landing__text--in {
   color: gray;
   font-size: 2em;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-weight: bold;
-  width: 350px
+  width: 350px;
 }
 
 .image__image{

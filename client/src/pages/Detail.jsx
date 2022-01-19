@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+
+import { useSelector } from "react-redux"
 import axios from "axios";
 import { useParams } from "react-router";
 import { Link } from 'react-router-dom'
@@ -8,21 +10,11 @@ import { MdShoppingBasket } from 'react-icons/md';
 import './styles/Detail.css'
 
 const Detail = () => {
-    const [artwork, setArtwork] = useState(null)
     let { id } = useParams()
-    console.log(id)
-    useEffect(() => {
-        axios.get("http://localhost:5040/home/" + id)
-            .then((response) => {
-                setArtwork(response.data)
-            })
-        return () => {
-            setArtwork(null)
-        }
-    }, [id])
-    
-    console.log(artwork)
-    console.log(artwork?.id)
+
+    const artworkDetail = useSelector(state => state.allGallery);
+    let artwork = artworkDetail.find(element => element.id === Number(id))
+
     return (<div className="detail">
         <NavBar />
         <div className='detail__link'>

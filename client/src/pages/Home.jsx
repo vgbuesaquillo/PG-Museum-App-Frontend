@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllGallery } from '../redux/actions'
 import Pagination from '../components/Pagination'
+import Categories from '../components/Categories';
 
 const Home = () => {
 
@@ -30,10 +31,12 @@ const Home = () => {
     return (<div className='home'>
         <TopBar />
         <Landing />
+        <Categories />
         <div className='galleryGrid'>
             {
                 currentGalleries.map(art => {
                     return <GalleryCard img={art.images} title={art.title} price={art.price} id={art.id} key={art.id} />
+
                 })
             }
         </div>
