@@ -5,6 +5,7 @@
   width: 6rem;
   height: 100vh;
   position: fixed;
+  padding: 0px;
 }
 
 .navbar__content {
@@ -23,14 +24,11 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 35vh;
+  height: 50vh;
 }
 
 .navigations__icon {
   font-size: 23px;
   color: rgb(207, 207, 207);
-}
-
-.active{
-  color: cornflowerblue;
+  margin-top: 0px;
 }
