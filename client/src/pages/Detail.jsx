@@ -20,6 +20,7 @@ const Detail = () => {
             setArtwork(null)
         }
     }, [id])
+    
     console.log(artwork)
     console.log(artwork?.id)
     return (<div className="detail">

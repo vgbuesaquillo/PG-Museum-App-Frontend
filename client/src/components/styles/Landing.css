@@ -1,6 +1,7 @@
 .landing {
+  margin-top: 4rem;
   width: 90%;
-  height: 500px;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,5 +17,6 @@
 }
 
 .image__image{
-  width: 25rem
+  width: 25rem;
+  height: 300px
 }
