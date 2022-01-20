@@ -21,6 +21,7 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.4"
   },
+  
   "scripts": {
     "dev": "lite-server",
     "start": "react-scripts start",
