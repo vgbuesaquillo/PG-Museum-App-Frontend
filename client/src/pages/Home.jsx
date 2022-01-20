@@ -35,6 +35,7 @@ const Home = () => {
         <div className='galleryGrid'>
             {
                 currentGalleries.map(art => {
+                    console.log(art.types[0].type)
                     return <GalleryCard img={art.images} title={art.title} price={art.price} id={art.id} key={art.id} />
 
                 })
