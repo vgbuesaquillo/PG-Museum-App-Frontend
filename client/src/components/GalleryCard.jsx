@@ -1,28 +1,32 @@
+import React, { useEffect } from "react";
 import './styles/GalleryCard.css'
-import {useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineFavorite, MdShoppingBag } from 'react-icons/md'
+import { localstorage } from '../redux/actions/index'
 import { NavLink } from 'react-router-dom';
 
 
 const GalleryCard = (props) => {
+    const dispatch = useDispatch();
+    const artworkShop = useSelector(state => state.allGallery);
+    const storage = useSelector(state => state.storage);
 
-    const artworkShop = useSelector(state => state.allGallery);  
-
+    useEffect(() => {
+        // storing input name
+        localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
+    }, [storage]);
     const handleAddShop = () => {
         let id = props.id
-        let art = []
         let findGallery = artworkShop.find(element => element.id === Number(id))
-        // art.concat(findGallery)
-        // console.log(findGallery);
-        if (!localStorage.hasOwnProperty('store')) {
-            window.localStorage.setItem('store', JSON.stringify([findGallery]))
-        }
+        dispatch(localstorage(findGallery))
     }
 
     return (
         <div className='gallery_card'>
             <div className='card__img'>
-                <img src={props.img} alt={props.title} className='card__img-avatar' />
+                <NavLink to={`/${props.id}`}>
+                    <img src={props.img} alt={props.title} className='card__img-avatar' />
+                </NavLink>
             </div>
             <div>
                 <span>
@@ -33,7 +37,7 @@ const GalleryCard = (props) => {
                 <span>{props.price}</span>
             </div>
             <div>
-                <MdShoppingBag onClick={handleAddShop}/>
+                <MdShoppingBag onClick={handleAddShop} />
                 <MdOutlineFavorite />
             </div>
         </div>

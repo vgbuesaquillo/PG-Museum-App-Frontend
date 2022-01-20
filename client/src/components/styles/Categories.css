@@ -1,4 +1,4 @@
-.categories {
+/* .categories {
   display: flex;
   justify-content: center;
   margin: 10px;
@@ -13,7 +13,6 @@
   background-color: transparent;
   cursor: pointer;
   border-radius: 5px;
-  /* width: 15%; */
   width: 120px;
   height: 40px;
   margin-right: 20px;
@@ -23,4 +22,29 @@
 .categories__button:focus {
   background-color: #7e91fe;
   color: white;
+} */
+
+.cotegories {
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.categories__select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 0;
+  padding: 10px;
+  margin: -5px -20px -5px -5px;
+  overflow: hidden;
+}
+
+.categories__select:focus {
+  outline: none;
+}
+
+.categories__select__option {
+  display: inline-block;
+  margin-right: 30px;
 }
