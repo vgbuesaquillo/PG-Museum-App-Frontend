@@ -45,7 +45,7 @@ function TopBar() {
                 <div className='loginButtons'>
 
                     <button className='loginButtons__button'>
-                        <NavLink to="/Login">Login</NavLink>
+                        <NavLink to="/login">Login</NavLink>
                     </button>
 
                     <button className='loginButtons__button'>

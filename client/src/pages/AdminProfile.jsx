@@ -1,5 +1,9 @@
 import './styles/AdminProfile.css';
+import { useEffect } from 'react';
 import image from '../images/signup.svg'
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 function AdminProfile(){
     const user ={
@@ -11,6 +15,23 @@ function AdminProfile(){
         name: "Erik Santiago Olarte Molina",
         
     };
+    useEffect( ()=> {
+        if(!cookies.get("userName")){
+            window.location.href = "./login";
+        } 
+    })
+
+    const cerrarSesion = ()=>{
+        cookies.remove('name', {path: '/'});
+        cookies.remove('email', {path: '/'});
+        cookies.remove('userName', {path: '/'});
+        cookies.remove('registro', {path: '/'});
+        cookies.remove('tipoUser', {path: '/'});
+        window.location.href = "./login"
+        // cookies.remove('email', {path: '/'});
+        // cookies.remove('email', {path: '/'});
+    }
+    
 
     return(
         <div className="admin-profile">
@@ -20,8 +41,8 @@ function AdminProfile(){
                 </div> 
                 <div className="admin-profile-top-info">
                     <div >
-                        <h5>{user.email}</h5>
-                        <button className="admin-profile-top-info-butt"> eleminar cuenta</button>
+                        <h5>{cookies.get('email')}</h5>
+                        <button className="admin-profile-top-info-butt" onClick={cerrarSesion}> Cerrar sesion</button>
                     </div>
                     <img src={user.imageUrl} alt="img" />
                 </div>
@@ -31,10 +52,10 @@ function AdminProfile(){
                     <div className="admin-info">
                         <section className="admin-info-at">
                             <h4>informacion</h4>
-                            <b>Username {' ' +user.givenName}</b>
-                            <b>correo {' ' + user.email}</b>
-                            <b>Tipo: Vendedor</b>
-                            <b>Fecha de registro: 18/01/2022</b>
+                            <b>Username {' ' + cookies.get('userName')}</b>
+                            <b>correo {' ' + cookies.get('email')}</b>
+                            <b>Tipo: {' ' + cookies.get('tipoUser')}</b>
+                            <b>Fecha de registro: {' ' + cookies.get('registro')}</b>
                         </section>
                     </div>
                     <div className="admin-box">

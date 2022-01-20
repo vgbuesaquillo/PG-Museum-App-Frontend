@@ -23,7 +23,7 @@ function App() {
         <Route path="/setting" element={<Setting />} />
         <Route path="/github" element={<GitHub />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/Admin" element={<AdminProfile/>} />
+        <Route path="/admin" element={<AdminProfile/>} />
         <Route path="/store" element={<Store/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/:id" element={<Detail />} />
