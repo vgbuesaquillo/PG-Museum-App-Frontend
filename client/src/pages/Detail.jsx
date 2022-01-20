@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
-
 import { useSelector } from "react-redux"
-import axios from "axios";
 import { useParams } from "react-router";
 import { Link } from 'react-router-dom'
 import { BsFillXCircleFill } from "react-icons/bs";
 import NavBar from '../components/NavBar';
 import { MdShoppingBasket } from 'react-icons/md';
+import RatingFive from "../components/RatingFive";
 import './styles/Detail.css'
 
 const Detail = () => {
@@ -21,45 +19,56 @@ const Detail = () => {
             <Link to='/'><BsFillXCircleFill /></Link>
         </div>
         <div className='detail__content'>
-            <div className='content__data'>
-                <div className='data__image'>
-                    <img src={artwork?.images} alt="#" className='image__style'></img>
+            <div className='detail__content--data'>
+                <div className='detail__content--data--image'>
+                    <img src={artwork?.images} alt="#" className='detail__content--data--image--style'></img>
                 </div>
-                <div className='data__text'>
-                    <div className='text__header'>
-                        <h2>{artwork?.title}</h2>
-                        <p>Creation date: {artwork?.creation_date}<br />
-                            Pricing: {artwork?.price}<br />
+                <div className='detail__content--data--text'>
+                    <div className='detail__content--data--text--header'>
+                        <h3>{artwork?.title}</h3>
+                        <h4>Pricing: {artwork?.price}</h4>
+                        <p>
+                            Creation date: {artwork?.creation_date}<br />
                             Department: <br />
-                            Technique: {artwork?.technique}</p>
-                        <button><MdShoppingBasket /> Add in card</button>
+                            Technique: <span>{artwork?.technique}</span>
+                        </p>
+                        <button className="detail__content--data--text--header--button"><MdShoppingBasket /> Add in card</button>
                     </div>
-                    <div className='text__description'>
+                    <div className='detail__content--data--text--description'>
                         <p>{artwork?.description}</p>
                     </div>
                 </div>
             </div>
-            <div className='content__comment'>
-                <div className='comment__stars'>
-                    <div className='stars__title'>
-                        <span>Comments</span>
+            <div className='detail__content--comment'>
+                <div className='detail__content--comment--stars'>
+                    <div className='detail__content--comment--stars--title'>
+                        <h5>Comments</h5>
                     </div>
-                    <div className="stars__data">
-                        <img src={artwork?.images} alt="#" width="20px" height="30" className='image__data'></img>
-                        <div className="stars__data--text">
+                    <div className="detail__content--comment--stars--data">
+                        <div className="detail__content--comment--stars--data--img">
+                            <img src={artwork?.images} alt="#"
+                                className='detail__content--comment--stars--data--img--style'></img>
+                        </div>
+                        <div className="detail__content--comment--stars--data--text">
+                            <h6>Mark</h6>
                             <p>
-                                <span>Mark</span><br />
                                 Awesone art picture, I buy <br />
-                                * * * * *
                             </p>
+                            <RatingFive />
                         </div>
 
 
                     </div>
                 </div>
-                <div className='comment__write'>
-                    <img src={artwork?.images} alt="#" width="20px" height="30" className='image__data'></img>
-                    <p>Write a comment</p>
+                <div className='detail__content--comment--write'>
+                    <div className="detail__content--comment--write--img">
+                        <img src={artwork?.images} alt="#"
+                            className='detail__content--comment--write--img--style'>
+                        </img>
+                    </div>
+                    <p className="detail__content--comment--write--text">
+                        <input type="text" placeholder="Write a comment" />
+                    </p>
                 </div>
             </div>
         </div>

@@ -1,21 +1,29 @@
-import {GET_ALL_GALLERY, GET_FIND_GALLERY} from '../actions/index.js' 
+import { GET_ALL_GALLERY, GET_FIND_GALLERY, LOCALSTORAGE } from '../actions/index.js'
 
 const initialState = {
-    allGallery: []
+    allGallery: [],
+    storage: []
 }
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        case GET_ALL_GALLERY: 
+        case GET_ALL_GALLERY:
             return {
                 ...state,
                 allGallery: action.payload
             }
-        case GET_FIND_GALLERY: 
-        return {
-            ...state,
-            allGallery: action.payload
-        }
+        case GET_FIND_GALLERY: clear
+
+            return {
+                ...state,
+                allGallery: action.payload
+            }
+        case LOCALSTORAGE:
+            return {
+                ...state,
+                storage: action.payload
+                // storage: [...state.storage,action.payload]
+            }
         default:
             return state;
     }
