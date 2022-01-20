@@ -15,6 +15,7 @@ const GalleryCard = (props) => {
         // storing input name
         localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
     }, [storage]);
+    
     const handleAddShop = () => {
         let id = props.id
         let findGallery = artworkShop.find(element => element.id === Number(id))

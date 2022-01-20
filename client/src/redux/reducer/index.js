@@ -12,8 +12,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 allGallery: action.payload
             }
-        case GET_FIND_GALLERY: clear
-
+        case GET_FIND_GALLERY:
             return {
                 ...state,
                 allGallery: action.payload
