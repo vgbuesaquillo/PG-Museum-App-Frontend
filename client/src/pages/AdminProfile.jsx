@@ -15,6 +15,7 @@ function AdminProfile(){
         name: "Erik Santiago Olarte Molina",
         
     };
+    console.log(user)
     useEffect( ()=> {
         if(!cookies.get("userName")){
             window.location.href = "./login";
