@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import './styles/GalleryCard.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineFavorite, MdShoppingBag } from 'react-icons/md'
-import { localstorage } from '../redux/actions/index'
+import { localstorage, postProducts,totalProduct } from '../redux/actions/index'
 import { NavLink } from 'react-router-dom';
 
 
@@ -14,6 +14,22 @@ const GalleryCard = (props) => {
     useEffect(() => {
         // storing input name
         localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
+        const allStorage = () => {
+    
+            var values = []
+            var keys = Object.keys(localStorage)
+            var i = keys.length;
+        
+            while ( i-- ) {
+                values.push(JSON.parse(localStorage.getItem(keys[i])));
+            }
+        
+            dispatch(postProducts(values));
+        }
+        
+        allStorage()
+        dispatch(totalProduct())
+
     }, [storage]);
     
     const handleAddShop = () => {

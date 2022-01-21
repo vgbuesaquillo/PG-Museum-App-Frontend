@@ -1,36 +1,23 @@
 import { Link } from 'react-router-dom'
 import StoreCard from './StoreCard';
 import './styles/Store.css'
-import {useDispatch, useSelector} from 'react-redux'
-import React, { useEffect, useState} from 'react'
-import {postProducts} from '../redux/actions'
+import {useSelector} from 'react-redux'
+// import React, { useEffect, useState} from 'react'
+// import {postProducts} from '../redux/actions'
 
 //import { BsFillXCircleFill} from "react-icons/bs";
 
 function Store(){
 
     const products = useSelector(state => state.allproducts)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const allStorage = () => {
-    
-            var values = [],
-            keys = Object.keys(localStorage),
-            i = keys.length;
         
-            while ( i-- ) {
-                values.push( JSON.parse(localStorage.getItem(keys[i])));
-            }
-        
-            dispatch(postProducts(values));
-        }
-        
-        allStorage()
 
-    },[dispatch])
+    // },[dispatch])
 
     return (
         <div className="container_cards">

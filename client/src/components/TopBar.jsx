@@ -27,7 +27,7 @@ function TopBar() {
         } else{
             dispatch(getAllGallery())
         }
-    }, [dispatch, input.search])
+    }, [dispatch, input.search, total])
 
     return (
         <div className="topbar">
