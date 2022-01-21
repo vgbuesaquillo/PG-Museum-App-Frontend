@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, {useState, useEffect} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import "./styles/TopBar.css";
 import { NavLink } from "react-router-dom"
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -11,6 +11,7 @@ import {getFindGallery, getAllGallery} from '../redux/actions'
 function TopBar() {
 
     const dispatch = useDispatch()
+    const total = useSelector(state => state.totalCount)
     const [input, setInput] = useState({
         search: ''
     })
@@ -39,7 +40,7 @@ function TopBar() {
                 <div className='cart'>
                     <div className='cart__content'>
                         <MdShoppingBasket className='cart__icon' />
-                        <span>$0.00</span>
+                        <span>${total}</span>
                     </div>
                 </div>
                 <div className='loginButtons'>
