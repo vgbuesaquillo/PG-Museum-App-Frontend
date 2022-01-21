@@ -20,6 +20,12 @@ const Categories = () => {
     }
     console.log(select)
     return (<>
+        {/* <div className="categories">
+            <button className='categories__button'>All</button>
+            <button className='categories__button'>Painting</button>
+            <button className='categories__button'>Medieval art</button>
+            <button className='categories__button'>Sculture</button>
+        </div> */}
         <div className="categories">
             <select size="4" defaultValue="all" className='categories__select' onChange={onSelectChange}>
                 <option value="all" className='categories__select__option'>All</option>
