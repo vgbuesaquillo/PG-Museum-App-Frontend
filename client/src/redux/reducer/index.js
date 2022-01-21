@@ -1,7 +1,8 @@
-import { GET_ALL_GALLERY, GET_FIND_GALLERY, LOCALSTORAGE } from '../actions/index.js'
+import { GET_ALL_GALLERY, GET_FIND_GALLERY, LOCALSTORAGE, CATEGORIES } from '../actions/index.js'
 
 const initialState = {
     allGallery: [],
+    categoryGallery: [],
     storage: []
 }
 
@@ -21,9 +22,18 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 storage: action.payload
-                // storage: [...state.storage,action.payload]
+            }
+        case CATEGORIES:
+            let artworks = [...state.allGallery];
+            artworks = artworks.filter(art => {
+                return art.types[0].type.toLowerCase().includes(action.payload.toLowerCase())
+            })
+            return {
+                ...state,
+                allGallery: artworks
             }
         default:
             return state;
     }
 }
+
