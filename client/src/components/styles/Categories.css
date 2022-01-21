@@ -33,32 +33,18 @@
 .categories__select {
   appearance: none;
   -webkit-appearance: none;
-  /* background-color: transparent; */
+  background-color: transparent;
   border: 0;
   padding: 10px;
   margin: -5px -20px -5px -5px;
   overflow: hidden;
-  height: 3rem;
 }
 
 .categories__select:focus {
   outline: none;
-  height: 3rem;
 }
 
 .categories__select__option {
-  padding: 9px 0;
-  width: 150px;
-  text-align: center;
   display: inline-block;
   margin-right: 30px;
-  text-align: center;
-  color: gray;
-  font-weight: bold;
-  border-radius: 5px;
-}
-
-.categories__select__option:hover {
-  background: rgb(232, 226, 233);
-  cursor: pointer;
 }
