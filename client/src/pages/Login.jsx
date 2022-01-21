@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-// import { app } from '../config/firebase-config'
-import { GoogleLogin } from 'react-google-login';
 import './styles/Login.css'
-//import {FcGoogle} from 'react-icons/fc'
+import React, { useState, useEffect } from 'react';
+import { GoogleLogin } from 'react-google-login';
 import { BiX } from "react-icons/bi";
 import {VscGithub} from 'react-icons/vsc'
 import image from '../images/Group 1.svg'
 import image2 from '../images/undraw_working_from_anywhere_re_9obt.svg'
+import axios from 'axios'
+import md5 from 'md5'
+import Cookies from 'universal-cookie'
+
+
+const baseUrl = 'http://localhost:3002/usuarios';
+const cookies = new Cookies();
+// if(cookies.get("userName")){
+//     window.location.href = "./admin";
+// } 
 
 function validate(input){
     let err ={};
@@ -40,6 +48,37 @@ function Login(){
     );
     // const  [user, setUser] = useState(null);
 
+    useEffect( ()=> {
+        if(cookies.get("userName")){
+            window.location.href = "./admin";
+        } 
+    })
+    const iniciaSesion = async(e) =>{
+        e.preventDefault();
+        await axios.get(baseUrl, { params: {email: input.email, password: md5(input.password)}})
+        .then( response =>{
+            return response.data;
+        })
+        .then(response => {
+            
+            if(response.length > 0){
+                var respuesta = response[0];
+                cookies.set("name", respuesta.name, {path:'/'});
+                cookies.set("email", respuesta.email, {path:'/'});
+                cookies.set("userName", respuesta.userName, {path:'/'});
+                cookies.set("registro", respuesta.registro, {path:'/'});
+                cookies.set("tipoUser", respuesta.tipoUser, {path:'/'});
+                window.location.href = '/admin';
+            }else{
+                alert("Usuario o contraseña incorrectos...")
+            }
+
+        })
+
+        .catch(err =>{
+            console.log(err);
+        })
+    }
     
     
     function handleChange(e){
@@ -55,7 +94,7 @@ function Login(){
         
     }
     const handleLogin = async(response) => {
-        const res = await fetch('/api/google-login', {
+        const res = await fetch('http://localhost:3002/usuarios', {
             method: 'POST',
             body: JSON.stringify({
                 token: response.tokenId,
@@ -65,6 +104,7 @@ function Login(){
             },
         })
         console.log(response);
+        console.log(res);
         const data = await response;
         setLoginData(data);
         localStorage.setItem('loginData', JSON.stringify(data));
@@ -116,13 +156,13 @@ function Login(){
 
                         <h4><a href="/">Olvidaste tu contraseña?</a></h4>
                         <div className = 'contenedor_submit'>
-                            <div className ='div_log'><button className ="boton_log">Sing in</button></div>
+                            <div className ='div_log'><button className ="boton_log" onClick={iniciaSesion}>Sing in</button></div>
                             
                             <a href="/"><VscGithub/><> </><b>GitHub</b></a>
                             {
                                 loginData? (
                                     <div>
-                                        <h2>You logged in as {loginData.email}</h2>
+                                        <h2>You logged in as {loginData.profileObj.email}</h2>
                                         <button onClick={handleLogout}>Logout</button>
                                     </div>
                                 ): (
