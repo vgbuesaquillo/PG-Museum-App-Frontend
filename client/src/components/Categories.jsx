@@ -18,7 +18,6 @@ const Categories = () => {
     function onSelectChange(e) {
         setSelect(e.target.value)
     }
-    console.log(select)
     return (<>
         <div className="categories">
             <select size="4" defaultValue="all" className='categories__select' onChange={onSelectChange}>
