@@ -37,11 +37,11 @@ const SignUp = () => {
     function onSelectChange(e) {
         setUser({
             ...user,
-            temperament: [...user.gender, e.target.value]
+            gender: [...user.gender, e.target.value]
         })
         setErrors(validate({
             ...user,
-            temperament: [...user.gender, e.target.value]
+            gender: [...user.gender, e.target.value]
         }))
     }
 
@@ -49,7 +49,6 @@ const SignUp = () => {
         if (Object.keys(errors).length === 0 && errors.constructor === Object) {
             e.preventDefault()
             alert("Successfully post user")
-            console.log("submit")
             navigate('/');
         } else {
             alert("Missing fields in the form")
@@ -58,82 +57,59 @@ const SignUp = () => {
     }
 
     function handleCheck(e) {
-        console.log(e.target.checked)
-        console.log(status)
         if (e.target.checked) {
             setStatus({
                 ...user,
                 status: true
             })
         }
-        console.log("check")
-        console.log(user)
     }
 
 
     return (<div className='signup'>
         <div className="signup__header">
-            <div>
+            <div className="signup_header--logo">
                 <img src={logo} alt="#" width="60px"></img>
-                <label>Museum</label>
+                <label className="signup_header--logo--label">Museum</label>
             </div>
-            <div className="image__link" >
+            <div className="signup__header--link" >
                 <NavLink to="/" className="navlink" ><BsFillXCircleFill /></NavLink>
             </div>
         </div>
 
-        <div className='signup__inputs'>
-            <div className="inputText">
+        <div className='signup__body'>
+            <div className="signup__body--inputs">
 
-                <div className="inputText__title">
-                    <label className="title__label">Sign up </label>
-                    <br />
-                    <span className="title__span">It's free, try it!</span>
+                <div className="signup__body--inputs--text">
+                    <h1 className="signup__inputs--text--label">Sign up </h1>
+                    <span className="signup__inputs--text--span">It's free, try it!</span>
                 </div>
-                <form onSubmit={onSubmit} className="inputText__form">
-                    <div className="form__item">
+                <form onSubmit={onSubmit} className="signup__body--inputs--form">
+                    <div className="signup__body--inputs--form--item">
                         <input onChange={onInputChange} name="username" type='text' value={user.username}
                             placeholder='Username' />
                     </div>
-                    {errors.username && <p className="form__errors">{errors.username}</p>}
-                    <div className="form__item">
+                    {errors.username && <p className="signup__body--inputs--errors">{errors.username}</p>}
+                    <div className="signup__body--inputs--form--item">
                         <input onChange={onInputChange} name="email" type='email' value={user.email}
                             placeholder='Email' />
                     </div>
-                    {errors.email && <p className="form__errors">{errors.email}</p>}
-                    <div className="form__item">
+                    {errors.email && <p className="signup__body--inputs--errors">{errors.email}</p>}
+                    <div className="signup__body--inputs--form--item">
                         <input onChange={onInputChange} name="password" type='password' value={user.password}
                             placeholder='Password' />
                     </div>
-                    {errors.password && <p className="form__errors">{errors.password}</p>}
-                    <div className="form__item">
+                    {errors.password && <p className="signup__body--inputs--errors">{errors.password}</p>}
+                    <div className="signup__body--inputs--form--item">
                         <input onChange={onInputChange} name="passwordbis" type='password' value={user.passwordbis}
                             placeholder='Repeat password' />
                     </div>
-                    {errors.passwordbis && <p className="form__errors">{errors.passwordbis}</p>}
-                    <div>
-                        <select name="temperament" onChange={onSelectChange} defaultValue={'DEFAULT'} >
-                            <option value="DEFAULT" disabled>Select gender:</option>
-                            <option value="mujer" >Mujer</option>
-                            <option value="hombre" >Hombre</option>
-                            <option value="otro" >Otro</option>
-                        </select>
-                        <div>
-                            <input type='checkbox' name="seller" value="seller" onChange={(e) => handleCheck(e)} />
-                            <label htmlfor="opt-in">wants to be a seller</label>
-                        </div>
-                        <div>
-                            {user.status && user.legal.map((el, i) => {
-                                <p key={i}>{el}</p>
-                            })}
-                            <p>adfs</p>
-                        </div>
-                        <input type='submit' value="Sign up" className="buildClass" />
-                    </div>
+                    {errors.passwordbis && <p className="signup__body--inputs--errors">{errors.passwordbis}</p>}
+                    <button className="signup__body--inputs--form--submit">Sign up</button>
                 </form>
             </div>
-            <div className="inputImage">
-                <img src={signUpImg} width="50%" alt="#" className="image__image"></img>
+            <div className="signup__body--image">
+                <img src={signUpImg} width="50%" alt="#" className="signup__body--image--image"></img>
             </div>
 
         </div>

@@ -24,17 +24,5 @@ export default function validateLogin(user) {
         errors.passwordbis = "Passwords are not the same"
     }
 
-    if (!user.gender) {
-        errors.gender = "gender is required"
-    } else if (!/^[0-9]+$/.test(user.gender)) {
-        errors.gender = "Please only enter numeric characters"
-    }
-
-    if (!user.status) {
-        errors.status = "Life_span min is required"
-    } else if (!/^[0-9]+$/.test(user.status)) {
-        errors.status = "Please only enter numeric characters"
-    }
-
     return errors;
 }
