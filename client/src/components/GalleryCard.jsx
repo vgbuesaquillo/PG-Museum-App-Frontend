@@ -8,14 +8,14 @@ import { NavLink } from 'react-router-dom';
 
 const GalleryCard = (props) => {
     const dispatch = useDispatch();
-    const artworkShop = useSelector(state => state.filterGallery);
+    const artworkShop = useSelector(state => state.allGallery);
     const storage = useSelector(state => state.storage);
 
     useEffect(() => {
         // storing input name
         localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
     }, [storage]);
-
+    
     const handleAddShop = () => {
         let id = props.id
         let findGallery = artworkShop.find(element => element.id === Number(id))
