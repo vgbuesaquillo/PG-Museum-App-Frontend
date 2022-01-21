@@ -33,8 +33,12 @@ export function localstorage(storage) {
 }
 
 export function categories(category) {
-    return {
-        type: CATEGORIES,
-        payload: category
+    return async function dispatch(dispatch) {
+        const response = await fetch('http://localhost:5040/home');
+        const json = await response.json();
+        dispatch({
+            type: CATEGORIES,
+            payload: [json, category]
+        });
     }
 }
