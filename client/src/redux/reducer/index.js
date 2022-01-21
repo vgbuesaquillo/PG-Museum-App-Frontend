@@ -24,9 +24,12 @@ export default function reducer(state = initialState, action) {
                 storage: action.payload
             }
         case CATEGORIES:
-            let artworks = [...state.allGallery];
+            const [data, category] = action.payload
+            console.log(action.payload)
+            let artworks = data;
             artworks = artworks.filter(art => {
-                return art.types[0].type.toLowerCase().includes(action.payload.toLowerCase())
+                console.log(art)
+                return art.types[0].type.toLowerCase().includes(category.toLowerCase())
             })
             return {
                 ...state,
