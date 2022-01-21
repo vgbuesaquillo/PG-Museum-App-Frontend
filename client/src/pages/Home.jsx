@@ -4,9 +4,10 @@ import './styles/Home.css'
 import GalleryCard from '../components/GalleryCard';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllGallery } from '../redux/actions'
+import { getAllGallery, postProducts, totalProduct } from '../redux/actions'
 import Pagination from '../components/Pagination'
 import Categories from '../components/Categories';
+import useLocalStorage from "use-local-storage";
 
 const Home = () => {
 
@@ -26,7 +27,8 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getAllGallery())
-    }, [dispatch])
+        dispatch(totalProduct())
+    }, [dispatch, totalProduct])
 
     return (<div className='home'>
         <TopBar />
