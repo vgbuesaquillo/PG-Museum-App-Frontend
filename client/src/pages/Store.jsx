@@ -23,7 +23,7 @@ function Store(){
         <div className="container_cards">
            <div className = 'top_cards'>
                 <div><h1>My Card/{products?.length} items</h1></div>
-                <div className = 'top_Link'><Link to= '/'><b>Buy all</b> </Link></div>
+                {/* <div className = 'top_Link'><Link to= '/'><b>Buy all</b> </Link></div> */}
             </div> 
             <div>
                 {

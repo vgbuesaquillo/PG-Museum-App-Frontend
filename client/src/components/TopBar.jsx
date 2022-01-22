@@ -48,13 +48,13 @@ function TopBar() {
                 </div>
                 <div className='loginButtons'>
 
-                    <button className='loginButtons__button'>
+                    {/* <button className='loginButtons__button'>
                         <NavLink to="/Login">Login</NavLink>
                     </button>
 
                     <button className='loginButtons__button'>
                         <NavLink to="/signup">Create Account</NavLink>
-                    </button>
+                    </button> */}
 
                 </div>
 

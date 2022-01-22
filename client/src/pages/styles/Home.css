@@ -7,10 +7,10 @@
 
 .galleryGrid {
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: 33% 33% 33%;
   justify-items: center;
   align-items: center;
-  row-gap: 20px;
+  row-gap: 10px;
   padding-top: 2rem;
   padding-bottom: 40px;
 }
