@@ -10,7 +10,7 @@ import './styles/Detail.css'
 const Detail = () => {
     let { id } = useParams()
 
-    const artworkDetail = useSelector(state => state.allGallery);
+    const artworkDetail = useSelector(state => state.galleryReducer.allGallery);
     let artwork = artworkDetail.find(element => element.id === Number(id))
 
     return (<div className="detail">
