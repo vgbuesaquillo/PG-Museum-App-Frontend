@@ -40,22 +40,22 @@ const GalleryCard = (props) => {
 
     return (
         <div className='gallery_card'>
+            <NavLink to={`/${props.id}`}>
             <div className='card__img'>
-                <NavLink to={`/${props.id}`}>
                     <img src={props.img} alt={props.title} className='card__img-avatar' />
-                </NavLink>
             </div>
-            <div>
-                <span>
-                    <NavLink to={`/${props.id}`}>
-                        {props.title}
-                    </NavLink>
-                </span>
-                <span>{props.price}</span>
-            </div>
-            <div>
-                <MdShoppingBag onClick={handleAddShop} />
-                <MdOutlineFavorite />
+            </NavLink>
+            <NavLink to={`/${props.id}`} className='gallery_card-router'>
+                <label className='gallery_card-title'>
+                    {props.title}
+                </label>
+            </NavLink>
+            <div className='gallery_card-actions'>
+                <span className='gallery_card-price'>$ {props.price}</span>
+                <div className='gallery_card-functions'>
+                    <MdShoppingBag onClick={handleAddShop} />
+                    {/* <MdOutlineFavorite /> */}
+                </div>
             </div>
         </div>
     );

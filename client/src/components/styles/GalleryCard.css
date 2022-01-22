@@ -1,14 +1,15 @@
-.card {
-  margin: 0.5vw 3vw 0vw 1vw;
-  padding: 1vw;
-  width: 160px;
+.gallery_card {
+  width: 230px;
+  height: 400px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .card__img {
-  width: 190px;
-  height: 220px;
+  width: 230px;
+  height: 270px;
 }
 
 .card__img-avatar {
@@ -16,4 +17,41 @@
   height: 100%;
   object-fit: cover;
   border-radius: 5px;
+}
+
+.gallery_card-router{
+  color: gray;
+  margin: 0px;
+}
+
+.gallery_card-title{
+  margin-top: 6px;
+  font-family: 'Poppins';
+  color: rgb(104, 103, 103);
+  font-weight: bold;
+  width: 230px;
+  height: 60px
+}
+
+
+.gallery_card-actions{
+  display: flex;
+  justify-content: space-between;
+  width: 100%
+}
+
+.gallery_card-price{
+  font-family: 'Poppins';
+  font-weight: bolder;
+  font-size: 15px;
+  color: #FFAB76;
+}
+
+
+.gallery_card-functions{
+  display: flex;
+  width: 25%;
+  justify-content: space-between;
+  font-size: 21px;
+  color: rgb(182, 181, 181);
 }

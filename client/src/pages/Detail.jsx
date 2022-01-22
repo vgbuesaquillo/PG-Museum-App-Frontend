@@ -26,20 +26,20 @@ const Detail = () => {
                 <div className='detail__content--data--text'>
                     <div className='detail__content--data--text--header'>
                         <h3>{artwork?.title}</h3>
-                        <h4>Pricing: {artwork?.price}</h4>
+                        <h4>Pricing: $ {artwork?.price}</h4>
                         <p>
                             Creation date: {artwork?.creation_date}<br />
                             Department: <br />
                             Technique: <span>{artwork?.technique}</span>
                         </p>
-                        <button className="detail__content--data--text--header--button"><MdShoppingBasket /> Add in card</button>
+                        {/* <button className="detail__content--data--text--header--button"><MdShoppingBasket /> Add in card</button> */}
                     </div>
                     <div className='detail__content--data--text--description'>
                         <p>{artwork?.description}</p>
                     </div>
                 </div>
             </div>
-            <div className='detail__content--comment'>
+            {/* <div className='detail__content--comment'>
                 <div className='detail__content--comment--stars'>
                     <div className='detail__content--comment--stars--title'>
                         <h5>Comments</h5>
@@ -70,7 +70,7 @@ const Detail = () => {
                         <input type="text" placeholder="Write a comment" />
                     </p>
                 </div>
-            </div>
+            </div> */}
         </div>
     </div>);
 }
