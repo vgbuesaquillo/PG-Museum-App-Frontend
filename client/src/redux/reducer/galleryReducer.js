@@ -1,7 +1,7 @@
-import { GET_ALL_GALLERY, GET_FIND_GALLERY, CATEGORIES } from '../types'
+import { GET_ALL_GALLERY, GET_FIND_GALLERY, CATEGORIES, SORT_GALLERY } from '../types'
 
 const initialState = {
-  allGallery: [] // <-- cada arreglo se va a un store diferente 
+  allGallery: []
 }
 
 export default function galleryReducer(state = initialState, action) {
@@ -10,7 +10,7 @@ export default function galleryReducer(state = initialState, action) {
     case GET_ALL_GALLERY:
       return {
         ...state,
-        allGallery: action.payload //<--se mueven al store los case que compartan arreglo en comun
+        allGallery: action.payload 
       }
 
     case GET_FIND_GALLERY:
@@ -24,12 +24,18 @@ export default function galleryReducer(state = initialState, action) {
       //console.log(action.payload)
       let artworks = data;
       artworks = artworks.filter(art => {
-        // console.log(art)
+        //console.log(art)
         return art.types[0].type.toLowerCase().includes(category.toLowerCase())
       })
       return {
         ...state,
         allGallery: artworks
+      }
+    case SORT_GALLERY:
+      //actualiza allGallery con su versión ordenada alfabeticamente
+      return{
+        ...state,
+        allGallery: action.payload
       }
     default:
       return state;

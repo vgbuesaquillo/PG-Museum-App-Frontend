@@ -1,4 +1,4 @@
-import { GET_ALL_GALLERY, GET_FIND_GALLERY,CATEGORIES  } from '../types'
+import { GET_ALL_GALLERY, GET_FIND_GALLERY,CATEGORIES, SORT_GALLERY  } from '../types'
 
 //fetches the list of artworks - recibe la lista de piezas de arte
 export const getAllGallery = () => {
@@ -33,4 +33,12 @@ export function categories(category) {
             payload: [json, category]
         });
     }
+}
+
+//manda allGallery ordenado al reducer para actualizar el store
+export function sortGallery(sortedGallery) {
+  return {
+    type: SORT_GALLERY,
+    payload: sortedGallery
+  }
 }
