@@ -4,14 +4,14 @@ import './styles/Home.css'
 import GalleryCard from '../components/GalleryCard';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllGallery } from '../redux/actions'
+import { getAllGallery} from '../redux/actions/galleryActions'
 import Pagination from '../components/Pagination'
 import Categories from '../components/Categories';
 
 const Home = () => {
 
     const dispatch = useDispatch()
-    const allGallery = useSelector(state => state.allGallery)
+    const {allGallery} = useSelector(state => state.galleryReducer)
 
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(12);

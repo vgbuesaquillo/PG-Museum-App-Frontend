@@ -9,7 +9,7 @@ import {useSelector} from 'react-redux'
 
 function Store(){
 
-    const products = useSelector(state => state.allproducts)
+    const products = useSelector(state => state.allProductsReducer.allproducts)
     // const dispatch = useDispatch()
 
 

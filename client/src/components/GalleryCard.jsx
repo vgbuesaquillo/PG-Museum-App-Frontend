@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import './styles/GalleryCard.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineFavorite, MdShoppingBag } from 'react-icons/md'
-import { localstorage, postProducts,totalProduct } from '../redux/actions/index'
+import { localstorage } from '../redux/actions/storageActions'
+import {postProducts,totalProduct} from '../redux/actions/allProductsActions'
 import { NavLink } from 'react-router-dom';
 
 
 const GalleryCard = (props) => {
     const dispatch = useDispatch();
-    const artworkShop = useSelector(state => state.allGallery);
-    const storage = useSelector(state => state.storage);
+    const artworkShop = useSelector(state => state.galleryReducer.allGallery);
+    const {storage} = useSelector(state => state.storageReducer);
 
     useEffect(() => {
         // storing input name
