@@ -6,6 +6,7 @@ import validate from '../utils/validateSignUp'
 import './styles/SignUp.css'
 import logo from '../images/logoapp.svg'
 import signUpImg from '../images/signup.svg'
+import axios from 'axios';
 
 const SignUp = () => {
     const dispatch = useDispatch();
@@ -15,10 +16,7 @@ const SignUp = () => {
         username: '',
         email: '',
         password: '',
-        passwordbis: '',
-        gender: '',
-        status: status,
-        legal: ["ine", "folio"]
+        passwordbis: ''
     });
     const [errors, setErrors] = useState({})
 
@@ -34,21 +32,17 @@ const SignUp = () => {
         }))
     }
 
-    function onSelectChange(e) {
-        setUser({
-            ...user,
-            gender: [...user.gender, e.target.value]
-        })
-        setErrors(validate({
-            ...user,
-            gender: [...user.gender, e.target.value]
-        }))
+    function register(postUser) {
+        axios.post("http://localhost:5040/create", postUser)
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     function onSubmit(e) {
         if (Object.keys(errors).length === 0 && errors.constructor === Object) {
             e.preventDefault()
-            alert("Successfully post user")
+            alert("Successfully put user")
             navigate('/');
         } else {
             alert("Missing fields in the form")
@@ -56,14 +50,6 @@ const SignUp = () => {
         }
     }
 
-    function handleCheck(e) {
-        if (e.target.checked) {
-            setStatus({
-                ...user,
-                status: true
-            })
-        }
-    }
 
 
     return (<div className='signup'>

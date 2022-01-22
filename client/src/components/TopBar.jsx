@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import React, {useState, useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import "./styles/TopBar.css";
 import { NavLink } from "react-router-dom"
 import { AiOutlineSearch } from 'react-icons/ai';
 import { GrFilter } from 'react-icons/gr';
 import { MdShoppingBasket } from 'react-icons/md';
-import {getFindGallery, getAllGallery} from '../redux/actions'
+import { getFindGallery, getAllGallery } from '../redux/actions'
 
 function TopBar() {
 
@@ -17,14 +17,14 @@ function TopBar() {
     })
 
     const handleSearch = (e) => {
-        setInput({...input.search, search: e.target.value})
+        setInput({ ...input.search, search: e.target.value })
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         if (input.search) {
-            
+
             dispatch(getFindGallery(input.search))
-        } else{
+        } else {
             dispatch(getAllGallery())
         }
     }, [dispatch, input.search, total])

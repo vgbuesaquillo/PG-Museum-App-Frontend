@@ -15,16 +15,18 @@ import AdminProfile from './pages/AdminProfile';
 function App() {
   return (
     <div className="App">
-      <NavBar/>
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/notification" element={<Notification/>} />
-        <Route path="/favorite" element={<Favorite />} />
-        <Route path="/setting" element={<Setting />} />
-        <Route path="/github" element={<GitHub />} />
+        <Route path="/" element={<>
+          <NavBar />
+          <Home />
+        </>} />
+        <Route path="/notification" element={<> <NavBar /><Notification /></>} />
+        <Route path="/favorite" element={<> <NavBar /><Favorite /></>} />
+        <Route path="/setting" element={<> <NavBar /><Setting /></>} />
+        <Route path="/github" element={<> <NavBar /><GitHub /></>} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/Admin" element={<AdminProfile/>} />
-        <Route path="/store" element={<Store/>} />
+        <Route path="/Admin" element={<> <NavBar /><AdminProfile /></>} />
+        <Route path="/store" element={<> <NavBar /><Store /></>} />
         <Route path="/login" element={<Login />} />
         <Route path="/:id" element={<Detail />} />
       </Routes>

@@ -2,10 +2,10 @@ import { useSelector } from "react-redux"
 import { useParams } from "react-router";
 import { Link } from 'react-router-dom'
 import { BsFillXCircleFill } from "react-icons/bs";
-import NavBar from '../components/NavBar';
 import { MdShoppingBasket } from 'react-icons/md';
 import RatingFive from "../components/RatingFive";
 import './styles/Detail.css'
+import logo from '../images/logoapp.svg'
 
 const Detail = () => {
     let { id } = useParams()
@@ -14,9 +14,9 @@ const Detail = () => {
     let artwork = artworkDetail.find(element => element.id === Number(id))
 
     return (<div className="detail">
-        <NavBar />
         <div className='detail__link'>
-            <Link to='/'><BsFillXCircleFill /></Link>
+            <img src={logo} width="50px" alt="#" className="detail__link--image" />
+            <Link to='/' className="detail__link--link"><BsFillXCircleFill /></Link>
         </div>
         <div className='detail__content'>
             <div className='detail__content--data'>

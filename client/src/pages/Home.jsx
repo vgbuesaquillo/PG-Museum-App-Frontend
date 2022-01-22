@@ -4,7 +4,7 @@ import './styles/Home.css'
 import GalleryCard from '../components/GalleryCard';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllGallery} from '../redux/actions'
+import { getAllGallery } from '../redux/actions'
 import Pagination from '../components/Pagination'
 import Categories from '../components/Categories';
 
