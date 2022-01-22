@@ -15,7 +15,7 @@ const Home = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(12);
-
+    const [gallery, setgallery] = useState([]);
     // Get current posts
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -26,8 +26,14 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getAllGallery())
-    }, [dispatch])
-
+        //activa nuevo render de la página con allGallery ordenado
+        if(allGallery !== gallery) {
+          setgallery(allGallery)
+        }
+        
+        
+    }, [dispatch, gallery])
+    
     return (<div className='home'>
         <TopBar />
         <Landing />
