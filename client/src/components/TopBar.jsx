@@ -4,14 +4,15 @@ import {useDispatch, useSelector} from 'react-redux'
 import "./styles/TopBar.css";
 import { NavLink } from "react-router-dom"
 import { AiOutlineSearch } from 'react-icons/ai';
-import { GrFilter } from 'react-icons/gr';
 import { MdShoppingBasket } from 'react-icons/md';
-import {getFindGallery, getAllGallery} from '../redux/actions'
+import {getFindGallery, getAllGallery} from '../redux/actions/galleryActions'
+import SortInput from "./SortInput";
+
 
 function TopBar() {
 
     const dispatch = useDispatch()
-    const total = useSelector(state => state.totalCount)
+    const total = useSelector(state => state.allProductsReducer.totalCount)
     const [input, setInput] = useState({
         search: ''
     })
@@ -35,7 +36,9 @@ function TopBar() {
                 <div className="searchForm">
                     <AiOutlineSearch className="searchForm__icon" />
                     <input className="search__input" placeholder="Search here..." onChange={handleSearch} value={input.search} />
-                    <GrFilter className="searchForm__icon" />
+
+                  <SortInput/>
+
                 </div>
                 <div className='cart'>
                     <div className='cart__content'>

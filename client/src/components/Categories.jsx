@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from "react-redux"
-import { categories, getAllGallery } from "../redux/actions"
+import { categories, getAllGallery } from "../redux/actions/galleryActions"
 import './styles/Categories.css'
 
 const Categories = () => {
