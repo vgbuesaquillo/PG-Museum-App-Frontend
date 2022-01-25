@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom"
 import { BsFillXCircleFill } from "react-icons/bs";
-import { useDispatch } from 'react-redux';
 import validate from '../utils/validateSignUp'
 import './styles/SignUp.css'
 import logo from '../images/logoapp.svg'
@@ -9,15 +8,18 @@ import signUpImg from '../images/signup.svg'
 import axios from 'axios';
 
 const SignUp = () => {
-    const dispatch = useDispatch();
     let navigate = useNavigate();
-    const [status, setStatus] = useState();
+    const url = process.env.REACT_APP_URL;
     const [user, setUser] = useState({
+        name: '',
         username: '',
         email: '',
         password: '',
-        passwordbis: ''
+        passwordbis: '',
+        image: '',
+        roles: ["user"]
     });
+
     const [errors, setErrors] = useState({})
 
     function onInputChange(e) {
@@ -33,22 +35,35 @@ const SignUp = () => {
     }
 
     function register(postUser) {
-        axios.post("http://localhost:5040/create", postUser)
+        axios.post("http://localhost:5040/auth/signup", postUser)
             .catch((error) => {
                 console.log(error)
             })
     }
 
     function onSubmit(e) {
-        if (Object.keys(errors).length === 0 && errors.constructor === Object) {
+        if (Object.keys(errors).length === 0 && errors.constructor === Object && user.username !== '') {
             e.preventDefault()
-            alert("Successfully put user")
+            register(user)
+            alert("Successfully post user")
             navigate('/');
         } else {
             alert("Missing fields in the form")
-            navigate('/signup');
+            // navigate('/signup');
         }
     }
+
+    // function processImage(e) {
+    //     const imageFile = e.target.files[0];
+    //     const imageUrl = new FileReader();
+    //     imageUrl?.readAsDataURL(imageFile)
+    //     imageUrl.onload = (e) => {
+    //         setUser({
+    //             ...user,
+    //             image: e.target.result
+    //         })
+    //     };
+    // };
 
 
 
@@ -72,6 +87,11 @@ const SignUp = () => {
                 </div>
                 <form onSubmit={onSubmit} className="signup__body--inputs--form">
                     <div className="signup__body--inputs--form--item">
+                        <input onChange={onInputChange} name="name" type='text' value={user.name}
+                            placeholder='Name' />
+                    </div>
+                    {errors.name && <p className="signup__body--inputs--errors">{errors.name}</p>}
+                    <div className="signup__body--inputs--form--item">
                         <input onChange={onInputChange} name="username" type='text' value={user.username}
                             placeholder='Username' />
                     </div>
@@ -91,6 +111,12 @@ const SignUp = () => {
                             placeholder='Repeat password' />
                     </div>
                     {errors.passwordbis && <p className="signup__body--inputs--errors">{errors.passwordbis}</p>}
+
+                    <div className="signup__body--inputs--form--item">
+                        <input onChange={onInputChange} name="image" type='text' value={user.image}
+                            placeholder='Image' />
+                        {/* <input onChange={(e) => processImage(e)} name="image" type="file" accept="image/*" /> */}
+                    </div>
                     <button className="signup__body--inputs--form--submit">Sign up</button>
                 </form>
             </div>

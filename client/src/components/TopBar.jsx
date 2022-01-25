@@ -5,7 +5,7 @@ import "./styles/TopBar.css";
 import { NavLink } from "react-router-dom"
 import { AiOutlineSearch } from 'react-icons/ai';
 import { MdShoppingBasket } from 'react-icons/md';
-import {getFindGallery, getAllGallery} from '../redux/actions/galleryActions'
+import { getFindGallery, getAllGallery } from '../redux/actions/galleryActions'
 import SortInput from "./SortInput";
 
 
@@ -37,7 +37,7 @@ function TopBar() {
                     <AiOutlineSearch className="searchForm__icon" />
                     <input className="search__input" placeholder="Search here..." onChange={handleSearch} value={input.search} />
 
-                  <SortInput/>
+                    <SortInput />
 
                 </div>
                 <div className='cart'>
@@ -50,11 +50,11 @@ function TopBar() {
 
                     {/* <button className='loginButtons__button'>
                         <NavLink to="/Login">Login</NavLink>
-                    </button>
+                    </button> */}
 
                     <button className='loginButtons__button'>
                         <NavLink to="/signup">Create Account</NavLink>
-                    </button> */}
+                    </button>
 
                 </div>
 

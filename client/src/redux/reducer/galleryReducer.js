@@ -10,7 +10,7 @@ export default function galleryReducer(state = initialState, action) {
     case GET_ALL_GALLERY:
       return {
         ...state,
-        allGallery: action.payload 
+        allGallery: action.payload
       }
 
     case GET_FIND_GALLERY:
@@ -18,13 +18,13 @@ export default function galleryReducer(state = initialState, action) {
         ...state,
         allGallery: action.payload
       }
-      
+
     case CATEGORIES:
       const [data, category] = action.payload
       //console.log(action.payload)
       let artworks = data;
       artworks = artworks.filter(art => {
-        //console.log(art)
+        // console.log(art)
         return art.types[0].type.toLowerCase().includes(category.toLowerCase())
       })
       return {
@@ -33,7 +33,7 @@ export default function galleryReducer(state = initialState, action) {
       }
     case SORT_GALLERY:
       //actualiza allGallery con su versión ordenada alfabeticamente
-      return{
+      return {
         ...state,
         allGallery: action.payload
       }
