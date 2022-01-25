@@ -11,18 +11,19 @@ import Cookies from 'universal-cookie'
 
 
 const baseUrl = 'http://localhost:3002/usuarios';
+const baseUrlOne = "http://localhost:5040/auth/signin";
 const cookies = new Cookies();
-// if(cookies.get("userName")){
+// if(cookies.get("username")){
 //     window.location.href = "./admin";
 // } 
 
 function validate(input){
     let err ={};
-    if (!input.email) {
-        err.email = 'required email ';  
-    } else if(!/\S+@\S+\.\S+/.test(input.email)){
-        err.email = 'email invalid'
-    }
+    // if (!input.email) {
+    //     err.email = 'required email ';  
+    // } else if(!/\S+@\S+\.\S+/.test(input.email)){
+    //     err.email = 'email invalid'
+    // }
     if (!input.password) {
         err.password = 'required password ';  
     } 
@@ -35,7 +36,7 @@ function validate(input){
 function Login(){
 
     const [input, setInput] = useState({
-        email: '',
+        username: '',
         password: ''
     });
     
@@ -46,34 +47,59 @@ function Login(){
             ? JSON.parse(localStorage.getItem('loginData'))
             : null
     );
-    // const  [user, setUser] = useState(null);
+    // const  [user, setUser] = useState(null); 
 
     useEffect( ()=> {
-        if(cookies.get("userName")){
+        if(cookies.get("username")){
             window.location.href = "./admin";
         } 
     })
-    const iniciaSesion = async(e) =>{
+
+    const iniciadora = async(e)=>{
         e.preventDefault();
-        await axios.get(baseUrl, { params: {email: input.email, password: md5(input.password)}})
-        .then( response =>{
-            return response.data;
+        await axios.post(baseUrlOne, input)
+        .then((response)=>{
+            return response.data
         })
         .then(response => {
-            
-            if(response.length > 0){
-                var respuesta = response[0];
-                cookies.set("name", respuesta.name, {path:'/'});
-                cookies.set("email", respuesta.email, {path:'/'});
-                cookies.set("userName", respuesta.userName, {path:'/'});
-                cookies.set("registro", respuesta.registro, {path:'/'});
-                cookies.set("tipoUser", respuesta.tipoUser, {path:'/'});
+            console.log(response);
+            if(response){
+                // var respuesta = response[0];
+                // cookies.set("name", respuesta.name, {path:'/'});
+                cookies.set("email", response.email, {path:'/'});
+                cookies.set("username", response.username, {path:'/'});
+                // cookies.set("registro", respuesta.registro, {path:'/'});
+                cookies.set("tipoUser", response.roles, {path:'/'});
                 window.location.href = '/admin';
             }else{
                 alert("Usuario o contraseña incorrectos...")
             }
 
         })
+
+    }
+
+    const iniciaSesion = async(e) =>{
+        e.preventDefault();
+        await axios.get(baseUrl, { params: {email: input.email, password: md5(input.password)}})
+        .then( response =>{
+            return response.data;
+        })
+        // .then(response => {
+            
+        //     if(response.length > 0){
+        //         var respuesta = response[0];
+        //         // cookies.set("name", respuesta.name, {path:'/'});
+        //         cookies.set("email", respuesta.email, {path:'/'});
+        //         cookies.set("userName", respuesta.userName, {path:'/'});
+        //         // cookies.set("registro", respuesta.registro, {path:'/'});
+        //         cookies.set("tipoUser", respuesta.tipoUser, {path:'/'});
+        //         window.location.href = '/admin';
+        //     }else{
+        //         alert("Usuario o contraseña incorrectos...")
+        //     }
+
+        // })
 
         .catch(err =>{
             console.log(err);
@@ -93,19 +119,20 @@ function Login(){
         }));
         
     }
-    const handleLogin = async(response) => {
-        const res = await fetch('http://localhost:3002/usuarios', {
+    const handleLogin = async(googleData) => {
+        const res = await fetch('http://localhost:5040/auth/signin/google', {
             method: 'POST',
             body: JSON.stringify({
-                token: response.tokenId,
+                token: googleData.tokenId,
             }),
             headers: {
                 'content-type': 'application/json',
             },
         })
-        console.log(response);
+        
+        console.log(googleData);
         console.log(res);
-        const data = await response;
+        const data = await res.json();
         setLoginData(data);
         localStorage.setItem('loginData', JSON.stringify(data));
     }
@@ -114,8 +141,7 @@ function Login(){
     }
     const handleLogout = () => {
         localStorage.removeItem('loginData');
-        setLoginData(null);
-        
+        setLoginData(null); 
     }
     
 
@@ -131,14 +157,14 @@ function Login(){
                     <h1>Sing in</h1>
                     <form  >
                         <div>
-                            <input className={error.email && 'danger'}
+                            <input className={error.username && 'danger'}
                                 type="text" 
-                                name = 'email'
+                                name = 'username'
                                 onChange={handleChange}
-                                value={input.email}
-                                placeholder='email'
-                            />{error.email &&(
-                                <p className="danger">{error.email}</p>
+                                value={input.username}
+                                placeholder='username'
+                            />{error.username &&(
+                                <p className="danger">{error.username}</p>
                             ) } 
                         </div>
                         <div>
@@ -156,7 +182,7 @@ function Login(){
 
                         <h4><a href="/">Olvidaste tu contraseña?</a></h4>
                         <div className = 'contenedor_submit'>
-                            <div className ='div_log'><button className ="boton_log" onClick={iniciaSesion}>Sing in</button></div>
+                            <div className ='div_log'><button className ="boton_log" onClick={iniciadora}>Sing in</button></div>
                             
                             <a href="/"><VscGithub/><> </><b>GitHub</b></a>
                             {
