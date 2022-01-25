@@ -13,10 +13,9 @@ function AdminProfile(){
         googleId: "108572354537016537304",
         imageUrl: image,
         name: "Erik Santiago Olarte Molina",
-        
     };
     useEffect( ()=> {
-        if(!cookies.get("userName")){
+        if(!cookies.get("username")){
             window.location.href = "./login";
         } 
     }) 
@@ -24,7 +23,7 @@ function AdminProfile(){
     const cerrarSesion = ()=>{
         cookies.remove('name', {path: '/'});
         cookies.remove('email', {path: '/'});
-        cookies.remove('userName', {path: '/'});
+        cookies.remove('username', {path: '/'});
         cookies.remove('registro', {path: '/'});
         cookies.remove('tipoUser', {path: '/'});
         window.location.href = "./login"
@@ -52,10 +51,10 @@ function AdminProfile(){
                     <div className="admin-info">
                         <section className="admin-info-at">
                             <h4>informacion</h4>
-                            <b>Username {' ' + cookies.get('userName')}</b>
+                            <b>Username {' ' + cookies.get('username')}</b>
                             <b>correo {' ' + cookies.get('email')}</b>
                             <b>Tipo: {' ' + cookies.get('tipoUser')}</b>
-                            <b>Fecha de registro: {' ' + cookies.get('registro')}</b>
+                            {/* <b>Fecha de registro: {' ' + cookies.get('registro')}</b> */}
                         </section>
                     </div>
                     <div className="admin-box">
@@ -76,7 +75,7 @@ function AdminProfile(){
                             <br />
                             <br />
                             <br />
-                        </section>
+                        </section> 
                     </div>
                 </div>
                 <div className="admin-boxTwo">
