@@ -1,20 +1,38 @@
 import './styles/StoreCard.css'
 import { BiChevronLeftCircle } from "react-icons/bi";
 import { BiChevronRightCircle } from "react-icons/bi";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import {postProducts, totalProduct} from '../redux/actions/allProductsActions'
+import {useDispatch} from 'react-redux'
+import { localstorage } from '../redux/actions/storageActions'
 
 
 function StoreCard(props){
-    // const [cantidad, setCantidad ] = useState(0)
 
-    // const buttMayor = (e) =>{
-    //     e.preventDefault();
-    //     setCantidad(cantidad + 1)
-    // }
-    // const buttMenor = (e) =>{
-    //     e.preventDefault();
-    //     cantidad >0 && setCantidad(cantidad - 1) 
-    // }
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+
+        // dispatch(totalProduct())
+    },[dispatch])
+    
+    const deleteItem = () => {
+        let id = props.id
+        localStorage.removeItem(`${id}`)
+        
+        var values = []
+        var keys = Object.keys(localStorage)
+        var i = keys.length;
+        
+        while ( i-- ) {
+            if (keys.length === 0) {
+            } 
+            values.push(JSON.parse(localStorage.getItem(keys[i])));
+            
+        }
+        dispatch(postProducts(values))
+        dispatch(localstorage(values))
+    }
     
     return(
 
@@ -32,9 +50,7 @@ function StoreCard(props){
             </div>
             <div className="card_bott">
                 {/* <button className="btn_green"><b>Buy</b> </button> */}
-                {/* <button className='btn_red'>Delete</button> */}
-                {/* <div><button onClick={buttMenor} className ='btn_cont'>< BiChevronLeftCircle/></button>{cantidad}<button onClick={buttMayor} className ='btn_cont'><BiChevronRightCircle/></button></div> */}
-                
+                <button className='btn_red' onClick={deleteItem}>Delete</button>
             </div>
         </div>
     )
