@@ -1,5 +1,11 @@
 export default function validateLogin(user) {
     let errors = {};
+    if (!user.name.trim()) {
+        errors.name = "Name is required"
+    } else if (!/^[a-zA-Z\u00C0-\u017F\s]+$/.test(user.name)) {
+        errors.name = "Name can only contain letters or spaces. "
+    }
+
     if (!user.username.trim()) {
         errors.username = "Username is required"
     } else if (!/^[a-zA-Z0-9]{4,15}$/.test(user.username)) {
