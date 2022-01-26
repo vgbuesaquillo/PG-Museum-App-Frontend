@@ -5,13 +5,18 @@ import "./styles/TopBar.css";
 import { NavLink } from "react-router-dom"
 import { AiOutlineSearch } from 'react-icons/ai';
 import { MdShoppingBasket } from 'react-icons/md';
+import {CgProfile} from 'react-icons/cg';
 import { getFindGallery, getAllGallery } from '../redux/actions/galleryActions'
 import SortInput from "./SortInput";
+import Cookies from 'universal-cookie'
 
 
 function TopBar() {
 
     const dispatch = useDispatch()
+    const cookies = new Cookies();
+    const login = cookies.get('session')
+
     const total = useSelector(state => state.allProductsReducer.totalCount)
     const [input, setInput] = useState({
         search: ''
@@ -45,14 +50,26 @@ function TopBar() {
                     </div>
                 </div>
                 <div className='loginButtons'>
+                    {
+                        cookies.get('session') ?
+                        <NavLink to='/admin'>
+                            <div>
+                                <CgProfile/>
+                                <label>{login.username}</label>
+                            </div> 
+                        </NavLink> :
+                        <div>
+                                <button className='loginButtons__button'>
+                                <NavLink to="/Login">Login</NavLink>
+                            </button>
 
-                    {/* <button className='loginButtons__button'>
-                        <NavLink to="/Login">Login</NavLink>
-                    </button> */}
+                            <button className='loginButtons__button'>
+                                <NavLink to="/signup">Create Account</NavLink>
+                            </button>
+                        </div>
+                    }
 
-                    <button className='loginButtons__button'>
-                        <NavLink to="/signup">Create Account</NavLink>
-                    </button>
+                    
 
                 </div>
 

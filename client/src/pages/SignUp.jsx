@@ -47,7 +47,7 @@ const SignUp = () => {
             e.preventDefault()
             register(user)
             alert("Successfully post user")
-            navigate('/');
+            navigate('/login');
         } else {
             alert("Missing fields in the form")
             // navigate('/signup');

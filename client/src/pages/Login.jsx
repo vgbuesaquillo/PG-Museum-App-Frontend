@@ -8,14 +8,11 @@ import image2 from '../images/undraw_working_from_anywhere_re_9obt.svg'
 import axios from 'axios'
 import md5 from 'md5'
 import Cookies from 'universal-cookie'
+import { NavLink } from 'react-router-dom';
 
 
-const baseUrl = 'http://localhost:3002/usuarios';
-const baseUrlOne = "http://localhost:5040/auth/signin";
+const singin = "http://localhost:5040/auth/signin";
 const cookies = new Cookies();
-// if(cookies.get("username")){
-//     window.location.href = "./admin";
-// } 
 
 function validate(input){
     let err ={};
@@ -50,63 +47,30 @@ function Login(){
     // const  [user, setUser] = useState(null); 
 
     useEffect( ()=> {
-        if(cookies.get("username")){
-            window.location.href = "./admin";
+        if(cookies.get("session")){
+            window.location.href = "/";
         } 
     })
 
-    const iniciadora = async(e)=>{
+    //* COMPLETE FUNCTION
+    const handleSubmit = async(e)=>{
         e.preventDefault();
-        await axios.post(baseUrlOne, input)
+        await axios.post(singin, input)
         .then((response)=>{
             return response.data
         })
         .then(response => {
             console.log(response);
             if(response){
-                // var respuesta = response[0];
-                // cookies.set("name", respuesta.name, {path:'/'});
-                cookies.set("email", response.email, {path:'/'});
-                cookies.set("username", response.username, {path:'/'});
-                // cookies.set("registro", respuesta.registro, {path:'/'});
-                cookies.set("tipoUser", response.roles, {path:'/'});
-                window.location.href = '/admin';
+                cookies.set("session", response);
+                window.location.href = '/';
             }else{
                 alert("Usuario o contraseña incorrectos...")
             }
 
         })
-
     }
 
-    const iniciaSesion = async(e) =>{
-        e.preventDefault();
-        await axios.get(baseUrl, { params: {email: input.email, password: md5(input.password)}})
-        .then( response =>{
-            return response.data;
-        })
-        // .then(response => {
-            
-        //     if(response.length > 0){
-        //         var respuesta = response[0];
-        //         // cookies.set("name", respuesta.name, {path:'/'});
-        //         cookies.set("email", respuesta.email, {path:'/'});
-        //         cookies.set("userName", respuesta.userName, {path:'/'});
-        //         // cookies.set("registro", respuesta.registro, {path:'/'});
-        //         cookies.set("tipoUser", respuesta.tipoUser, {path:'/'});
-        //         window.location.href = '/admin';
-        //     }else{
-        //         alert("Usuario o contraseña incorrectos...")
-        //     }
-
-        // })
-
-        .catch(err =>{
-            console.log(err);
-        })
-    }
-    
-    
     function handleChange(e){
         e.preventDefault()
         setInput({
@@ -119,7 +83,8 @@ function Login(){
         }));
         
     }
-    const handleLogin = async(googleData) => {
+
+    const handleLoginGoogle = async(googleData) => {
         const res = await fetch('http://localhost:5040/auth/signin/google', {
             method: 'POST',
             body: JSON.stringify({
@@ -136,15 +101,17 @@ function Login(){
         setLoginData(data);
         localStorage.setItem('loginData', JSON.stringify(data));
     }
+
     const handleFailure = (response) => {
         console.log(response);
     }
+
     const handleLogout = () => {
         localStorage.removeItem('loginData');
         setLoginData(null); 
     }
     
-
+// #Holamundo23
     return(
         <div className= 'contenedor'>
             <div className= 'contenedor__content'>
@@ -155,7 +122,7 @@ function Login(){
                         
                     </div>
                     <h1>Sing in</h1>
-                    <form  >
+                    <form  onSubmit={handleSubmit}>
                         <div>
                             <input className={error.username && 'danger'}
                                 type="text" 
@@ -182,7 +149,7 @@ function Login(){
 
                         <h4><a href="/">Olvidaste tu contraseña?</a></h4>
                         <div className = 'contenedor_submit'>
-                            <div className ='div_log'><button className ="boton_log" onClick={iniciadora}>Sing in</button></div>
+                            <input type="submit" className='boton_log'/>
                             
                             <a href="/"><VscGithub/><> </><b>GitHub</b></a>
                             {
@@ -196,7 +163,7 @@ function Login(){
                                         <GoogleLogin
                                         clientId="359276887661-52enkr7gjhn5m9hm3e3t45jumqjnfnvj.apps.googleusercontent.com"
                                         buttonText="Sign In with Google"
-                                        onSuccess={handleLogin}
+                                        onSuccess={handleLoginGoogle}
                                         onFailure={handleFailure}
                                         cookiePolicy={'single_host_origin'}
                                     /> </div>
@@ -204,8 +171,6 @@ function Login(){
                                 )
                             }
                             
-                            {/* <div class="g-signin2" data-onsuccess="onSignIn"></div> */}
-                            {/* <button className ="boton_log_google"><FcGoogle/> Sing In With Google</button> */}
                         </div>
                     </form>
                         
@@ -216,7 +181,9 @@ function Login(){
             <div className="img_page">
                 <img src={image2} alt="imagen" />
             </div>
-            <div className="log_Bix"> <a href="/"><BiX/></a></div>
+            <NavLink to='/'>
+                <div className="log_Bix"><BiX/></div>
+            </NavLink>
         </div>
     )
     
