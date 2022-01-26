@@ -34,7 +34,6 @@ const Home = () => {
           setgallery(allGallery)
         }
         
-        
     }, [dispatch, gallery])
     
     return (<div className='home'>

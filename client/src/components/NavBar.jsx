@@ -3,6 +3,8 @@ import './styles/NavBar.css'
 import image from '../images/Group 1.svg'
 import {MdShoppingBasket, MdOutlineFavorite, MdHomeFilled} from 'react-icons/md'
 import {FaGithub, FaStore} from 'react-icons/fa'
+import {IoLogOut} from 'react-icons/io5'
+import Cookies from 'universal-cookie'
 
 
 function CustomLink({ children, to, ...props }) {
@@ -24,6 +26,13 @@ function CustomLink({ children, to, ...props }) {
 
 const NavBar = () => {
 
+  const cookies = new Cookies();
+
+  const handleLogout = () => {
+    cookies.remove('session')
+    window.location.href = '/'
+  }
+
     return (
         <div className='navbar'>
             <div className='navbar__content'>
@@ -40,7 +49,11 @@ const NavBar = () => {
                 </div>
                 {/* AQUI DEBERIA IR LA VALIDACION PARA EL LOGOUT */}
                 <div>
-
+                  {
+                    cookies.get('session') ? 
+                      <IoLogOut onClick={handleLogout}/> :
+                      null
+                  }
                 </div>
             </div>
         </div>

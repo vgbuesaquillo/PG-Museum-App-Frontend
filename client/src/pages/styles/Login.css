@@ -48,6 +48,10 @@
     display:  inline-flex;
     justify-content: center;
 }
+
+.boton_log:hover{
+    border: none;
+}
 .bott_google{
     display: flex;
     justify-content: center;

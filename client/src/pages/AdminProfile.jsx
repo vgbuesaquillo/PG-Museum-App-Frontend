@@ -2,33 +2,29 @@ import './styles/AdminProfile.css';
 import { useEffect } from 'react';
 import image from '../images/signup.svg'
 import Cookies from 'universal-cookie';
+import {CgProfile} from 'react-icons/cg';
 
 const cookies = new Cookies();
 
 function AdminProfile(){
-    const user ={
-        email: "blueowl2794@gmail.com",
-        familyName: "Olarte Molina",
-        givenName: "Erik Santiago",
-        googleId: "108572354537016537304",
-        imageUrl: image,
-        name: "Erik Santiago Olarte Molina",
-    };
+
+    const user = cookies.get('session')
+    // const user ={
+    //     email: "blueowl2794@gmail.com",
+    //     familyName: "Olarte Molina",
+    //     givenName: "Erik Santiago",
+    //     googleId: "108572354537016537304",
+    //     imageUrl: image,
+    //     name: "Erik Santiago Olarte Molina",
+    // };
+
     useEffect( ()=> {
-        if(!cookies.get("username")){
+        if(!cookies.get("session")){
             window.location.href = "./login";
         } 
     }) 
 
-    const cerrarSesion = ()=>{
-        cookies.remove('name', {path: '/'});
-        cookies.remove('email', {path: '/'});
-        cookies.remove('username', {path: '/'});
-        cookies.remove('registro', {path: '/'});
-        cookies.remove('tipoUser', {path: '/'});
-        window.location.href = "./login"
-        // cookies.remove('email', {path: '/'});
-        // cookies.remove('email', {path: '/'});
+    const handleDeleteUser = ()=>{
     }
     
 
@@ -41,9 +37,9 @@ function AdminProfile(){
                 <div className="admin-profile-top-info">
                     <div >
                         <h5>{cookies.get('email')}</h5>
-                        <button className="admin-profile-top-info-butt" onClick={cerrarSesion}> Cerrar sesion</button>
+                        <button className="admin-profile-top-info-butt" onClick={handleDeleteUser}> Eliminar cuenta</button>
                     </div>
-                    <img src={user.imageUrl} alt="img" />
+                    <CgProfile/>
                 </div>
             </div>
             <div className="admin-profile-bot">
@@ -51,9 +47,9 @@ function AdminProfile(){
                     <div className="admin-info">
                         <section className="admin-info-at">
                             <h4>informacion</h4>
-                            <b>Username {' ' + cookies.get('username')}</b>
-                            <b>correo {' ' + cookies.get('email')}</b>
-                            <b>Tipo: {' ' + cookies.get('tipoUser')}</b>
+                            <b>Username {' ' + user.username}</b>
+                            <b>correo {' ' + user.email}</b>
+                            <b>Tipo: {' ' + user.roles}</b>
                             {/* <b>Fecha de registro: {' ' + cookies.get('registro')}</b> */}
                         </section>
                     </div>
