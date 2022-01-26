@@ -14,3 +14,16 @@
   padding-top: 2rem;
   padding-bottom: 40px;
 }
+
+
+.home--validation{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 8rem;
+}
+.home--notfound{
+  box-sizing: border-box;
+  padding-top: 5rem;
+  width: 500px
+}

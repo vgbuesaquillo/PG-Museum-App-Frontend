@@ -3,8 +3,10 @@
   width: 90%;
   display: flex;
   position: fixed;
-  justify-content: flex-end;
+  justify-content: space-between;
   background-color: white;
+  padding-left: 50px;
+  box-sizing: border-box;
 }
 
 .topbar__content {
@@ -40,7 +42,9 @@
   height: 40px;
   background: #f8f8f8;
   padding: 0.5vw;
-  border-radius: 30px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  padding-left: 20px;
 }
 
 .search__input {
@@ -48,6 +52,10 @@
   background-color: transparent;
   width: 200px;
   margin: 0px;
+  margin-left: 10px;
+  font-family: 'Poppins';
+  color: gray;
+  font-weight: 700;
 }
 
 .search__input:hover{

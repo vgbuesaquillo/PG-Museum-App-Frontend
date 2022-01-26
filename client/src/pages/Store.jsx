@@ -1,23 +1,11 @@
 import { Link } from 'react-router-dom'
 import StoreCard from './StoreCard';
 import './styles/Store.css'
-import {useSelector} from 'react-redux'
-// import React, { useEffect, useState} from 'react'
-// import {postProducts} from '../redux/actions'
-
-//import { BsFillXCircleFill} from "react-icons/bs";
+import {useSelector } from 'react-redux'
 
 function Store(){
 
     const products = useSelector(state => state.allProductsReducer.allproducts)
-    // const dispatch = useDispatch()
-
-
-    // useEffect(() => {
-
-        
-
-    // },[dispatch])
 
     return (
         <div className="container_cards">
@@ -28,7 +16,7 @@ function Store(){
             <div>
                 {
                     products?.map((a) => {
-                        return <StoreCard key ={a.id} title={a.title} url={a.images} pricing={a.price}/>
+                        return <StoreCard key ={a.id} title={a.title} url={a.images} pricing={a.price} id={a.id}/>
                     })
                 }
             </div>

@@ -37,9 +37,9 @@ function TopBar() {
                     <AiOutlineSearch className="searchForm__icon" />
                     <input className="search__input" placeholder="Search here..." onChange={handleSearch} value={input.search} />
 
-                  <SortInput/>
 
                 </div>
+                  <SortInput/>
                 <div className='cart'>
                     <div className='cart__content'>
                         <MdShoppingBasket className='cart__icon' />

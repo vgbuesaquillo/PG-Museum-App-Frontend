@@ -136,7 +136,7 @@
 
 .detail__content--comment--stars--title {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .detail__content--comment--stars--data--text {

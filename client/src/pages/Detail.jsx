@@ -14,10 +14,6 @@ const Detail = () => {
     let artwork = artworkDetail.find(element => element.id === Number(id))
 
     return (<div className="detail">
-        <div className='detail__link'>
-            <img src={logo} width="50px" alt="#" className="detail__link--image" />
-            <Link to='/' className="detail__link--link"><BsFillXCircleFill /></Link>
-        </div>
         <div className='detail__content'>
             <div className='detail__content--data'>
                 <div className='detail__content--data--image'>

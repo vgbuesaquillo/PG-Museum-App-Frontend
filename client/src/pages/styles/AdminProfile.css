@@ -73,7 +73,7 @@ height:100vh;
 }
 .admin-info-at{
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     flex-direction: column;
     margin-left: 5rem;
     
