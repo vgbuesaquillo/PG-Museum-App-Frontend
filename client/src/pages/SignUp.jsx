@@ -37,6 +37,7 @@ const SignUp = () => {
     function register(postUser) {
         axios.post("http://localhost:5040/auth/signup", postUser)
             .catch((error) => {
+                // Falta validación específica del error o mensaje de cual fue el error
                 console.log(error)
             })
     }
@@ -112,11 +113,11 @@ const SignUp = () => {
                     </div>
                     {errors.passwordbis && <p className="signup__body--inputs--errors">{errors.passwordbis}</p>}
 
-                    <div className="signup__body--inputs--form--item">
+                    {/* <div className="signup__body--inputs--form--item">
                         <input onChange={onInputChange} name="image" type='text' value={user.image}
                             placeholder='Image' />
-                        {/* <input onChange={(e) => processImage(e)} name="image" type="file" accept="image/*" /> */}
-                    </div>
+                        <input onChange={(e) => processImage(e)} name="image" type="file" accept="image/*" />
+                    </div> */}
                     <button className="signup__body--inputs--form--submit">Sign up</button>
                 </form>
             </div>
