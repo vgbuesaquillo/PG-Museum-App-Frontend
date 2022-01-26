@@ -1,30 +1,26 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+// import { AiOutlineSearch } from 'react-icons/ai';
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import "./styles/TopBar.css";
 import { NavLink } from "react-router-dom"
-import { AiOutlineSearch } from 'react-icons/ai';
 import { MdShoppingBasket } from 'react-icons/md';
 import {CgProfile} from 'react-icons/cg';
 import { getFindGallery, getAllGallery } from '../redux/actions/galleryActions'
 import SortInput from "./SortInput";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Cookies from 'universal-cookie'
 
-
 function TopBar() {
-
     const dispatch = useDispatch()
     const cookies = new Cookies();
     const login = cookies.get('session')
 
     const total = useSelector(state => state.allProductsReducer.totalCount)
+    const items = useSelector(state => state.galleryReducer.allGallery)
     const [input, setInput] = useState({
         search: ''
     })
-
-    const handleSearch = (e) => {
-        setInput({ ...input.search, search: e.target.value })
-    }
 
     useEffect(() => {
         if (input.search) {
@@ -35,14 +31,40 @@ function TopBar() {
         }
     }, [dispatch, input.search, total])
 
+    const handleOnSearch = (string, results) => {
+        setInput({ ...input.search, search: string })
+    }
+
+    const handleOnSelect = (item) => {
+        setInput({ ...input.search, search: item.title })
+    }
+
+    const handleOnClear = () => {
+        dispatch(getAllGallery())
+    }
+
     return (
         <div className="topbar">
             <div className="topbar__content">
                 <div className="searchForm">
-                    <AiOutlineSearch className="searchForm__icon" />
-                    <input className="search__input" placeholder="Search here..." onChange={handleSearch} value={input.search} />
+                    <div >
+                        <ReactSearchAutocomplete
+                            items={items}
+                            className="search__input"
+                            placeholder="Search here..."
+                            onSearch={handleOnSearch}
+                            onSelect={handleOnSelect}
+                            onClear={handleOnClear}
+                            value={input.search}
+                            fuseOptions={{ keys: ["title", "description"] }} // Search on both fields
+                            resultStringKeyName="title" // String to display in the results
+                            showIcon={true}
+                        // showClear={true}
+                        />
+                        <div style={{ width: "200px" }}></div>
+                    </div>
                 </div>
-                  <SortInput/>
+                <SortInput />
                 <div className='cart'>
                     <div className='cart__content'>
                         <MdShoppingBasket className='cart__icon' />
@@ -68,9 +90,6 @@ function TopBar() {
                             </button>
                         </div>
                     }
-
-                    
-
                 </div>
 
             </div>
