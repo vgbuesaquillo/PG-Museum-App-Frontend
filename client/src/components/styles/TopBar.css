@@ -35,7 +35,7 @@
   margin-right: 0.5vw;
 }
 
-.searchForm {
+/* .searchForm {
   display: flex;
   align-items: center;
   width: auto;
@@ -45,7 +45,7 @@
   border-radius: 20px;
   box-sizing: border-box;
   padding-left: 20px;
-}
+} */
 
 .search__input {
   border: none;
@@ -53,12 +53,13 @@
   width: 200px;
   margin: 0px;
   margin-left: 10px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   color: gray;
   font-weight: 700;
+  height: "34px";
+  box-shadow: "none";
 }
 
-.search__input:hover{
-  border: none
-  
+.search__input:hover {
+  border: none;
 }
