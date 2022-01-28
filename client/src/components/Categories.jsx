@@ -6,7 +6,6 @@ import './styles/Categories.css'
 const Categories = () => {
     const [select, setSelect] = useState('')
     let dispatch = useDispatch()
-
     useEffect(() => {
         if (select === "all") {
             dispatch(getAllGallery())
@@ -18,10 +17,15 @@ const Categories = () => {
     function onSelectChange(e) {
         setSelect(e.target.value)
     }
+
+    function handleClick() {
+        dispatch(getAllGallery())
+    }
+
     return (<>
         <div className="categories">
             <select size="4" defaultValue="all" className='categories__select' onChange={onSelectChange}>
-                <option value="all" className='categories__select__option'>All</option>
+                <option value="all" className='categories__select__option' onClick={handleClick}>All</option>
                 <option value="painting" className='categories__select__option'>Painting</option>
                 <option value="sculpture" className='categories__select__option'>Sculpture</option>
                 <option value="ceramic" className='categories__select__option'>Ceramic</option>

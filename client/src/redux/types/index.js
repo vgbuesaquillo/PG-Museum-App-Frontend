@@ -14,3 +14,7 @@ export const TOTAL_PRODUCT = 'TOTAL_PRODUCT'
 
 //sort action types
 export const SORT_GALLERY = "SORT_GALLERY"
+
+//User action types
+export const RESET_PASSWORD_POST = "RESET_PASSWORD_POST"
+export const RESET_PASSWORD_PUT = "RESET_PASSWORD_PUT"

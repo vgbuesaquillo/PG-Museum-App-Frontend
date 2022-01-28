@@ -11,6 +11,8 @@ import GitHub from './pages/GitHub';
 import Detail from './pages/Detail.jsx';
 import Store from './pages/Store';
 import AdminProfile from './pages/AdminProfile';
+import ResetPasswordPost from './pages/ResetPasswodPost';
+import ResetPasswordPut from './pages/ResetPasswordPut';
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
         <Route path="/:id" element={<> <NavBar /><Detail /></>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/resetPasswordPost" element={<ResetPasswordPost />} />
+        <Route path="/resetPasswordPut" element={<ResetPasswordPut />} />
       </Routes>
     </div>
   );

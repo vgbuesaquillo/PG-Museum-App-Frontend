@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import "./styles/TopBar.css";
 import { NavLink } from "react-router-dom"
 import { MdShoppingBasket } from 'react-icons/md';
-import {CgProfile} from 'react-icons/cg';
+import { CgProfile } from 'react-icons/cg';
 import { getFindGallery, getAllGallery } from '../redux/actions/galleryActions'
 import SortInput from "./SortInput";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
@@ -40,7 +40,7 @@ function TopBar() {
     }
 
     const handleOnClear = () => {
-        dispatch(getAllGallery())
+        setInput({ ...input.search, search: '' })
     }
 
     return (
@@ -74,21 +74,21 @@ function TopBar() {
                 <div className='loginButtons'>
                     {
                         cookies.get('session') ?
-                        <NavLink to='/admin'>
+                            <NavLink to='/admin'>
+                                <div>
+                                    <CgProfile />
+                                    <label>{login.username}</label>
+                                </div>
+                            </NavLink> :
                             <div>
-                                <CgProfile/>
-                                <label>{login.username}</label>
-                            </div> 
-                        </NavLink> :
-                        <div>
                                 <button className='loginButtons__button'>
-                                <NavLink to="/Login">Login</NavLink>
-                            </button>
+                                    <NavLink to="/Login">Login</NavLink>
+                                </button>
 
-                            <button className='loginButtons__button'>
-                                <NavLink to="/signup">Create Account</NavLink>
-                            </button>
-                        </div>
+                                <button className='loginButtons__button'>
+                                    <NavLink to="/signup">Create Account</NavLink>
+                                </button>
+                            </div>
                     }
                 </div>
 

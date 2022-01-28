@@ -10,6 +10,7 @@ import axios from 'axios';
 const SignUp = () => {
     let navigate = useNavigate();
     const url = process.env.REACT_APP_URL;
+    console.log(url)
     const [user, setUser] = useState({
         name: '',
         username: '',
@@ -35,7 +36,8 @@ const SignUp = () => {
     }
 
     function register(postUser) {
-        axios.post("http://localhost:5040/auth/signup", postUser)
+        // axios.post("http://localhost:5040/auth/signup", postUser)
+        axios.post(`${url}`, postUser)
             .catch((error) => {
                 // Falta validación específica del error o mensaje de cual fue el error
                 console.log(error)
