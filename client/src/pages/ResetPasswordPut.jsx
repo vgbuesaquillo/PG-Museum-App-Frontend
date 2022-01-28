@@ -10,7 +10,7 @@ import './styles/ResetPasswordPut.css'
 import validate from '../utils/validatePassword'
 
 const ResetPasswordPut = () => {
-    const url = process.env.REACT_APP_URL_b;
+    const url = process.env.REACT_APP_SIGNUP;
     let navigate = useNavigate();
     const [input, setInput] = useState({
         password: '',
@@ -23,7 +23,7 @@ const ResetPasswordPut = () => {
         try {
             if (Object.keys(errors).length === 0 && errors.constructor === Object && input.password !== '') {
                 e.preventDefault()
-                // axios.post("http://localhost:5040/auth/signup", postUser)
+                // axios.post(`${url}`, postUser)
                 //     .catch((error) => {
                 //         // Falta validación específica del error o mensaje de cual fue el error
                 //         console.log(error)
@@ -45,8 +45,6 @@ const ResetPasswordPut = () => {
     }
 
     const handleChange = e => {
-        console.log(url)
-        console.log(process.env);
         setInput({
             ...input,
             [e.target.name]: e.target.value

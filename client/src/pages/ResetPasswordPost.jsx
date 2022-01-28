@@ -16,7 +16,7 @@ const ResetPasswordPost = () => {
 
     const handleSend = async function () {
         try {
-            // axios.post("http://localhost:5040/auth/signup", postUser)
+            // axios.post(`${url}`, postUser)
             //     .catch((error) => {
             //         // Falta validación específica del error o mensaje de cual fue el error
             //         console.log(error)
