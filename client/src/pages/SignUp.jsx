@@ -17,7 +17,7 @@ const SignUp = () => {
         password: '',
         passwordbis: '',
         image: '',
-        roles: ["user"]
+        roles: ["admin"]
     });
 
     const [errors, setErrors] = useState({})

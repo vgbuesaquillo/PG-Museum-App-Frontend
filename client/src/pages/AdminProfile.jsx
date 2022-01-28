@@ -2,12 +2,14 @@ import './styles/AdminProfile.css';
 import { useEffect } from 'react';
 import image from '../images/signup.svg'
 import Cookies from 'universal-cookie';
-import {CgProfile} from 'react-icons/cg';
+import { CgProfile } from 'react-icons/cg';
+import { Button } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
 
 const cookies = new Cookies();
 
-function AdminProfile(){
+function AdminProfile() {
 
     const user = cookies.get('session')
 
@@ -76,7 +78,10 @@ function AdminProfile(){
                             <b>Username {' ' + user.username}</b>
                             <b>correo {' ' + user.email}</b>
                             <b>Tipo: {' ' + user.roles}</b>
-                            {/* <b>Fecha de registro: {' ' + cookies.get('registro')}</b> */}
+                            <div>
+                              <Link to={'new'}> <Button secondary>New Product</Button></Link>
+                              <Link to={'product-list'}> <Button secondary>Product List</Button></Link>
+                            </div>
                         </section>
                     </div>
                     <div className="admin-box">
@@ -112,7 +117,9 @@ function AdminProfile(){
                 </div>
             </div>
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 export default AdminProfile;
