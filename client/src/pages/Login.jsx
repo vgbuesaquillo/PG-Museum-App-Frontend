@@ -11,7 +11,8 @@ import Cookies from 'universal-cookie'
 import { NavLink } from 'react-router-dom';
 
 
-const singin = "http://localhost:5040/auth/signin";
+// const singin = "http://localhost:5040/auth/signin";
+const singin = process.env.REACT_APP_SIGNIN;
 const cookies = new Cookies();
 
 function validate(input) {
@@ -55,7 +56,7 @@ function Login() {
     //* COMPLETE FUNCTION
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post(singin, input)
+        await axios.post(`${singin}`, input)
             .then((response) => {
                 return response.data
             })
@@ -85,7 +86,7 @@ function Login() {
     }
 
     const handleLoginGoogle = async (googleData) => {
-        const res = await fetch('http://localhost:5040/auth/signin/google', {
+        const res = await fetch(`${singin}/google`, {
             method: 'POST',
             body: JSON.stringify({
                 token: googleData.tokenId,
