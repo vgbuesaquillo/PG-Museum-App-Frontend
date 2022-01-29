@@ -117,7 +117,6 @@ function AdminProfile() {
                 </div>
             </div>
         </div>
-
   )
 }
 
