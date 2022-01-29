@@ -14,7 +14,7 @@ const EditProduct = () => {
   //redux
   const dispatch = useDispatch()
   const fa = useSelector(state => state.adminProductsReducer.fetchedArtwork)
-  console.log(fa)
+
   const categoryOptions = [
     { value: "painting", label: "Painting" },
     { value: "sculpture", label: "Sculpture" },
@@ -30,7 +30,7 @@ const EditProduct = () => {
     collection: "",
     price: "",
     categories: [],
-    stock: true,
+    stock: null,
     image: null,
     description: ""
   })
@@ -60,6 +60,7 @@ const EditProduct = () => {
     })
   }
 
+  //
   const handleImageChange = e => {
     if (e.target.files && e.target.files.length > 0) {
       setFormInfo({
@@ -68,6 +69,13 @@ const EditProduct = () => {
       })
     }
 
+  }
+
+  const handleCheckChange =e=>{
+    setFormInfo({
+      ...formInfo,
+      [e.target.name] : e.target.checked
+    })
   }
 
   useEffect(() => {
@@ -127,16 +135,11 @@ const EditProduct = () => {
 
       {/*NO LOGRO QUE SE REGISTRE EL CAMBIO DE TRUE A FALSE */}
       <label htmlFor="stock">Stock</label>
-      <input type="checkbox" name="stock" id="" defaultValue={fa?.stock} onChange={()=>{
-        setFormInfo({
-          ...formInfo,
-          stock: formInfo.info ? false : true
-        })
-      }} />
+      <input type="checkbox" name="stock" id="" defaultChecked={fa?.stock} onChange={handleCheckChange} />
 
       <label htmlFor="description">Description</label>
       <br />
-      <textarea name="description" id="" cols="30" rows="5" onChange={handleChange} ></textarea>
+      <textarea name="description" id="" cols="30" rows="5" onChange={handleChange}  ></textarea>
       <br />
       <Button primary>Submit</Button>
     </form>
