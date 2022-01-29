@@ -4,7 +4,7 @@ import './styles/Store.css'
 import { useSelector } from 'react-redux'
 
 //store component can be used for different lists - el componente store ahora puede usarse para otras listas
-function Store({reducer, property, title}) {
+function Store({reducer, property, title, editOptions}) {
 
   //reducer store and property comes from props - el store y la propiedad vienen de props
   const products = useSelector(state => state[reducer][property])
@@ -18,7 +18,7 @@ function Store({reducer, property, title}) {
       <div>
         {
           products?.map((a) => {
-            return <StoreCard key={a.id} title={a.title} url={a.images} pricing={a.price} id={a.id} />
+            return <StoreCard key={a.id} title={a.title} url={a.images} pricing={a.price} id={a.id} editOptions={editOptions} />
           })
         }
       </div>

@@ -14,6 +14,8 @@ import AdminProfile from './pages/AdminProfile';
 import NewProduct from './components/adminPage/NewProduct';
 import ResetPasswordPost from './pages/ResetPasswordPost.jsx';
 import ResetPasswordPut from './pages/ResetPasswordPut.jsx';
+import ProductList from './components/adminPage/ProductList';
+import EditProduct from './components/adminPage/EditProduct';
 
 function App() {
   return (
@@ -27,7 +29,9 @@ function App() {
         
         <Route path="/Admin" element={<> <NavBar /><AdminProfile /></>} />
         <Route path="/Admin/new" element={<> <NavBar /><NewProduct/> </>} />
-        <Route path="/Admin/product-list" element={<> <NavBar /><Store reducer={"allProductsReducer"} property={"allproducts"} title={"Product List"} /> </>} />
+        <Route path="/Admin/edit-product/:id" element={<> <NavBar /><EditProduct/> </>} />
+        <Route path="/Admin/product-list" element={<> <NavBar /> <ProductList /> </>} />
+
         
 
         <Route path="/store" element={<> <NavBar /><Store reducer={"allProductsReducer"} property={"allproducts"} title={"My Cart"} /></>} />

@@ -16,9 +16,13 @@ const NewProduct = () => {
 
   //form state - state del form
   const [formInfo, setFormInfo] = useState({
-    name: "",
+    title: "",
+    creation_date: "",
+    current_location: "",
+    collection: "",
     price: "",
     categories: [],
+    stock: true,
     image: null,
     description: ""
   })
@@ -48,21 +52,30 @@ const NewProduct = () => {
   }
 
   const handleImageChange = e => {
-    if(e.target.files && e.target.files.length > 0){
+    if (e.target.files && e.target.files.length > 0) {
       setFormInfo({
         ...formInfo,
         image: e.target.files[0]
       })
     }
-    
+
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{margin:"50px auto"}}>
+    <form onSubmit={handleSubmit} style={{ margin: "50px auto" }}>
       <h2>New product</h2>
 
-      <label htmlFor="name">Name</label>
-      <input type="text" name='name' onChange={handleChange} />
+      <label htmlFor="title">Title</label>
+      <input type="text" name='title' onChange={handleChange} />
+
+      <label htmlFor="creation_date">Creation Date</label>
+      <input type="text" name='creation_date' onChange={handleChange} />
+
+      <label htmlFor="current_location">Current Location</label>
+      <input type="text" name='current_location' onChange={handleChange} />
+
+      <label htmlFor="collection">Collection</label>
+      <input type="text" name='collection' onChange={handleChange} />
 
       <label htmlFor="price">Price</label>
       <input type="text" name='price' onChange={handleChange} />
@@ -77,17 +90,19 @@ const NewProduct = () => {
         classNamePrefix="select"
       />
 
-      <div style={{ width: "150px", height: "200px", border: "1px solid black" }}>
+      <div style={{ width: "150px", height: "200px", border: "1px solid black", margin:"20px auto", overflow:"hidden" }}>
         {formInfo.image !== null ? (
-          <img src={URL.createObjectURL(formInfo.image)} alt="" style={{width:"100%", objectFit:"cover", objectPosition:"center center"}}/>
+          <img src={URL.createObjectURL(formInfo.image)} alt="" style={{ width: "100%", objectFit: "contain", objectPosition: "center center" }} />
         ) : null}
       </div>
       <label htmlFor="image">Image</label>
       <input accept='image/*' type="file" name="image" onChange={handleImageChange} />
 
 
-      <label htmlFor="description">Description</label>
-      <textarea name="description" id="" cols="30" rows="10" onChange={handleChange} ></textarea>
+      <label htmlFor="description">Description</label> 
+      <br />
+      <textarea name="description" id="" cols="30" rows="5" onChange={handleChange} ></textarea>
+      <br />
       <Button primary>Submit</Button>
     </form>
   );

@@ -25,8 +25,8 @@
 }
 .btn_green{
     border: none;
-    background-color:#83ff775b;
-    color: #07f61b;
+    background-color:rgba(85, 172, 78, 0.5);
+    color: rgb(33, 126, 40);
     padding: 0.5rem;
     width: 8rem;
     border-radius: 0.5rem;
