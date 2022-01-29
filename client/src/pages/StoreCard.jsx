@@ -5,10 +5,11 @@ import { useState, useEffect } from 'react'
 import { postProducts, totalProduct } from '../redux/actions/allProductsActions'
 import { useDispatch } from 'react-redux'
 import { localstorage } from '../redux/actions/storageActions'
+import { Link } from 'react-router-dom';
 
 
 //props destructure for easier use in code - destructure a props para facilitar uso en código
-function StoreCard({id, url, title, pricing}) {
+function StoreCard({id, url, title, pricing, editOptions}) {
    
   const dispatch = useDispatch()
 
@@ -52,6 +53,9 @@ function StoreCard({id, url, title, pricing}) {
       <div className="card_bott">
         {/* <button className="btn_green"><b>Buy</b> </button> */}
         <button className='btn_red' onClick={deleteItem}>Delete</button>
+        {editOptions === true ?
+          <Link to={`/admin/edit-product/${id}`}><button className='btn_green'>Edit</button></Link>
+        :null}
       </div>
     </div>
   )

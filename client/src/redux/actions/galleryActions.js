@@ -1,10 +1,11 @@
 import { GET_ALL_GALLERY, GET_FIND_GALLERY,CATEGORIES, SORT_GALLERY  } from '../types'
 
 //fetches the list of artworks - recibe la lista de piezas de arte
-export const getAllGallery = () => {
+export const getAllGallery = (id) => {
     return async function dispatch(dispatch) {
         const response = await fetch('http://localhost:5040/home');
-        const json = await response.json();
+        const json = await response.json()
+        console.log(id, json)
         dispatch({
             type: GET_ALL_GALLERY,
             payload: json
