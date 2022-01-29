@@ -9,7 +9,8 @@ import axios from 'axios';
 
 const SignUp = () => {
     let navigate = useNavigate();
-    const url = process.env.REACT_APP_URL;
+    const urlUp = process.env.REACT_APP_SIGNUP;
+    const urlSearch = process.env.REACT_APP_SEARCH;
     const [user, setUser] = useState({
         name: '',
         username: '',
@@ -35,7 +36,7 @@ const SignUp = () => {
     }
 
     function register(postUser) {
-        axios.post(`${url}`, postUser)
+        axios.post(`${urlUp}`, postUser)
             .catch((error) => {
                 // Falta validación específica del error o mensaje de cual fue el error
                 console.log(error)
@@ -43,15 +44,38 @@ const SignUp = () => {
     }
 
     function onSubmit(e) {
-        if (Object.keys(errors).length === 0 && errors.constructor === Object && user.username !== '') {
-            e.preventDefault()
-            register(user)
-            alert("Successfully post user")
-            navigate('/login');
-        } else {
-            alert("Missing fields in the form")
-            // navigate('/signup');
-        }
+        e.preventDefault()
+        axios.get(`${urlSearch}?email=${user.email}&username=${user.username}`, user)
+            .then((response) => {
+                return response.data
+            })
+            .then(response => {
+                if (response.message) {
+                    console.log(response.message === "true");
+                    if (response.message === "true") {
+                        if (Object.keys(errors).length === 0 && errors.constructor === Object && user.username !== '') {
+                            // e.preventDefault()
+                            register(user)
+                            alert("Successfully post user")
+                            navigate('/login');
+                        } else {
+                            alert("Missing fields in the form")
+                            // navigate('/signup');
+                        }
+                    } else if (response.message === "false") {
+                        alert("Missing fields in the form")
+                    } else {
+                        alert(response.message)
+                    }
+                } else {
+                    alert("Usuario o contraseña incorrectos...")
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
     }
 
     // function processImage(e) {
