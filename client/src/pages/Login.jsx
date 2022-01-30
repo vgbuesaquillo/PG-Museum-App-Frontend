@@ -13,6 +13,7 @@ import { NavLink } from 'react-router-dom';
 
 // const singin = "http://localhost:5040/auth/signin";
 const singin = process.env.REACT_APP_SIGNIN;
+const singinGoogle = process.env.REACT_APP_SIGNIN_GOOGLE;
 const cookies = new Cookies();
 
 function validate(input) {
@@ -84,9 +85,9 @@ function Login() {
         }));
 
     }
-
+    
     const handleLoginGoogle = async (googleData) => {
-        const res = await fetch(`${singin}/google`, {
+        const res = await fetch(`${singinGoogle}`, {
             method: 'POST',
             body: JSON.stringify({
                 token: googleData.tokenId,
@@ -101,6 +102,7 @@ function Login() {
         const data = await res.json();
         setLoginData(data);
         localStorage.setItem('loginData', JSON.stringify(data));
+        cookies.set("session", JSON.stringify(data));
     }
 
     const handleFailure = (response) => {
@@ -110,6 +112,8 @@ function Login() {
     const handleLogout = () => {
         localStorage.removeItem('loginData');
         setLoginData(null);
+        cookies.remove('session')
+        window.location.href = '/'
     }
 
     // #Holamundo23
@@ -154,31 +158,19 @@ function Login() {
                         </h4>
                         <div className='contenedor_submit'>
                             <input type="submit" className='boton_log' />
-
-                            <a href="/"><VscGithub /><> </><b>GitHub</b></a>
-                            {
-                                loginData ? (
-                                    <div>
-                                        <h2>You logged in as {loginData.profileObj.email}</h2>
-                                        <button onClick={handleLogout}>Logout</button>
-                                    </div>
-                                ) : (
-                                    <div className='bott_google'>
-                                        <GoogleLogin
-                                            clientId="359276887661-52enkr7gjhn5m9hm3e3t45jumqjnfnvj.apps.googleusercontent.com"
-                                            buttonText="Sign In with Google"
-                                            onSuccess={handleLoginGoogle}
-                                            onFailure={handleFailure}
-                                            cookiePolicy={'single_host_origin'}
-                                        /> </div>
-
-                                )
-                            }
+  
+                            <div className='bott_google'>
+                                <GoogleLogin
+                                    clientId="359276887661-52enkr7gjhn5m9hm3e3t45jumqjnfnvj.apps.googleusercontent.com"
+                                    buttonText="Sign In with Google"
+                                    onSuccess={handleLoginGoogle}
+                                    onFailure={handleFailure}
+                                    cookiePolicy={'single_host_origin'}
+                                /> 
+                            </div>
 
                         </div>
                     </form>
-
-
                 </div>
 
             </div>
