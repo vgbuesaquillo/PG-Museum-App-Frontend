@@ -82,7 +82,7 @@ const SignUp = () => {
         const imageUrl = new FileReader();
         imageUrl?.readAsDataURL(imageFile)
         imageUrl.onload = (e) => {
-            console.log("e es ", e.target)
+            // console.log("e es ", e.target)
             setUser({
                 ...user,
                 image: e.target.result
@@ -90,7 +90,7 @@ const SignUp = () => {
         };
     };
 
-    console.log(user)
+    // console.log(user)
 
     return (<div className='signup'>
         <div className="signup__header">
