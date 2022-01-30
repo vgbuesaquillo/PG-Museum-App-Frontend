@@ -4,6 +4,7 @@
   align-items: center;
   width: 6rem;
   height: 100vh;
+  max-height:100%;
   position: fixed;
   padding: 0px;
 }
@@ -13,6 +14,7 @@
   justify-content: space-between;
   flex-direction: column;
   height: 90vh;
+  max-height: 90%;
 }
 
 .navbar__logo {
@@ -26,5 +28,22 @@
   justify-content: space-between;
   align-items: center;
   color: #94b3fd2a;
-  height: 30vh;
+  height: 38vh;
+  max-height: 38%;
+}
+
+.navigations--routes{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 57%;
+  min-height: 57%;
+}
+
+.navigations--functions-admin{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 35%;
+  min-height: 35%;
 }
