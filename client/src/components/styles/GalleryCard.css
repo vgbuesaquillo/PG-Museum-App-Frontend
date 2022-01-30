@@ -19,39 +19,38 @@
   border-radius: 5px;
 }
 
-.gallery_card-router{
+.gallery_card-router {
   color: gray;
   margin: 0px;
 }
 
-.gallery_card-title{
+.gallery_card-title {
   margin-top: 6px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   color: rgb(104, 103, 103);
   font-weight: bold;
   width: 230px;
-  height: 60px
+  height: 60px;
 }
 
-
-.gallery_card-actions{
+.gallery_card-actions {
   display: flex;
   justify-content: space-between;
-  width: 100%
+  width: 100%;
 }
 
-.gallery_card-price{
-  font-family: 'Poppins';
+.gallery_card-price {
+  font-family: "Poppins";
   font-weight: bolder;
   font-size: 15px;
-  color: #FFAB76;
+  color: #ffab76;
 }
 
-
-.gallery_card-functions{
+.gallery_card-functions {
   display: flex;
   width: 25%;
   justify-content: space-between;
   font-size: 21px;
   color: rgb(182, 181, 181);
+  cursor: pointer;
 }

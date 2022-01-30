@@ -1,20 +1,19 @@
 import { POST_NEW_ARTWORK, GET_ARTWORK, PUT_ARTWORK } from "../types";
 
 const initialState = {
-  fetchedArtwork:{},
-  sendArtwork:{},
+  fetchedArtwork: {},
+  sendArtwork: {},
   getArtworkById: 0,
 
 }
 
-export default function adminProductsReducer (state=initialState, action){
+export default function adminProductsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ARTWORK:
-      return{
+      return {
         ...state,
         fetchedArtwork: action.payload
       }
-
     case POST_NEW_ARTWORK:
       console.log(action.payload)
       return {
