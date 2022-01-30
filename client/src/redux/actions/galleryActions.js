@@ -8,7 +8,6 @@ export const getAllGallery = (id) => {
     return async function dispatch(dispatch) {
         const response = await fetch(`${urlArtwork}`);
         const json = await response.json();
-        // console.log(id, json)
         dispatch({
             type: GET_ALL_GALLERY,
             payload: json
