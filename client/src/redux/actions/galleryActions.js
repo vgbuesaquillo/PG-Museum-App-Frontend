@@ -2,13 +2,13 @@ import { GET_ALL_GALLERY, GET_FIND_GALLERY, CATEGORIES, SORT_GALLERY } from '../
 
 const urlArtwork = process.env.REACT_APP_ARTWORK;
 const urlArtworkName = process.env.REACT_APP_ARTWORK_NAME;
-console.log(process.env)
+// console.log(process.env)
 //fetches the list of artworks - recibe la lista de piezas de arte
 export const getAllGallery = (id) => {
     return async function dispatch(dispatch) {
         const response = await fetch(`${urlArtwork}`);
         const json = await response.json();
-        console.log(id, json)
+        // console.log(id, json)
         dispatch({
             type: GET_ALL_GALLERY,
             payload: json
