@@ -1,4 +1,5 @@
-import { useSelector } from "react-redux"
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router";
 import { Link } from 'react-router-dom'
 import { BsFillXCircleFill } from "react-icons/bs";
@@ -6,12 +7,43 @@ import { MdShoppingBasket } from 'react-icons/md';
 import RatingFive from "../components/RatingFive";
 import './styles/Detail.css'
 import logo from '../images/logoapp.svg'
+import { localstorage } from '../redux/actions/storageActions'
+import { postProducts, totalProduct } from '../redux/actions/allProductsActions'
 
 const Detail = () => {
+    const { storage } = useSelector(state => state.storageReducer);
+    const dispatch = useDispatch();
     let { id } = useParams()
 
     const artworkDetail = useSelector(state => state.galleryReducer.allGallery);
     let artwork = artworkDetail.find(element => element.id === Number(id))
+
+
+    useEffect(() => {
+        // storing input name
+        localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
+        const allStorage = () => {
+
+            var values = []
+            var keys = Object.keys(localStorage)
+            var i = keys.length;
+
+            while (i--) {
+                values.push(JSON.parse(localStorage.getItem(keys[i])));
+            }
+
+            dispatch(postProducts(values));
+        }
+
+        allStorage()
+        dispatch(totalProduct())
+
+    }, [storage]);
+
+    const handleAddShop = () => {
+        let findGallery = artworkDetail.find(element => element.id === Number(id))
+        dispatch(localstorage(findGallery))
+    }
 
     return (<div className="detail">
         <div className='detail__content'>
@@ -28,7 +60,7 @@ const Detail = () => {
                             Department: <br />
                             Technique: <span>{artwork?.technique}</span>
                         </p>
-                        {/* <button className="detail__content--data--text--header--button"><MdShoppingBasket /> Add in card</button> */}
+                        <button className="detail__content--data--text--header--button" onClick={handleAddShop}><MdShoppingBasket /> Add in card</button>
                     </div>
                     <div className='detail__content--data--text--description'>
                         <p>{artwork?.description}</p>

@@ -51,7 +51,6 @@ const SignUp = () => {
             })
             .then(response => {
                 if (response.message) {
-                    console.log(response.message === "true");
                     if (response.message === "true") {
                         if (Object.keys(errors).length === 0 && errors.constructor === Object && user.username !== '') {
                             // e.preventDefault()
@@ -78,19 +77,20 @@ const SignUp = () => {
 
     }
 
-    // function processImage(e) {
-    //     const imageFile = e.target.files[0];
-    //     const imageUrl = new FileReader();
-    //     imageUrl?.readAsDataURL(imageFile)
-    //     imageUrl.onload = (e) => {
-    //         setUser({
-    //             ...user,
-    //             image: e.target.result
-    //         })
-    //     };
-    // };
+    function processImage(e) {
+        const imageFile = e.target.files[0];
+        const imageUrl = new FileReader();
+        imageUrl?.readAsDataURL(imageFile)
+        imageUrl.onload = (e) => {
+            console.log("e es ", e.target)
+            setUser({
+                ...user,
+                image: e.target.result
+            })
+        };
+    };
 
-
+    console.log(user)
 
     return (<div className='signup'>
         <div className="signup__header">
@@ -137,11 +137,13 @@ const SignUp = () => {
                     </div>
                     {errors.passwordbis && <p className="signup__body--inputs--errors">{errors.passwordbis}</p>}
 
-                    {/* <div className="signup__body--inputs--form--item">
-                        <input onChange={onInputChange} name="image" type='text' value={user.image}
-                            placeholder='Image' />
-                        <input onChange={(e) => processImage(e)} name="image" type="file" accept="image/*" />
-                    </div> */}
+                    <div className="signup__body--inputs--form--item">
+                        {/* <input onChange={onInputChange} name="image" type='text' value={user.image}
+                            placeholder='Image' /> */}
+                        <input onChange={(e) => processImage(e)} name="image" type="file" accept="image/*"
+                            placeholder="Select image"
+                        />
+                    </div>
                     <button className="signup__body--inputs--form--submit">Sign up</button>
                 </form>
             </div>

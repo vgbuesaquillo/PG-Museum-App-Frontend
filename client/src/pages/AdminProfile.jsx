@@ -13,13 +13,13 @@ function AdminProfile() {
 
     const user = cookies.get('session')
 
-    useEffect( ()=> {
-        if(!cookies.get("session")){
+    useEffect(() => {
+        if (!cookies.get("session")) {
             window.location.href = "./login";
         }
     })
 
-    const handleDeleteUser = ()=>{
+    const handleDeleteUser = () => {
 
         Swal.fire({
             title: "Are you sure?",
@@ -28,35 +28,35 @@ function AdminProfile() {
             buttons: true,
             dangerMode: true,
             showCancelButton: true,
-          })
-          .then((willDelete) => {
-            if (willDelete.isConfirmed) {
+        })
+            .then((willDelete) => {
+                if (willDelete.isConfirmed) {
 
-                fetch(`http://localhost:5040/users/${user.id}`,{
-                    method: 'DELETE',
-                    mode: 'cors',
-                    headers: {
+                    fetch(`http://localhost:5040/users/${user.id}`, {
+                        method: 'DELETE',
+                        mode: 'cors',
+                        headers: {
                             'x-access-token': `${user.accessToken}`,
                             'Content-Type': 'application/json',
                         },
                     }).then(response => {
-                        console.log(response);
+                        // console.log(response);
                         cookies.remove('session')
                         Swal.fire("Poof! Your account has been deleted successfully!", {
                             icon: "success",
-                        }).then(reload => { window.location.href = '/'})
+                        }).then(reload => { window.location.href = '/' })
 
                     }).catch(error => {
-                            console.log(error);
+                        console.log(error);
                     })
-            } else {
-              return null
-            }
-        });
+                } else {
+                    return null
+                }
+            });
     }
 
 
-    return(
+    return (
         <div className="admin-profile">
             <div className="admin-profile-top">
                 <div>
@@ -67,7 +67,7 @@ function AdminProfile() {
                         <h5>{user.email}</h5>
                         <button className="admin-profile-top-info-butt" onClick={handleDeleteUser}> Eliminar cuenta</button>
                     </div>
-                    <CgProfile/>
+                    <CgProfile />
                 </div>
             </div>
             <div className="admin-profile-bot">
@@ -79,8 +79,8 @@ function AdminProfile() {
                             <b>correo {' ' + user.email}</b>
                             <b>Tipo: {' ' + user.roles}</b>
                             <div>
-                              <Link to={'new'}> <Button secondary>New Product</Button></Link>
-                              <Link to={'product-list'}> <Button secondary>Product List</Button></Link>
+                                <Link to={'new'}> <Button secondary>New Product</Button></Link>
+                                <Link to={'product-list'}> <Button secondary>Product List</Button></Link>
                             </div>
                         </section>
                     </div>
@@ -117,7 +117,7 @@ function AdminProfile() {
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default AdminProfile;
