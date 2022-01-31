@@ -10,12 +10,16 @@ const initialState = {
 export default function adminProductsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ARTWORK:
-      // console.log(action.payload)
       return {
         ...state,
         fetchedArtwork: action.payload
       }
-
+    case POST_NEW_ARTWORK:
+      console.log(action.payload)
+      return {
+        ...state, 
+        sendArtwork: action.payload
+      }
     default:
       return state
   }

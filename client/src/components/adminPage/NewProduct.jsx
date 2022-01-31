@@ -1,36 +1,41 @@
 import Select from 'react-select'
 import { Button } from 'semantic-ui-react'
 import { useState } from 'react'
-
+import {useDispatch, useSelector} from 'react-redux'
+import { postNewArtwork } from '../../redux/actions/adminProductsActions'
 
 const NewProduct = () => {
-  //gets action type from url to display in title - toma el tipo de accion de la url para mostrar en el titulo
+  
+  const dispatch = useDispatch()
 
 
   const categoryOptions = [
-    { value: "painting", label: "Painting" },
-    { value: "sculpture", label: "Sculpture" },
-    { value: "ceramic", label: "Ceramic" },
-    { value: "textile", label: "Textile" }
+    { value: "1", label: "Painting" },
+    { value: "6", label: "Sculpture" },
+    { value: "4", label: "Ceramic" },
+    { value: "9", label: "Textile" }
   ]
 
   //form state - state del form
   const [formInfo, setFormInfo] = useState({
     title: "",
+    technique:"",
+    culture:"",
     creation_date: "",
     current_location: "",
     collection: "",
     price: "",
-    categories: [],
+    types: [],
     stock: true,
-    image: null,
+    images: null,
     description: ""
   })
 
   //
   const handleSubmit = e => {
     e.preventDefault()
-    console.log("form submitted")
+    
+    dispatch(postNewArtwork(formInfo))
   }
 
   //handles every change but submit's - maneja todo change excepto el del select
@@ -44,29 +49,33 @@ const NewProduct = () => {
 
   //handles changes on submit, adds to state - maneja los cambios en el submit, añade al state
   const handleSelectChange = e => {
-    let valueArr = e.map(el => el.value)
     setFormInfo({
       ...formInfo,
-      categories: valueArr
+      types: [e.value]
     })
   }
 
-  const handleImageChange = e => {
+  const handleImagesChange = e => {
     if (e.target.files && e.target.files.length > 0) {
       setFormInfo({
         ...formInfo,
-        image: e.target.files[0]
+        images: URL.createObjectURL(e.target.files[0])
       })
     }
-
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ margin: "50px auto" }}>
+    <form encType="multipart/form-data" onSubmit={handleSubmit} style={{ margin: "50px auto" }}>
       <h2>New product</h2>
 
       <label htmlFor="title">Title</label>
       <input type="text" name='title' onChange={handleChange} />
+
+      <label htmlFor="technique">Technique</label>
+      <input type="text" name='technique' onChange={handleChange} />
+
+      <label htmlFor="culture">Culture</label>
+      <input type="text" name='culture' onChange={handleChange} />
 
       <label htmlFor="creation_date">Creation Date</label>
       <input type="text" name='creation_date' onChange={handleChange} />
@@ -80,23 +89,22 @@ const NewProduct = () => {
       <label htmlFor="price">Price</label>
       <input type="text" name='price' onChange={handleChange} />
 
-      <label htmlFor="categories">Categories</label>
+      <label htmlFor="type">Type</label>
       <Select
         onChange={handleSelectChange}
-        isMulti
-        name="categories"
+        name="type"
         options={categoryOptions}
         className="basic-multi-select"
         classNamePrefix="select"
       />
 
       <div style={{ width: "150px", height: "200px", border: "1px solid black", margin:"20px auto", overflow:"hidden" }}>
-        {formInfo.image !== null ? (
-          <img src={URL.createObjectURL(formInfo.image)} alt="" style={{ width: "100%", objectFit: "contain", objectPosition: "center center" }} />
+        {formInfo.images !== null ? (
+          <img src={formInfo.images} alt="" style={{ width: "100%", objectFit: "contain", objectPosition: "center center" }} />
         ) : null}
       </div>
-      <label htmlFor="image">Image</label>
-      <input accept='image/*' type="file" name="image" onChange={handleImageChange} />
+      <label htmlFor="images">Images</label>
+      <input accept='image/*' type="file" name="image" onChange={handleImagesChange} />
 
 
       <label htmlFor="description">Description</label> 

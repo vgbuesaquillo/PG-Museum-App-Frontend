@@ -77,6 +77,7 @@ const SignUp = () => {
 
     }
 
+  
     // function processImage(e) {
     //     const imageFile = e.target.files[0];
     //     const imageUrl = new FileReader();
@@ -94,7 +95,7 @@ const SignUp = () => {
         setUser({...user, image: URL.createObjectURL(e.target.files[0])})
     }
 
-    console.log(user)
+    // console.log(user)
 
     return (<div className='signup'>
         <div className="signup__header">

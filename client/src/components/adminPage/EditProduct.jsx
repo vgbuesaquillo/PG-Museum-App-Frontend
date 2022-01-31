@@ -16,22 +16,24 @@ const EditProduct = () => {
   const fa = useSelector(state => state.adminProductsReducer.fetchedArtwork)
 
   const categoryOptions = [
-    { value: "painting", label: "Painting" },
-    { value: "sculpture", label: "Sculpture" },
-    { value: "ceramic", label: "Ceramic" },
-    { value: "textile", label: "Textile" }
+    { value: "1", label: "Painting" },
+    { value: "6", label: "Sculpture" },
+    { value: "4", label: "Ceramic" },
+    { value: "9", label: "Textile" }
   ]
 
   //form state - state del form
   const [formInfo, setFormInfo] = useState({
     title: "",
+    technique:"",
+    culture:"",
     creation_date: "",
     current_location: "",
     collection: "",
     price: "",
-    categories: [],
-    stock: null,
-    image: null,
+    types: [],
+    stock: true,
+    images: null,
     description: ""
   })
 
@@ -100,6 +102,13 @@ const EditProduct = () => {
 
       <label htmlFor="title">Title</label>
       <input type="text" defaultValue={fa?.title} name='title' onChange={handleChange} />
+
+      
+      <label htmlFor="technique">Technique</label>
+      <input type="text" name='technique' defaultValue={fa?.technique} onChange={handleChange} />
+
+      <label htmlFor="culture">Culture</label>
+      <input type="text" name='culture' defaultValue={fa?.culture} onChange={handleChange} />
 
       <label htmlFor="creation_date">Creation Date</label>
       <input type="text" defaultValue={fa?.creation_date} name='creation_date' onChange={handleChange} />
