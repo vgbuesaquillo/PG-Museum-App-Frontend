@@ -42,11 +42,11 @@ function Login() {
     
     const [error, setError] = useState({});
     
-    const [loginData, setLoginData] = useState(
-        localStorage.getItem('loginData')
-        ? JSON.parse(localStorage.getItem('loginData'))
-            : null
-    );
+//     const [loginData, setLoginData] = useState(
+//         localStorage.getItem('loginData')
+//         ? JSON.parse(localStorage.getItem('loginData'))
+//             : null
+//     );
     // const  [user, setUser] = useState(null); 
 
     useEffect(() => {
@@ -96,9 +96,10 @@ function Login() {
         console.log(googleData);
         console.log(res);
         const data = await res.json();
-        setLoginData(data);
-        localStorage.setItem('loginData', JSON.stringify(data));
+//         setLoginData(data);
+//         localStorage.setItem('loginData', JSON.stringify(data));
         cookies.set("session", JSON.stringify(data));
+        window.location.href = '/'
     }
 
     const handleFailure = (response) => {
@@ -106,8 +107,8 @@ function Login() {
     }
 
     const handleLogout = () => {
-        localStorage.removeItem('loginData');
-        setLoginData(null);
+//         localStorage.removeItem('loginData');
+//         setLoginData(null);
         cookies.remove('session')
         window.location.href = '/'
     }
