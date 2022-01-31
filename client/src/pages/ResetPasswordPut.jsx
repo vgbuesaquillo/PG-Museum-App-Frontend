@@ -4,13 +4,13 @@ import { useDispatch } from 'react-redux'
 import { NavLink, useNavigate } from "react-router-dom"
 // import { resetPasswordPost } from '../redux/actions/userActions'
 import './styles/ResetPasswordPut.css'
-// import axios from 'axios';
+import axios from 'axios';
 
 
 import validate from '../utils/validatePassword'
 
 const ResetPasswordPut = () => {
-    const url = process.env.REACT_APP_SIGNUP;
+    const url = process.env.REACT_APP_URL;
     let navigate = useNavigate();
     const [input, setInput] = useState({
         password: '',
@@ -23,16 +23,21 @@ const ResetPasswordPut = () => {
         try {
             if (Object.keys(errors).length === 0 && errors.constructor === Object && input.password !== '') {
                 e.preventDefault()
-                // axios.post(`${url}`, postUser)
-                //     .catch((error) => {
-                //         // Falta validación específica del error o mensaje de cual fue el error
-                //         console.log(error)
-                //     })
+                axios.post(`${url}/reset-password`, { password: input.password })
+                    .then((response) => {
+                        return response.data
+                    })
+                    .then(response => {
+                        alert(response.message)
+                        navigate('/login');
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
                 alert("Successfully update password")
                 navigate('/login');
             } else {
                 alert("Missing fields in the form")
-                // navigate('/signup');
             }
         }
         catch (error) {
