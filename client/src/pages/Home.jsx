@@ -49,7 +49,7 @@ const Home = () => {
                 <div className='galleryGrid'>
                     {
                         currentGalleries.map(art => {
-                        return <GalleryCard img={art.images} title={art.title} 
+                        return <GalleryCard img={art.images} title={art.title.length > 20 ? art.title.slice(0,30) + "..." : art.title} 
                             price={art. price} id={art.id} key={art.id} />
                         })
                     }

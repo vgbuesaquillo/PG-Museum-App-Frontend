@@ -3,7 +3,7 @@ import { Link, useResolvedPath, useMatch } from 'react-router-dom'
 import { Modal, Button, List, Avatar, Skeleton } from 'antd';
 import Cookies from 'universal-cookie'
 import './styles/NavBar.css'
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css'
 import {MdOutlineFavorite, MdHomeFilled, MdStore, MdOutlineLogout, MdAddBox} from 'react-icons/md'
 import image from '../images/Group 1.svg'
 import {RiFlashlightFill} from 'react-icons/ri'
@@ -33,16 +33,13 @@ const NavBar = () => {
   const users = process.env.REACT_APP_USERS;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [state, setState] = useState()
+  const [ok, setOk] = useState(null) 
 
   useEffect(() => {
-    fetch(`${users}`,{
-      headers: {
-        'x-access-token': `${user?.accessToken}`
-      }
-    })
+    fetch(`${users}`)
     .then(data => data.json())
     .then(result => setState(result))
-  },[])
+  },[isModalVisible, ok])
   
   const showModal = () => {
     setIsModalVisible(true);
@@ -57,6 +54,18 @@ const NavBar = () => {
     window.location.href = '/'
   }
 
+  const userToAdmin = () => {
+    
+  }
+
+  const deleteUser = (e) => {
+    fetch(`http://localhost:5040/user/delete/${e}`, {
+      method: 'DELETE'
+    })
+    .then(data => data.json())
+    .then(result => result ? setOk(e): null)
+  }
+
     return (
       <div className='navbar'>
             <div className='navbar__content'>
@@ -64,8 +73,12 @@ const NavBar = () => {
                 <div className='navigations'>
                     <div className='navigations--routes'>
                       <CustomLink to='/'><MdHomeFilled/></CustomLink>
-                      <CustomLink to='/store'><MdStore/></CustomLink>
-                      <CustomLink to='/favorite'><MdOutlineFavorite/></CustomLink> 
+                      {
+                        !user?.roles.includes('ROLE_ADMIN') ? 
+                        <CustomLink to='/store'><MdStore/></CustomLink> : null
+                      }
+                      {/* <CustomLink to='/favorite'><MdOutlineFavorite/></CustomLink>  */}
+                      
                     </div>
 
                     <div className='navigations--functions-admin'>
@@ -84,7 +97,7 @@ const NavBar = () => {
                             dataSource={state?.data?.filter(admin => admin.username !== 'admin')}
                             renderItem={item => (
                               <List.Item
-                                actions={[<Button key="list-loadmore-edit" type="link" danger>delete</Button>, <Button key="list-loadmore-more" type="link">convert admin</Button>]}
+                                actions={[<Button key="list-loadmore-edit" type="link" danger onClick={() => deleteUser(item.id)}>delete</Button>, <Button key="list-loadmore-more" type="link" onClick={userToAdmin}>convert admin</Button>]}
                               >
                                 <Skeleton avatar title={false} loading={item.loading} active>
                                   <List.Item.Meta

@@ -18,7 +18,7 @@ const SignUp = () => {
         password: '',
         passwordbis: '',
         image: '',
-        roles: ["admin"]
+        roles: ["user"]
     });
 
     const [errors, setErrors] = useState({})
@@ -77,18 +77,22 @@ const SignUp = () => {
 
     }
 
-    function processImage(e) {
-        const imageFile = e.target.files[0];
-        const imageUrl = new FileReader();
-        imageUrl?.readAsDataURL(imageFile)
-        imageUrl.onload = (e) => {
-            console.log("e es ", e.target)
-            setUser({
-                ...user,
-                image: e.target.result
-            })
-        };
-    };
+    // function processImage(e) {
+    //     const imageFile = e.target.files[0];
+    //     const imageUrl = new FileReader();
+    //     imageUrl?.readAsDataURL(imageFile)
+    //     imageUrl.onload = (e) => {
+    //         console.log("e es ", e.target)
+    //         setUser({
+    //             ...user,
+    //             image: e.target.result
+    //         })
+    //     };
+    // };
+
+    const processImage = (e) => {
+        setUser({...user, image: URL.createObjectURL(e.target.files[0])})
+    }
 
     console.log(user)
 

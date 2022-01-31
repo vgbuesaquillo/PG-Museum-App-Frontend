@@ -8,6 +8,7 @@
   box-sizing: border-box;
   align-items: center;
   /* backdrop-filter: blur(10px); */
+  z-index: 2;
 }
 
 .topbar__content {
