@@ -7,10 +7,10 @@ styleLink.href =
   "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
 document.head.appendChild(styleLink);
 
-const RatingFive = () =>
+const RatingFive = (props) =>
   <div>
     <br />
-    <Rating icon='star' defaultRating={3}
+    <Rating icon='star' defaultRating={props.rating}
       maxRating={5} size='huge' clearable />
   </div>
 
