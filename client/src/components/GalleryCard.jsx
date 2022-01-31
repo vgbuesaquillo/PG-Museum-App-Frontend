@@ -6,12 +6,18 @@ import { localstorage } from '../redux/actions/storageActions'
 import { postProducts, totalProduct } from '../redux/actions/allProductsActions'
 import { NavLink } from 'react-router-dom';
 import Img from "react-cool-img";
+import Cookies from "universal-cookie";
+import { Card, Button} from 'antd';
+import 'antd/dist/antd.min.css'
 
 
 const GalleryCard = (props) => {
     const dispatch = useDispatch();
     const artworkShop = useSelector(state => state.galleryReducer.allGallery);
     const { storage } = useSelector(state => state.storageReducer);
+    const { Meta } = Card;
+    const cookies = new Cookies();
+    const user = cookies.get('session')
 
     useEffect(() => {
         // storing input name
@@ -41,29 +47,29 @@ const GalleryCard = (props) => {
     }
 
     return (
-        <div className='gallery_card'>
-            <NavLink to={`/${props.id}`}>
-                <div className='card__img'>
-                    <Img
-                        src={props.img}
-                        alt={props.title}
-                        className='card__img-avatar'
-                    />
-                </div>
+        <Card
+            style={{ width: 230 }}
+            cover={
+                <Img
+                alt="example"
+                src={props.img}
+                className='card__img-avatar'
+                />
+            }
+            actions={
+                !user?.roles.includes('ROLE_ADMIN') ? [
+                <Button onClick={handleAddShop} type="text"><MdShoppingBag style={{fontSize: '18px', color: '#A3DA8D'}}/></Button>,
+                <Button onClick={handleAddShop} type="text"><MdOutlineFavorite style={{fontSize: '18px', color: '#FF5959'}}/></Button>
+                ] : null } 
+            >
+            <NavLink to={`/${props.id}`} >
+            <Meta
+                // avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                title={props.title}
+                description={<span className='gallery_card-price'>$ {props.price}</span>}
+                />
             </NavLink>
-            <NavLink to={`/${props.id}`} className='gallery_card-router'>
-                <label className='gallery_card-title'>
-                    {props.title}
-                </label>
-            </NavLink>
-            <div className='gallery_card-actions'>
-                <span className='gallery_card-price'>$ {props.price}</span>
-                <div className='gallery_card-functions'>
-                    <MdShoppingBag onClick={handleAddShop} />
-                    {/* <MdOutlineFavorite /> */}
-                </div>
-            </div>
-        </div>
+        </Card>
     );
 }
 
