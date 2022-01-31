@@ -6,15 +6,16 @@ import { CgProfile } from 'react-icons/cg';
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import CategoriesAdmin from '../components/adminPage/CategoriesAdmin';
 
 const cookies = new Cookies();
 
 function AdminProfile() {
 
     const user = cookies.get('session');
-    var aja = user.username 
+    var aja = user.username
     var bandera = false
-    aja.slice(aja.length-10,aja.length)==='@gmail.com'? bandera = true: console.log(bandera)
+    aja.slice(aja.length - 10, aja.length) === '@gmail.com' ? bandera = true : console.log(bandera)
     console.log(user)
     useEffect(() => {
         if (!cookies.get("session")) {
@@ -58,7 +59,7 @@ function AdminProfile() {
             });
     }
 
-    const DeleteUserGoogle = ()=>{
+    const DeleteUserGoogle = () => {
 
         Swal.fire({
             title: "Are you sure?",
@@ -67,17 +68,17 @@ function AdminProfile() {
             buttons: true,
             dangerMode: true,
             showCancelButton: true,
-          })
-          .then((willDelete) => {
-            if (willDelete.isConfirmed) {
+        })
+            .then((willDelete) => {
+                if (willDelete.isConfirmed) {
 
-                fetch(`http://localhost:5040/delete/google/${user.id}`,{
-                    method: 'DELETE',
-                    mode: 'cors',
-                    body: JSON.stringify({
-                        id: user.id,
-                    }),
-                    headers: {
+                    fetch(`http://localhost:5040/delete/google/${user.id}`, {
+                        method: 'DELETE',
+                        mode: 'cors',
+                        body: JSON.stringify({
+                            id: user.id,
+                        }),
+                        headers: {
                             // 'x-access-token': `${user.accessToken}`,
                             'Content-Type': 'application/json',
                         },
@@ -86,15 +87,15 @@ function AdminProfile() {
                         cookies.remove('session')
                         Swal.fire("Poof! Your account has been deleted successfully!", {
                             icon: "success",
-                        }).then(reload => { window.location.href = '/'})
+                        }).then(reload => { window.location.href = '/' })
 
                     }).catch(error => {
-                            console.log(error);
+                        console.log(error);
                     })
-            } else {
-              return null
-            }
-        });
+                } else {
+                    return null
+                }
+            });
     }
 
 
@@ -107,7 +108,7 @@ function AdminProfile() {
                 <div className="admin-profile-top-info">
                     <div >
                         <h5>{user.email}</h5>
-                        <button className="admin-profile-top-info-butt" onClick={bandera? DeleteUserGoogle: handleDeleteUser}> Eliminar cuenta</button>
+                        <button className="admin-profile-top-info-butt" onClick={bandera ? DeleteUserGoogle : handleDeleteUser}> Eliminar cuenta</button>
                     </div>
                     <CgProfile />
                 </div>
@@ -122,17 +123,18 @@ function AdminProfile() {
                             <b>correo {' ' + user.email}</b>
                             <b>Tipo: {' ' + user.roles}</b>
                             {console.log(user)}
-                            { 
-                                user.roles[0] === "ROLE_ADMIN"? <div>
-                                        <Link to={'new'}> <Button secondary>New Product</Button></Link>
-                                        <Link to={'product-list'}> <Button secondary>Product List</Button></Link>
-                                    </div>: null
+                            {
+                                user.roles[0] === "ROLE_ADMIN" ? <div>
+                                    <Link to={'new'}> <Button secondary>New Product</Button></Link>
+                                    <Link to={'product-list'}> <Button secondary>Product List</Button></Link>
+                                </div> : null
                             }
-                            
+
                         </section>
                     </div>
                     <div className="admin-box">
                         <section className="admin-box-at">
+                            <CategoriesAdmin />
                             <b>...</b>
 
                             <br />
