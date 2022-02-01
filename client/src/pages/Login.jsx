@@ -14,13 +14,12 @@ import { NavLink } from 'react-router-dom';
 // const singin = "http://localhost:5040/auth/signin";
 const singin = process.env.REACT_APP_SIGNIN;
 const singinGoogle = process.env.REACT_APP_SIGNIN_GOOGLE;
-const cookies = new Cookies();
 
 function validate(input) {
     let err = {};
     // if (!input.email) {
         //     err.email = 'required email ';  
-    // } else if(!/\S+@\S+\.\S+/.test(input.email)){
+        // } else if(!/\S+@\S+\.\S+/.test(input.email)){
         //     err.email = 'email invalid'
         // }
         if (!input.password) {
@@ -28,8 +27,8 @@ function validate(input) {
         }
         else if (!/(?=.*[0-9])/.test(input.password)) {
             err.password = 'password invalid'
-    }
-    return err
+        }
+        return err
 }
 
 function Login() {
@@ -43,14 +42,14 @@ function Login() {
     const [error, setError] = useState({});
     
     const [loginData, setLoginData] = useState(
-        localStorage.getItem('loginData')
+        localStorage?.getItem('loginData')
         ? JSON.parse(localStorage.getItem('loginData'))
             : null
     );
     // const  [user, setUser] = useState(null); 
 
     useEffect(() => {
-        if (cookies.get("session")) {
+        if (localStorage.getItem("session")) {
             window.location.href = "/";
         }
     })
@@ -61,8 +60,8 @@ function Login() {
         await axios.post(`${singin}`, input)
         .then((response) => {
             console.log(response.data);
-            cookies.set("session", response.data);
-            window.location.href = '/';
+            localStorage.setItem('session', JSON.stringify([response.data]))
+            window.location.href = '/'
         })
         .catch(error =>{
             alert('Usuario o contraseña son incorrectos')

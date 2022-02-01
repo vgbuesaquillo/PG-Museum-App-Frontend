@@ -7,12 +7,13 @@ import 'antd/dist/antd.min.css'
 import {MdOutlineFavorite, MdHomeFilled, MdStore, MdOutlineLogout, MdAddBox} from 'react-icons/md'
 import image from '../images/Group 1.svg'
 import {RiFlashlightFill} from 'react-icons/ri'
+import Swal from 'sweetalert2'
 
 
 function CustomLink({ children, to, ...props }) {
     let resolved = useResolvedPath(to);
     let match = useMatch({ path: resolved.pathname, end: true });
-  
+
     return (
       <div>
         <Link
@@ -29,18 +30,18 @@ function CustomLink({ children, to, ...props }) {
 const NavBar = () => {
 
   const cookies = new Cookies();
-  const user = cookies.get('session')
   const users = process.env.REACT_APP_USERS;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [state, setState] = useState()
-  const [ok, setOk] = useState(null) 
+  const [ok, setOk] = useState(null)
+  const user = localStorage?.session ? JSON.parse(localStorage.session) : null
 
   useEffect(() => {
     fetch(`${users}`)
     .then(data => data.json())
     .then(result => setState(result))
   },[isModalVisible, ok])
-  
+
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -48,22 +49,80 @@ const NavBar = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  
+
   const handleLogout = () => {
-    cookies.remove('session')
+    localStorage.removeItem('session')
     window.location.href = '/'
   }
 
-  const userToAdmin = () => {
+  const handleAdmin = { roles: ["admin"]}
+  const userToAdmin = (id) => {
+    // console.log(id);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Convert to Admin'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5040/user/put/${id}`,{
+          method: 'PUT',
+          body: JSON.stringify(handleAdmin),
+          headers:{
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(data => data.json())
+        .then(result => result ?
+          Swal.fire(
+            'User converted!',
+            `${result.message}`,
+            'success'
+          ).then(result => setOk(id)) :
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!'
+          })
+        
+        )
+      }
+    })
     
   }
 
-  const deleteUser = (e) => {
-    fetch(`http://localhost:5040/user/delete/${e}`, {
+  const deleteUser = (id) => {
+    fetch(`http://localhost:5040/user/delete/${id}`, {
       method: 'DELETE'
     })
     .then(data => data.json())
-    .then(result => result ? setOk(e): null)
+    .then(result => result ? 
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Deleted!',
+            'User has been deleted.',
+            'success'
+          ).then(result => setOk(id))
+        }
+      }) :
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!'
+      })
+    )
   }
 
     return (
@@ -74,30 +133,34 @@ const NavBar = () => {
                     <div className='navigations--routes'>
                       <CustomLink to='/'><MdHomeFilled/></CustomLink>
                       {
-                        !user?.roles.includes('ROLE_ADMIN') ? 
-                        <CustomLink to='/store'><MdStore/></CustomLink> : null
+                        user !== null ? !user[0]?.roles?.includes('ROLE_ADMIN') ?
+                        <CustomLink to='/store'><MdStore/></CustomLink> : null : <CustomLink to='/store'><MdStore/></CustomLink>
                       }
                       {/* <CustomLink to='/favorite'><MdOutlineFavorite/></CustomLink>  */}
-                      
+
                     </div>
 
                     <div className='navigations--functions-admin'>
                       {
-                        user?.roles.includes('ROLE_ADMIN') ? 
-                        <Button type="link" icon={<MdAddBox style={{ fontSize: '28px'}} />} danger/> : null
+                        user !== null ? user[0]?.roles?.includes('ROLE_ADMIN') ?
+                        <Button type="link" icon={<MdAddBox style={{ fontSize: '28px'}} />} danger/> : null : null
                       }
                       {
-                        user?.roles.includes('ROLE_ADMIN') ? 
+                        user !== null ? user[0]?.roles?.includes('ROLE_ADMIN') ?
                         <div>
                         <Button onClick={showModal} type="link" icon={<RiFlashlightFill style={{ fontSize: '28px'}} />} danger/>
                         <Modal title="Users List" visible={isModalVisible} onCancel={handleCancel} footer={null}>
                           <List
                             className="demo-loadmore-list"
                             itemLayout="horizontal"
+                            // FALTA VALIDAR PARA SACAR A TODOS LOS ADMINS DE ESTA LISTA Y QUE EL BOTON CONVERT ADMIN YA NO SE VUELVA A CLICKEAR
                             dataSource={state?.data?.filter(admin => admin.username !== 'admin')}
                             renderItem={item => (
                               <List.Item
-                                actions={[<Button key="list-loadmore-edit" type="link" danger onClick={() => deleteUser(item.id)}>delete</Button>, <Button key="list-loadmore-more" type="link" onClick={userToAdmin}>convert admin</Button>]}
+                                actions={[
+                                  <Button key="list-loadmore-edit" type="link" danger onClick={() => deleteUser(item.id)}>delete</Button>, 
+                                  <Button key="list-loadmore-more" type="link" onClick={() => userToAdmin(item.id)}>convert admin</Button>
+                                ]}
                               >
                                 <Skeleton avatar title={false} loading={item.loading} active>
                                   <List.Item.Meta
@@ -109,7 +172,7 @@ const NavBar = () => {
                             )}
                           />
                         </Modal>
-                      </div> : null 
+                      </div> : null : null
                       }
                     </div>
 
@@ -118,7 +181,7 @@ const NavBar = () => {
 
                 <div>
                   {
-                    cookies.get('session') ?
+                    localStorage?.session ?
                     <Button onClick={handleLogout} icon={<MdOutlineLogout style={{ fontSize: '28px', color: '#1572A1'}}/> } type="link"/> : null
                   }
                 </div>
