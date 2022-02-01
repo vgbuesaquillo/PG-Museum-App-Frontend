@@ -7,6 +7,7 @@ export const LOCALSTORAGE = 'LOCALSTORAGE'
 
 //Categories action types
 export const CATEGORIES = 'CATEGORIES'
+export const TYPES = 'TYPES'
 
 //Products action types
 export const POST_PRODUCTS = 'POST_PRODUCTS'
