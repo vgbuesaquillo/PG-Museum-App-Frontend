@@ -19,3 +19,6 @@ export const SORT_GALLERY = "SORT_GALLERY"
 export const POST_NEW_ARTWORK = "POST_NEW_ARTWORK"
 export const GET_ARTWORK = "GET_ARTWORK"
 export const PUT_ARTWORK = "PUT_ARTWORK"
+
+//Reviews action types
+export const POST_REVIEW = "POST_REVIEW"

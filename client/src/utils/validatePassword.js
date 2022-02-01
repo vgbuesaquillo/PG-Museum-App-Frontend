@@ -2,7 +2,7 @@ export default function validatePassword(user) {
     let errors = {};
     if (!user.password) {
         errors.password = "Password is required"
-    } else if (!/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/.test(user.password)) {
+    } else if (!/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*-_:|/])(?=.{8,})/.test(user.password)) {
         errors.password = "Password need to be eight characters or more; must have at least one digit, one special symbol or one uppercase character"
     }
 
