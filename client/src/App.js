@@ -32,6 +32,7 @@ function App() {
         <Route path="/Admin/edit-product/:id" element={<> <NavBar /><EditProduct/> </>} />
         <Route path="/Admin/product-list" element={<> <NavBar /> <ProductList /> </>} />
 
+        <Route path="/User/:id" element={<> <NavBar /><AdminProfile /></>} />
         
 
         <Route path="/store" element={<> <NavBar /><Store reducer={"allProductsReducer"} property={"allproducts"} title={"My Cart"} /></>} />
