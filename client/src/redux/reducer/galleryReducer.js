@@ -1,7 +1,8 @@
-import { GET_ALL_GALLERY, GET_FIND_GALLERY, CATEGORIES, SORT_GALLERY } from '../types'
+import { GET_ALL_GALLERY, GET_FIND_GALLERY, CATEGORIES, SORT_GALLERY, TYPES } from '../types'
 
 const initialState = {
-  allGallery: []
+  allGallery: [],
+  types: []
 }
 
 export default function galleryReducer(state = initialState, action) {
@@ -17,6 +18,11 @@ export default function galleryReducer(state = initialState, action) {
       return {
         ...state,
         allGallery: action.payload
+      }
+    case TYPES:
+      return {
+        ...state,
+        types: action.payload
       }
 
     case CATEGORIES:

@@ -67,7 +67,7 @@ const Detail = () => {
                     </div>
                 </div>
             </div>
-            {/* <div className='detail__content--comment'>
+            <div className='detail__content--comment'>
                 <div className='detail__content--comment--stars'>
                     <div className='detail__content--comment--stars--title'>
                         <h5>Comments</h5>
@@ -82,12 +82,12 @@ const Detail = () => {
                             <p>
                                 Awesone art picture, I buy <br />
                             </p>
-                            <RatingFive />
+                            <RatingFive rating={artwork?.ratings[0].rating}/>
                         </div>
-
-
                     </div>
                 </div>
+
+{/* 
                 <div className='detail__content--comment--write'>
                     <div className="detail__content--comment--write--img">
                         <img src={artwork?.images} alt="#"
@@ -97,8 +97,8 @@ const Detail = () => {
                     <p className="detail__content--comment--write--text">
                         <input type="text" placeholder="Write a comment" />
                     </p>
-                </div>
-            </div> */}
+                </div> */}
+            </div>
         </div>
     </div>);
 }
