@@ -11,8 +11,7 @@ import Cookies from 'universal-cookie'
 import { NavLink } from 'react-router-dom';
 
 
-// const singin = "http://localhost:5040/auth/signin";
-const singin = process.env.REACT_APP_SIGNIN;
+const singin = process.env.REACT_APP_URL;
 const singinGoogle = process.env.REACT_APP_SIGNIN_GOOGLE;
 const cookies = new Cookies();
 
@@ -34,18 +33,19 @@ function validate(input) {
 
 function Login() {
 
+    const cookies = new Cookies();
     const [input, setInput] = useState({
         username: '',
         password: ''
     });
 
     const [error, setError] = useState({});
-
-    const [loginData, setLoginData] = useState(
-        localStorage.getItem('loginData')
-            ? JSON.parse(localStorage.getItem('loginData'))
-            : null
-    );
+    
+//     const [loginData, setLoginData] = useState(
+//         localStorage.getItem('loginData')
+//         ? JSON.parse(localStorage.getItem('loginData'))
+//             : null
+//     );
     // const  [user, setUser] = useState(null); 
 
     useEffect(() => {
@@ -57,19 +57,14 @@ function Login() {
     //* COMPLETE FUNCTION
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post(`${singin}`, input)
+        await axios.post(`${singin}/auth/signin`, input)
             .then((response) => {
-                return response.data
+                console.log(response.data);
+                cookies.set("session", response.data);
+                window.location.href = '/';
             })
-            .then(response => {
-                console.log(response);
-                if (response) {
-                    cookies.set("session", response);
-                    window.location.href = '/';
-                } else {
-                    alert("Usuario o contraseña incorrectos...")
-                }
-
+            .catch(error => {
+                alert('Usuario o contraseña son incorrectos')
             })
     }
 
@@ -85,7 +80,7 @@ function Login() {
         }));
 
     }
-    
+
     const handleLoginGoogle = async (googleData) => {
         const res = await fetch(`${singinGoogle}`, {
             method: 'POST',
@@ -100,9 +95,10 @@ function Login() {
         console.log(googleData);
         console.log(res);
         const data = await res.json();
-        setLoginData(data);
-        localStorage.setItem('loginData', JSON.stringify(data));
+//         setLoginData(data);
+//         localStorage.setItem('loginData', JSON.stringify(data));
         cookies.set("session", JSON.stringify(data));
+        window.location.href = '/'
     }
 
     const handleFailure = (response) => {
@@ -110,8 +106,8 @@ function Login() {
     }
 
     const handleLogout = () => {
-        localStorage.removeItem('loginData');
-        setLoginData(null);
+//         localStorage.removeItem('loginData');
+//         setLoginData(null);
         cookies.remove('session')
         window.location.href = '/'
     }
@@ -158,7 +154,7 @@ function Login() {
                         </h4>
                         <div className='contenedor_submit'>
                             <input type="submit" className='boton_log' />
-  
+
                             <div className='bott_google'>
                                 <GoogleLogin
                                     clientId="359276887661-52enkr7gjhn5m9hm3e3t45jumqjnfnvj.apps.googleusercontent.com"
@@ -166,7 +162,7 @@ function Login() {
                                     onSuccess={handleLoginGoogle}
                                     onFailure={handleFailure}
                                     cookiePolicy={'single_host_origin'}
-                                /> 
+                                />
                             </div>
 
                         </div>

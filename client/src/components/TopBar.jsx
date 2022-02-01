@@ -5,7 +5,7 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { useDispatch, useSelector } from 'react-redux'
 import { getFindGallery, getAllGallery } from '../redux/actions/galleryActions'
 import "./styles/TopBar.css";
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css'
 import { Button, Avatar } from 'antd';
 import { RiShoppingBag3Fill } from 'react-icons/ri';
 import {CgProfile} from 'react-icons/cg';
@@ -43,7 +43,6 @@ function TopBar() {
     const handleOnClear = () => {
         dispatch(getAllGallery())
     }
-    console.log(login);
 
     return (
         <div className="topbar">
@@ -76,12 +75,15 @@ function TopBar() {
                             <div style={{ width: "200px" }}></div>
                         </div>
                     </div>
-                    <div className='cart' style={{ color: total < 500000 ? 'green' : 'red'}}>
-                        <div className='cart__content'>
-                            <RiShoppingBag3Fill className='cart__icon' />
-                            <span>${total}</span>
-                        </div>
-                    </div>
+                    {
+                        !login?.roles.includes('ROLE_ADMIN') ?
+                        <div className='cart' style={{ color: total < 500000 ? 'green' : 'red'}}>
+                            <div className='cart__content'>
+                                <RiShoppingBag3Fill className='cart__icon' />
+                                <span>${total}</span>
+                            </div>
+                        </div> : null
+                    }
                 </div>
                 {/* <SortInput /> */}
                 <div className='loginButtons'>

@@ -9,8 +9,7 @@ import axios from 'axios';
 
 const SignUp = () => {
     let navigate = useNavigate();
-    const urlUp = process.env.REACT_APP_SIGNUP;
-    const urlSearch = process.env.REACT_APP_SEARCH;
+    const url = process.env.REACT_APP_URL;
     const [user, setUser] = useState({
         name: '',
         username: '',
@@ -36,7 +35,7 @@ const SignUp = () => {
     }
 
     function register(postUser) {
-        axios.post(`${urlUp}`, postUser)
+        axios.post(`${url}/auth/signup`, postUser)
             .catch((error) => {
                 // Falta validación específica del error o mensaje de cual fue el error
                 console.log(error)
@@ -45,7 +44,7 @@ const SignUp = () => {
 
     function onSubmit(e) {
         e.preventDefault()
-        axios.get(`${urlSearch}?email=${user.email}&username=${user.username}`, user)
+        axios.get(`${url}/users/search?email=${user.email}&username=${user.username}`, user)
             .then((response) => {
                 return response.data
             })
@@ -77,18 +76,23 @@ const SignUp = () => {
 
     }
 
-    function processImage(e) {
-        const imageFile = e.target.files[0];
-        const imageUrl = new FileReader();
-        imageUrl?.readAsDataURL(imageFile)
-        imageUrl.onload = (e) => {
-            // console.log("e es ", e.target)
-            setUser({
-                ...user,
-                image: e.target.result
-            })
-        };
-    };
+  
+    // function processImage(e) {
+    //     const imageFile = e.target.files[0];
+    //     const imageUrl = new FileReader();
+    //     imageUrl?.readAsDataURL(imageFile)
+    //     imageUrl.onload = (e) => {
+    //         console.log("e es ", e.target)
+    //         setUser({
+    //             ...user,
+    //             image: e.target.result
+    //         })
+    //     };
+    // };
+
+    const processImage = (e) => {
+        setUser({...user, image: URL.createObjectURL(e.target.files[0])})
+    }
 
     // console.log(user)
 
