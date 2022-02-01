@@ -10,7 +10,7 @@ import axios from 'axios';
 
 const ResetPasswordPost = () => {
     let navigate = useNavigate();
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const url = process.env.REACT_APP_URL
     const [input, setInput] = useState({
         email: '',

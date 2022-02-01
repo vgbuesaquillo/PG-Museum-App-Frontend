@@ -17,7 +17,7 @@ const ResetPasswordPut = () => {
         passwordbis: '',
     });
     const [errors, setErrors] = useState({})
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     const handleSend = async function (e) {
         try {
