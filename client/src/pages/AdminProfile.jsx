@@ -6,6 +6,7 @@ import { CgProfile } from 'react-icons/cg';
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import PurchaseHistory from '../components/userPage/PurchaseHistory';
 
 const cookies = new Cookies();
 
@@ -154,12 +155,7 @@ function AdminProfile() {
                 </div>
                 <div className="admin-boxTwo">
                     <section>
-                        <h4>historial</h4>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
+                        <PurchaseHistory/>
                     </section>
                 </div>
             </div>
