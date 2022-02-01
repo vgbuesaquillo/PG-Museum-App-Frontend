@@ -1,11 +1,13 @@
 import './styles/AdminProfile.css';
 import { useEffect } from 'react';
-import image from '../images/signup.svg'
+// import image from '../images/signup.svg'
 import Cookies from 'universal-cookie';
 import { CgProfile } from 'react-icons/cg';
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import OrdenCard from './OrdenCard';
+
 
 const cookies = new Cookies();
 
@@ -96,7 +98,38 @@ function AdminProfile() {
             }
         });
     }
-
+    var ordenes = [
+        {
+            fechaOrden: "31/01/2022",
+            numeroOden:1000000,
+            estado:"creada",
+            productoId:6000000
+        },
+        {
+            fechaOrden: "31/01/2022",
+            numeroOden: 2000000,
+            estado:"procesando",
+            productoId:6000000
+        },
+        {
+            fechaOrden: "31/01/2022",
+            numeroOden: 3000000,
+            estado:"cancelada",
+            productoId:6000000
+        },
+        {
+            fechaOrden: "31/01/2022",
+            numeroOden: 4000000,
+            estado:"completa",
+            productoId:6000000
+        },
+        {
+            fechaOrden: "31/01/2022",
+            numeroOden: 5000000,
+            estado:"creada",
+            productoId:6000000
+        }
+    ]
 
     return (
         <div className="admin-profile">
@@ -143,12 +176,15 @@ function AdminProfile() {
                         </section>
                         <section className="admin-box-at">
                             <b>ordenes</b>
+                            {
+                                ordenes && user.roles[0] === 'ROLE_ADMIN'?
+                                ordenes.map((o)=>{
+                                    return <OrdenCard key={o.productoId} pedido={o.numeroOden}  inicio={o.fechaOrden} estado={o.estado}  productoId= {o.productoId}/>
+                                })
+                                : null
 
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
+                            }
+                            
                         </section>
                     </div>
                 </div>

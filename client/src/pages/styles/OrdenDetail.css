@@ -1,0 +1,43 @@
+.contenedor_detail{
+    /* background-color: aquamarine; */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.subContenedor_detail{
+    /* background-color: rgba(7, 8, 8, 0.582);  */
+    border-left: 1px solid rgba(0, 0, 0, 0.233);
+    border-radius: 0.3rem;
+    width: 90%;
+    padding:1rem;
+    position: relative;
+    top:10rem;
+    display: flex;
+    flex-direction:column;
+    align-items: flex-start;
+}
+.subContenedor_detail > h3{
+    color:rgba(0, 0, 0, 0.555);    
+}
+.subContenedor_detail > div > button{
+    border: none;
+    background-color: #ff4d4f;
+    font-weight:bold;
+    padding:4px;
+    margin:5px;
+    display: flex;
+    flex-direction: column;
+    border-radius:0.2rem;
+    color: aliceblue;
+}
+.subContenedor_detail > div > select{
+    
+    background-color:transparent;
+    font-weight:bold;
+    padding:3px;
+    margin:5px;
+    border-radius:0.3rem;
+    color: rgba(0, 0, 0, 0.739);
+}
