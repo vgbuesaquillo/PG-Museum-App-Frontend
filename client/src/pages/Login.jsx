@@ -11,46 +11,47 @@ import Cookies from 'universal-cookie'
 import { NavLink } from 'react-router-dom';
 
 
-// const singin = "http://localhost:5040/auth/signin";
-const singin = process.env.REACT_APP_SIGNIN;
+const singin = process.env.REACT_APP_URL;
 const singinGoogle = process.env.REACT_APP_SIGNIN_GOOGLE;
-const cookies = new Cookies();
 
 function validate(input) {
     let err = {};
     // if (!input.email) {
-        //     err.email = 'required email ';  
+    //     err.email = 'required email ';  
     // } else if(!/\S+@\S+\.\S+/.test(input.email)){
-        //     err.email = 'email invalid'
-        // }
-        if (!input.password) {
-            err.password = 'required password ';
-        }
-        else if (!/(?=.*[0-9])/.test(input.password)) {
-            err.password = 'password invalid'
+    //     err.email = 'email invalid'
+    // }
+    if (!input.password) {
+        err.password = 'required password ';
+    }
+    else if (!/(?=.*[0-9])/.test(input.password)) {
+        err.password = 'password invalid'
     }
     return err
+
 }
 
 function Login() {
-    
+
     const cookies = new Cookies();
     const [input, setInput] = useState({
         username: '',
         password: ''
     });
-    
+
     const [error, setError] = useState({});
     
+
 //     const [loginData, setLoginData] = useState(
 //         localStorage.getItem('loginData')
 //         ? JSON.parse(localStorage.getItem('loginData'))
 //             : null
 //     );
+
     // const  [user, setUser] = useState(null); 
 
     useEffect(() => {
-        if (cookies.get("session")) {
+        if (localStorage.getItem("session")) {
             window.location.href = "/";
         }
     })
@@ -61,8 +62,8 @@ function Login() {
         await axios.post(`${singin}`, input)
         .then((response) => {
             console.log(response.data);
-            cookies.set("session", response.data);
-            window.location.href = '/';
+            localStorage.setItem('session', JSON.stringify([response.data]))
+            window.location.href = '/'
         })
         .catch(error =>{
             alert('Usuario o contraseña son incorrectos')
@@ -81,7 +82,7 @@ function Login() {
         }));
 
     }
-    
+
     const handleLoginGoogle = async (googleData) => {
         const res = await fetch(`${singinGoogle}`, {
             method: 'POST',
@@ -155,7 +156,7 @@ function Login() {
                         </h4>
                         <div className='contenedor_submit'>
                             <input type="submit" className='boton_log' />
-  
+
                             <div className='bott_google'>
                                 <GoogleLogin
                                     clientId="359276887661-52enkr7gjhn5m9hm3e3t45jumqjnfnvj.apps.googleusercontent.com"
@@ -163,7 +164,7 @@ function Login() {
                                     onSuccess={handleLoginGoogle}
                                     onFailure={handleFailure}
                                     cookiePolicy={'single_host_origin'}
-                                /> 
+                                />
                             </div>
 
                         </div>

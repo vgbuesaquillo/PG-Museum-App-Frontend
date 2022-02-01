@@ -17,7 +17,7 @@ const GalleryCard = (props) => {
     const { storage } = useSelector(state => state.storageReducer);
     const { Meta } = Card;
     const cookies = new Cookies();
-    const user = cookies.get('session')
+    const user = localStorage?.session ? JSON.parse(localStorage.session) : null
 
     useEffect(() => {
         // storing input name
@@ -57,10 +57,13 @@ const GalleryCard = (props) => {
                 />
             }
             actions={
-                !user?.roles.includes('ROLE_ADMIN') ? [
+                user !== null ? !user[0]?.roles?.includes('ROLE_ADMIN') ? [
                 <Button onClick={handleAddShop} type="text"><MdShoppingBag style={{fontSize: '18px', color: '#A3DA8D'}}/></Button>,
                 <Button onClick={handleAddShop} type="text"><MdOutlineFavorite style={{fontSize: '18px', color: '#FF5959'}}/></Button>
-                ] : null } 
+                ] : null : [
+                    <Button onClick={handleAddShop} type="text"><MdShoppingBag style={{fontSize: '18px', color: '#A3DA8D'}}/></Button>,
+                    <Button onClick={handleAddShop} type="text"><MdOutlineFavorite style={{fontSize: '18px', color: '#FF5959'}}/></Button>
+                    ] } 
             >
             <NavLink to={`/${props.id}`} >
             <Meta

@@ -5,7 +5,7 @@ export function postProducts(val){
     return async function dispatch(dispatch) {
         dispatch({
             type: POST_PRODUCTS,
-            payload: val.filter(el => Array.isArray(el) != true)
+            payload: val.filter(el => Array.isArray(el) != true )
         })
     }
 }

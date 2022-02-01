@@ -1,12 +1,11 @@
-import { GET_ALL_GALLERY, GET_FIND_GALLERY, CATEGORIES, SORT_GALLERY } from '../types'
+import { GET_ALL_GALLERY, GET_FIND_GALLERY, CATEGORIES, SORT_GALLERY, TYPES } from '../types'
+import axios from 'axios'
+const url = process.env.REACT_APP_URL
 
-const urlArtwork = process.env.REACT_APP_ARTWORK;
-const urlArtworkName = process.env.REACT_APP_ARTWORK_NAME;
-// console.log(process.env)
 //fetches the list of artworks - recibe la lista de piezas de arte
 export const getAllGallery = (id) => {
     return async function dispatch(dispatch) {
-        const response = await fetch(`${urlArtwork}`);
+        const response = await fetch(`${url}/artwork/all`);
         const json = await response.json();
         dispatch({
             type: GET_ALL_GALLERY,
@@ -18,7 +17,7 @@ export const getAllGallery = (id) => {
 //searches artwork by name - busca pieza de arte por nombre
 export const getFindGallery = (input) => {
     return async function dispatch(dispatch) {
-        const response = await fetch(`${urlArtworkName}?name=${input}`);
+        const response = await fetch(`${url}/artwork/name?name=${input}`);
         const json = await response.json();
         dispatch({
             type: GET_FIND_GALLERY,
@@ -29,7 +28,7 @@ export const getFindGallery = (input) => {
 
 export function categories(category) {
     return async function dispatch(dispatch) {
-        const response = await fetch(`${urlArtwork}`);
+        const response = await fetch(`${url}/artwork/all`);
         const json = await response.json();
         dispatch({
             type: CATEGORIES,
@@ -37,6 +36,18 @@ export function categories(category) {
         });
     }
 }
+export function categoriesTypes() {
+    return async function dispatch(dispatch) {
+        const response = await axios.get(`${url}/types`);
+        const json = await response.data;
+        dispatch({
+            type: TYPES,
+            payload: json
+        });
+    }
+}
+
+
 
 //manda allGallery ordenado al reducer para actualizar el store
 export function sortGallery(sortedGallery) {

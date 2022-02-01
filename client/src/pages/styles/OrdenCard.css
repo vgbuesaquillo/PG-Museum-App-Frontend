@@ -1,0 +1,45 @@
+.contenedor_orden{
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 5px;
+    padding:4px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.472);
+    border-radius: 0.3rem;
+    
+}
+.subcontenedor_uno{
+    /* background-color:rgba(0, 0, 0, 0.63); */
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 70%;
+    align-items: flex-start;
+    
+    
+}
+.subcontenedor_uno > h4{
+    margin:0;
+    padding:0;
+    color:rgba(0, 0, 0, 0.603);
+}
+.subcontenedor_dos{
+    /* background-color:rgba(150, 55, 55, 0.63); */
+    width: 30%;
+}
+.subcontenedor_dos > h4{
+    margin:0;
+    padding:0;
+    
+}
+.subcontenedor_dos > button{
+    width: 100%;
+    padding:4px;
+    margin:2px;
+    border: none;
+    background-color:#ff4d4f;
+    color: #fff;
+    border-radius:0.2rem;
+    font-weight: bold;
+}

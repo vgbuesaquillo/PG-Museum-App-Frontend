@@ -14,8 +14,8 @@ import {CgProfile} from 'react-icons/cg';
 function TopBar() {
     const dispatch = useDispatch()
     const cookies = new Cookies();
-    const login = cookies.get('session')
-
+    const user = localStorage?.session ? JSON.parse(localStorage.session) : null
+    
     const total = useSelector(state => state.allProductsReducer.totalCount)
     const items = useSelector(state => state.galleryReducer.allGallery)
     const [input, setInput] = useState({
@@ -76,23 +76,30 @@ function TopBar() {
                         </div>
                     </div>
                     {
-                        !login?.roles.includes('ROLE_ADMIN') ?
+
+                        user !== null ? 
+                        !user[0]?.roles?.includes('ROLE_ADMIN') ?
                         <div className='cart' style={{ color: total < 500000 ? 'green' : 'red'}}>
                             <div className='cart__content'>
                                 <RiShoppingBag3Fill className='cart__icon' />
                                 <span>${total}</span>
                             </div>
-                        </div> : null
+                        </div> : null : <div className='cart' style={{ color: total < 500000 ? 'green' : 'red'}}>
+                            <div className='cart__content'>
+                                <RiShoppingBag3Fill className='cart__icon' />
+                                <span>${total}</span>
+                            </div>
+                        </div>
                     }
                 </div>
                 {/* <SortInput /> */}
                 <div className='loginButtons'>
                     {
-                        cookies.get('session') ?
+                        user ?
                         <NavLink to='/admin'>
                             <div>
                                 {/* <label>{login.username}</label> */}
-                                { login?.image ? <Avatar src={login?.image} /> : <CgProfile/>}
+                                { user[0]?.image ? <Avatar src={user[0]?.image} /> : <CgProfile/>}
                             </div> 
                         </NavLink> :
                         <div>

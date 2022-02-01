@@ -130,12 +130,13 @@ const Detail = () => {
                             <p>
                                 Awesone art picture, I buy <br />
                             </p>
-                            <RatingFive rating={artwork?.ratings[0].rating} />
+
+                            <RatingFive rating={artwork?.ratings[0].rating}/>
+
                         </div>
                     </div>
                 </div>
-
-                
+      
                     <div className='detail__content--comment--write'>
                         <div className="detail__content--comment--write--img">
                             <img src={artwork?.images} alt="#"
@@ -150,8 +151,7 @@ const Detail = () => {
                             </div>
                         </p>
 
-                    </div>
-               
+                    </div>            
 
             </div>
         </div>

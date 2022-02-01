@@ -1,33 +1,20 @@
-/* .categories {
-  display: flex;
-  justify-content: center;
-  margin: 10px;
-  padding: 10px;
-}
-
-.categories__button {
-  padding: 0;
-  border: none;
-  font: inherit;
-  color: gray;
-  background-color: transparent;
-  cursor: pointer;
-  border-radius: 5px;
-  width: 120px;
-  height: 40px;
-  margin-right: 20px;
-  font-weight: bold;
-}
-
-.categories__button:focus {
-  background-color: #7e91fe;
-  color: white;
-} */
-
 .cotegories {
   display: inline-block;
   vertical-align: top;
   overflow: hidden;
+}
+
+.categories__multiple {
+  appearance: none;
+  -webkit-appearance: none;
+  /* background-color: transparent; */
+  border: 0;
+  padding: 10px;
+  overflow: hidden;
+  height: 3rem;
+  margin: 5px;
+  width: 20%;
+  cursor: pointer;
 }
 
 .categories__select {
