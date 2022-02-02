@@ -59,7 +59,7 @@ function Login() {
     //* COMPLETE FUNCTION
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post(`${singin}`, input)
+        await axios.post(`${singin}/auth/signin`, input)
         .then((response) => {
             console.log(response.data);
             localStorage.setItem('session', JSON.stringify([response.data]))
