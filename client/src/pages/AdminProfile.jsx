@@ -13,8 +13,6 @@ import OrdenCard from './OrdenCard';
 import PurchaseHistory from '../components/userPage/PurchaseHistory';
 import CategoriesAdmin from '../components/adminPage/CategoriesAdmin';
 
-
-
 const cookies = new Cookies();
 const url = process.env.REACT_APP_URL;
 
@@ -22,7 +20,6 @@ function AdminProfile() {
     const dispatch = useDispatch();
     const order = useSelector(state => state.orderReducer.allOrder);
     const stateFilter = useSelector(state => state.orderReducer.filterState);
-    
     const user = JSON.parse(localStorage.session)
 
     var esEmail = user[0].username 
