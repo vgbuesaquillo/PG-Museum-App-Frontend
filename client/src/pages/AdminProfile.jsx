@@ -19,10 +19,10 @@ const cookies = new Cookies();
 function AdminProfile() {
 
     const user = JSON.parse(localStorage.session)
-    var aja = user[0].username 
+    var aja = user[0].username
     var bandera = false
     aja.slice(aja.length - 10, aja.length) === '@gmail.com' ? bandera = true : console.log(bandera)
-    console.log(user)
+    // console.log(user)
     useEffect(() => {
         if (!localStorage.getItem("session")) {
             window.location.href = "./login";
@@ -89,7 +89,7 @@ function AdminProfile() {
                             'Content-Type': 'application/json',
                         },
                     }).then(response => {
-                        console.log(response);
+                        // console.log(response);
                         cookies.remove('session')
                         Swal.fire("Poof! Your account has been deleted successfully!", {
                             icon: "success",
@@ -106,33 +106,33 @@ function AdminProfile() {
     var ordenes = [
         {
             fechaOrden: "31/01/2022",
-            numeroOden:1000000,
-            estado:"creada",
-            productoId:6000000
+            numeroOden: 1000000,
+            estado: "creada",
+            productoId: 6000000
         },
         {
             fechaOrden: "31/01/2022",
             numeroOden: 2000000,
-            estado:"procesando",
-            productoId:6000000
+            estado: "procesando",
+            productoId: 6000000
         },
         {
             fechaOrden: "31/01/2022",
             numeroOden: 3000000,
-            estado:"cancelada",
-            productoId:6000000
+            estado: "cancelada",
+            productoId: 6000000
         },
         {
             fechaOrden: "31/01/2022",
             numeroOden: 4000000,
-            estado:"completa",
-            productoId:6000000
+            estado: "completa",
+            productoId: 6000000
         },
         {
             fechaOrden: "31/01/2022",
             numeroOden: 5000000,
-            estado:"creada",
-            productoId:6000000
+            estado: "creada",
+            productoId: 6000000
         }
     ]
 
@@ -146,13 +146,13 @@ function AdminProfile() {
                     <div >
                         <h5>{user[0].email}</h5>
                         {
-                            
-                            user[0]?.roles?.includes('ROLE_ADMIN ') ? 
-                            <button className="admin-profile-top-info-butt" onClick={bandera? DeleteUserGoogle: handleDeleteUser}> Eliminar cuenta</button> : null
+
+                            user[0]?.roles?.includes('ROLE_ADMIN ') ?
+                                <button className="admin-profile-top-info-butt" onClick={bandera ? DeleteUserGoogle : handleDeleteUser}> Eliminar cuenta</button> : null
                         }
 
                     </div>
-                    { user[0]?.image ? <Avatar src={user[0]?.image} /> : <CgProfile/>}
+                    {user[0]?.image ? <Avatar src={user[0]?.image} /> : <CgProfile />}
                 </div>
             </div>
             <div className="admin-profile-bot">
@@ -165,11 +165,11 @@ function AdminProfile() {
                             <b>correo {' ' + user[0].email}</b>
                             <b>Tipo: {' ' + user[0].roles}</b>
                             {console.log(user[0])}
-                            { 
-                                user[0]?.roles[0] === "ROLE_ADMIN"? <div>
-                                        <Link to={'new'}> <Button secondary>New Product</Button></Link>
-                                        <Link to={'product-list'}> <Button secondary>Product List</Button></Link>
-                                    </div>: null
+                            {
+                                user[0]?.roles[0] === "ROLE_ADMIN" ? <div>
+                                    <Link to={'new'}> <Button secondary>New Product</Button></Link>
+                                    <Link to={'product-list'}> <Button secondary>Product List</Button></Link>
+                                </div> : null
 
                             }
 
@@ -189,20 +189,20 @@ function AdminProfile() {
                         <section className="admin-box-at">
                             <b>ordenes</b>
                             {
-                                ordenes && user[0].roles[0] === 'ROLE_ADMIN'?
-                                ordenes.map((o)=>{
-                                    return <OrdenCard key={o.productoId} pedido={o.numeroOden}  inicio={o.fechaOrden} estado={o.estado}  productoId= {o.productoId}/>
-                                })
-                                : null
+                                ordenes && user[0].roles[0] === 'ROLE_ADMIN' ?
+                                    ordenes.map((o) => {
+                                        return <OrdenCard key={o.productoId} pedido={o.numeroOden} inicio={o.fechaOrden} estado={o.estado} productoId={o.productoId} />
+                                    })
+                                    : null
 
                             }
-                            
+
                         </section>
                     </div>
                 </div>
                 <div className="admin-boxTwo">
                     <section>
-                        <PurchaseHistory/>
+                        <PurchaseHistory />
                     </section>
                 </div>
             </div>
