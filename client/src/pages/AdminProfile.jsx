@@ -166,6 +166,7 @@ function AdminProfile() {
                                 <option value="cancelada">cancelada</option>
                             </select>   
                             {
+
                                 stateFilter.length > 0 && user[0].roles[0] === 'ROLE_ADMIN'?
                                 stateFilter.map((o)=>{
                                     return <OrdenCard key={o.id} pedido={o.id}  inicio={o.date} estado={o.state}  productoId= {o.artworksId}/>
