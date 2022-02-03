@@ -10,7 +10,6 @@ import md5 from 'md5'
 import Cookies from 'universal-cookie'
 import { NavLink } from 'react-router-dom';
 
-
 const singin = process.env.REACT_APP_URL;
 // const singinGoogle = process.env.REACT_APP_SIGNIN_GOOGLE;
 
@@ -84,8 +83,6 @@ function Login() {
     }
 
     const handleLoginGoogle = async (googleData) => {
-        console.log('entre a login con google')
-        console.log(googleData);
         const res = await fetch(`${singin}/auth/signup/google`, {
             method: 'POST',
             body: JSON.stringify({
@@ -98,9 +95,10 @@ function Login() {
 
         console.log(res);
         const data = await res.json();
-//      setLoginData(data);
+//         setLoginData(data);
         localStorage.setItem('session', JSON.stringify([data]));
-        //cookies.set("session", JSON.stringify(data));
+        // cookies.set("session", JSON.stringify(data));
+
         window.location.href = '/'
     }
 
