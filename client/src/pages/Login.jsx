@@ -10,7 +10,6 @@ import md5 from 'md5'
 import Cookies from 'universal-cookie'
 import { NavLink } from 'react-router-dom';
 
-
 const singin = process.env.REACT_APP_URL;
 const singinGoogle = process.env.REACT_APP_SIGNIN_GOOGLE;
 
@@ -59,7 +58,7 @@ function Login() {
     //* COMPLETE FUNCTION
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post(`${singin}`, input)
+        await axios.post(`${singin}/auth/signin`, input)
         .then((response) => {
             console.log(response.data);
             localStorage.setItem('session', JSON.stringify([response.data]))
