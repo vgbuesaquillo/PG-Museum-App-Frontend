@@ -28,7 +28,7 @@ export default function MercadoPagoForm() {
 
     useEffect(() => {
         if (MercadoPago) {
-            const VITE_PUBLIC_KEY_MP = "TEST-0f046780-e30e-443a-b0c8-cc6d4fd9be99";
+            const VITE_PUBLIC_KEY_MP = "TEST-a444b3ce-cbb6-4f66-b2d9-4a850880f115";
             const mp = new MercadoPago(VITE_PUBLIC_KEY_MP);
             
             const cardForm = mp.cardForm({
@@ -66,7 +66,7 @@ export default function MercadoPagoForm() {
                         } = cardForm.getCardFormData();
 
                         fetch(
-                            `${url}/process-payment/post`,
+                            `${url}/payment/post`,
                             {
                                 // entry point backend
                                 method: "POST",
