@@ -189,7 +189,7 @@ function AdminProfile() {
                         <section className="admin-box-at">
                             <b>ordenes</b>
                             {
-                                ordenes && user.roles[0] === 'ROLE_ADMIN'?
+                                ordenes && user[0].roles[0] === 'ROLE_ADMIN'?
                                 ordenes.map((o)=>{
                                     return <OrdenCard key={o.productoId} pedido={o.numeroOden}  inicio={o.fechaOrden} estado={o.estado}  productoId= {o.productoId}/>
                                 })

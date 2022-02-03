@@ -12,7 +12,7 @@ import { NavLink } from 'react-router-dom';
 
 
 const singin = process.env.REACT_APP_URL;
-const singinGoogle = process.env.REACT_APP_SIGNIN_GOOGLE;
+// const singinGoogle = process.env.REACT_APP_SIGNIN_GOOGLE;
 
 function validate(input) {
     let err = {};
@@ -59,7 +59,7 @@ function Login() {
     //* COMPLETE FUNCTION
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post(`${singin}`, input)
+        await axios.post(`${singin}/auth/signin`, input)
         .then((response) => {
             console.log(response.data);
             localStorage.setItem('session', JSON.stringify([response.data]))
@@ -84,7 +84,9 @@ function Login() {
     }
 
     const handleLoginGoogle = async (googleData) => {
-        const res = await fetch(`${singinGoogle}`, {
+        console.log('entre a login con google')
+        console.log(googleData);
+        const res = await fetch(`${singin}/auth/signup/google`, {
             method: 'POST',
             body: JSON.stringify({
                 token: googleData.tokenId,
@@ -94,12 +96,11 @@ function Login() {
             },
         })
 
-        console.log(googleData);
         console.log(res);
         const data = await res.json();
-//         setLoginData(data);
-//         localStorage.setItem('loginData', JSON.stringify(data));
-        cookies.set("session", JSON.stringify(data));
+//      setLoginData(data);
+        localStorage.setItem('session', JSON.stringify([data]));
+        //cookies.set("session", JSON.stringify(data));
         window.location.href = '/'
     }
 
