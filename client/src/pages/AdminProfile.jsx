@@ -174,6 +174,7 @@ function AdminProfile() {
                                 order && user[0].roles[0] === 'ROLE_ADMIN'?
                                 order.map((o)=>{
                                     return <OrdenCard key={o.id} pedido={o.id}  inicio={o.date} estado={o.state}  productoId= {o.artworksId}/>
+
                                 })
                                 : null
                             }

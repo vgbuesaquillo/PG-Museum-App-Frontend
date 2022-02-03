@@ -93,12 +93,12 @@ function Login() {
             },
         })
 
-        console.log(googleData);
         console.log(res);
         const data = await res.json();
 //         setLoginData(data);
         localStorage.setItem('session', JSON.stringify([data]));
         // cookies.set("session", JSON.stringify(data));
+
         window.location.href = '/'
     }
 
