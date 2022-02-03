@@ -147,7 +147,10 @@ function AdminProfile() {
                     </div>
                     <div className="admin-box">
                         <section className="admin-box-at">
-                            <CategoriesAdmin />
+                            {
+                                user[0]?.roles[0] === "ROLE_ADMIN" ?
+                                    <CategoriesAdmin /> : null
+                            }
                             <b>...</b>
                             <br />
                             <br />
