@@ -65,15 +65,28 @@ const EditProduct = () => {
   }
 
   //
-  const handleImageChange = e => {
-    if (e.target.files && e.target.files.length > 0) {
-      setFormInfo({
-        ...formInfo,
-        images: URL.createObjectURL(e.target.files[0])
-      })
-    }
+  // const handleImageChange = e => {
+  //   if (e.target.files && e.target.files.length > 0) {
+  //     setFormInfo({
+  //       ...formInfo,
+  //       images: URL.createObjectURL(e.target.files[0])
+  //     })
+  //   }
 
-  }
+  // }
+
+  function processImage(e) {
+        const imageFile = e.target.files[0];
+        const imageUrl = new FileReader();
+        imageUrl?.readAsDataURL(imageFile)
+        imageUrl.onload = (e) => {
+            console.log("e es ", e.target)
+            setFormInfo({
+                ...formInfo,
+                images: e.target.result
+            })
+        };
+    };
 
   const handleCheckChange = e => {
     setFormInfo({
@@ -95,7 +108,7 @@ const EditProduct = () => {
     console.log("fa after function:", fa)
     console.log("formInfo after function: \n", formInfo)
     
-  }, [dispatch, formInfo])
+  }, [dispatch])
 
   return (
     <form onSubmit={handleSubmit} style={{ margin: "50px auto" }}>
@@ -145,7 +158,9 @@ const EditProduct = () => {
       </div>
 
       <label htmlFor="image">Image</label>
-      <input accept='image/*' type="file" name="image" onChange={handleImageChange} />
+      <input onChange={(e) => processImage(e)} name="images" type="file" accept="image/*"
+                            placeholder="Select image"
+                        />
 
       {/*NO LOGRO QUE SE REGISTRE EL CAMBIO DE TRUE A FALSE */}
       <label htmlFor="stock">Stock</label>
