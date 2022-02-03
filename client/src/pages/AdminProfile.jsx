@@ -124,7 +124,7 @@ function AdminProfile() {
                             <button className="admin-profile-top-info-butt" onClick={bandera? DeleteUserGoogle: handleDeleteUser}> Eliminar cuenta</button> : null
                         }
                     </div>
-                    { user[0]?.image ? <Avatar src={user[0]?.image} /> : <CgProfile/>}
+                    {user[0]?.image ? <Avatar src={user[0]?.image} /> : <CgProfile />}
                 </div>
             </div>
             <div className="admin-profile-bot">
@@ -137,11 +137,13 @@ function AdminProfile() {
                             <b>correo {' ' + user[0].email}</b>
                             <b>Tipo: {' ' + user[0].roles}</b>
                             {console.log(user[0])}
+
                             { 
                                 user[0]?.roles[0] === "ROLE_ADMIN"? <div>
                                         <Link to={'new'}> <Button secondary>New Product</Button></Link>
                                         <Link to={'product-list'}> <Button secondary>Product List</Button></Link>
                                     </div>: null
+
                             }
 
                         </section>
@@ -178,12 +180,13 @@ function AdminProfile() {
                                 })
                                 : null
                             }
+
                         </section>
                     </div>
                 </div>
                 <div className="admin-boxTwo">
                     <section>
-                        <PurchaseHistory/>
+                        <PurchaseHistory />
                     </section>
                 </div>
             </div>
