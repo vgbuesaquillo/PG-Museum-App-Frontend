@@ -11,7 +11,7 @@ import Cookies from 'universal-cookie'
 import { NavLink } from 'react-router-dom';
 
 const singin = process.env.REACT_APP_URL;
-const singinGoogle = process.env.REACT_APP_SIGNIN_GOOGLE;
+// const singinGoogle = process.env.REACT_APP_SIGNIN_GOOGLE;
 
 function validate(input) {
     let err = {};
@@ -83,7 +83,7 @@ function Login() {
     }
 
     const handleLoginGoogle = async (googleData) => {
-        const res = await fetch(`${singinGoogle}`, {
+        const res = await fetch(`${singin}/auth/signup/google`, {
             method: 'POST',
             body: JSON.stringify({
                 token: googleData.tokenId,
@@ -97,8 +97,8 @@ function Login() {
         console.log(res);
         const data = await res.json();
 //         setLoginData(data);
-//         localStorage.setItem('loginData', JSON.stringify(data));
-        cookies.set("session", JSON.stringify(data));
+        localStorage.setItem('session', JSON.stringify([data]));
+        // cookies.set("session", JSON.stringify(data));
         window.location.href = '/'
     }
 
