@@ -10,7 +10,6 @@ import md5 from 'md5'
 import Cookies from 'universal-cookie'
 import { NavLink } from 'react-router-dom';
 
-
 const singin = process.env.REACT_APP_URL;
 const singinGoogle = process.env.REACT_APP_SIGNIN_GOOGLE;
 
