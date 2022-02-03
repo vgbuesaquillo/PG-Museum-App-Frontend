@@ -24,9 +24,11 @@ const EditProduct = () => {
 
   //form state - state del form
   const [formInfo, setFormInfo] = useState({
+    id: "",
     title: "",
-    technique:"",
-    culture:"",
+    creators_description: "",
+    technique: "",
+    culture: "",
     creation_date: "",
     current_location: "",
     collection: "",
@@ -37,7 +39,7 @@ const EditProduct = () => {
     description: ""
   })
 
-  //
+  //handle dispatch action
   const handleSubmit = e => {
     e.preventDefault()
     console.log("form submitted")
@@ -67,43 +69,44 @@ const EditProduct = () => {
     if (e.target.files && e.target.files.length > 0) {
       setFormInfo({
         ...formInfo,
-        image: e.target.files[0]
+        images: URL.createObjectURL(e.target.files[0])
       })
     }
 
   }
 
-  const handleCheckChange =e=>{
+  const handleCheckChange = e => {
     setFormInfo({
       ...formInfo,
-      [e.target.name] : e.target.checked
+      [e.target.name]: e.target.checked
     })
   }
 
   useEffect(() => {
+    
     dispatch(getArtwork(params.id))
-    if(fa){
-      setFormInfo({
-    title: fa?.title,
-    creation_date: fa?.creation_date,
-    current_location: fa?.current_location,
-    collection: fa?.collection,
-    price: fa?.price,
-    categories: [],
-    stock: fa?.stock,
-    description: fa?.description
-  })
+    const fillForm = () => {
+      if(formInfo!==fa)
+        setFormInfo(fa)
     }
-  }, [])
+    console.log("formInfo before function: \n", formInfo)
+    console.log("fa before function: \n", fa)
+    fillForm()
+    console.log("fa after function:", fa)
+    console.log("formInfo after function: \n", formInfo)
+    
+  }, [dispatch, formInfo])
 
   return (
     <form onSubmit={handleSubmit} style={{ margin: "50px auto" }}>
       <h2>Edit product</h2>
 
       <label htmlFor="title">Title</label>
-      <input type="text" defaultValue={fa?.title} name='title' onChange={handleChange} />
+      <input type="text" defaultValue={formInfo.title} name='title' onChange={handleChange} />
 
-      
+      <label htmlFor="creators_description">Artist Details</label>
+      <input type="text" name='creators_description' defaultValue={fa?.creators_description} onChange={handleChange} />
+
       <label htmlFor="technique">Technique</label>
       <input type="text" name='technique' defaultValue={fa?.technique} onChange={handleChange} />
 
@@ -132,11 +135,13 @@ const EditProduct = () => {
         classNamePrefix="select"
       />
 
-      {/*NO PUEDO HACER QUE MUESTRE LA IMAGEN ORIGINAL SIN QUE SE ROMPA PORQUE INTENTA CONVERTIRLA COMO CUANDO SUBES UN ARCHIVO*/}
-      <div style={{ width: "150px", height: "200px", border: "1px solid black", margin: "20px auto", overflow: "hidden" }}>
-        {/* {formInfo.image !== null ? (
-          <img src={ URL.createObjectURL(formInfo.image)} alt="" style={{ width: "100%", objectFit: "contain", objectPosition: "center center" }} />
-        ) : null} */}
+      <div style={{ width: "200px", border: "1px solid black", margin: "20px auto", overflow: "hidden" }}>
+        {formInfo.images ? (
+          <img src={formInfo.images} alt="" style={{ width: "100%", objectFit: "contain", objectPosition: "center center" }} />
+        )
+          : (<img src={fa.images} alt="" style={{ width: "100%", objectFit: "contain", objectPosition: "center center" }} />)
+
+        }
       </div>
 
       <label htmlFor="image">Image</label>

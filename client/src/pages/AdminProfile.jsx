@@ -14,15 +14,15 @@ import PurchaseHistory from '../components/userPage/PurchaseHistory';
 import CategoriesAdmin from '../components/adminPage/CategoriesAdmin';
 
 
-const cookies = new Cookies();
+
 
 function AdminProfile() {
-
+    const cookies = new Cookies();
     const user = JSON.parse(localStorage.session)
     var aja = user[0].username 
     var bandera = false
     aja.slice(aja.length - 10, aja.length) === '@gmail.com' ? bandera = true : console.log(bandera)
-    console.log(user)
+    console.log(user[0])
     useEffect(() => {
         if (!localStorage.getItem("session")) {
             window.location.href = "./login";
@@ -189,7 +189,7 @@ function AdminProfile() {
                         <section className="admin-box-at">
                             <b>ordenes</b>
                             {
-                                ordenes && user.roles[0] === 'ROLE_ADMIN'?
+                                ordenes && user[0].roles[0] === 'ROLE_ADMIN'?
                                 ordenes.map((o)=>{
                                     return <OrdenCard key={o.productoId} pedido={o.numeroOden}  inicio={o.fechaOrden} estado={o.estado}  productoId= {o.productoId}/>
                                 })

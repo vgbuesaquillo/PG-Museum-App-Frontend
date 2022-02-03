@@ -5,7 +5,7 @@ import './styles/Categories.css'
 
 const Categories = () => {
     const artworkTypes = useSelector(state => state.galleryReducer.types);
-    console.log(artworkTypes)
+    //console.log(artworkTypes)
     const [select, setSelect] = useState('')
     let dispatch = useDispatch()
 
