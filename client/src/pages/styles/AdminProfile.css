@@ -129,3 +129,11 @@ height:100vh;
     border-radius:0.3rem;
     color: #00000063;
 }
+.select_option{
+    background-color:transparent;
+    border-radius: 0.2rem;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.301);
+    color: #00000063;
+    font-weight: bold;
+}
