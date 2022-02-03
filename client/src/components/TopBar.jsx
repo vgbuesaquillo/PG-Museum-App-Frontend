@@ -99,7 +99,7 @@ function TopBar() {
                         <NavLink to='/admin'>
                             <div>
                                 {/* <label>{login.username}</label> */}
-                                { user[0]?.image ? <Avatar src={user[0]?.image} /> : <CgProfile/>}
+                                { user[0]?.image ? <Avatar src={user[0]?.image} size={40}/> : <CgProfile/>}
                             </div> 
                         </NavLink> :
                         <div>

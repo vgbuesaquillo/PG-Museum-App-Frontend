@@ -30,8 +30,9 @@ export default function galleryReducer(state = initialState, action) {
       //console.log(action.payload)
       let artworks = data;
       artworks = artworks.filter(art => {
-        // console.log(art)
-        return art.types[0].type.toLowerCase().includes(category.toLowerCase())
+        if (art && art.types && art.types[0]) {
+          return art.types[0]?.type.toLowerCase().includes(category.toLowerCase())
+        }
       })
       return {
         ...state,
