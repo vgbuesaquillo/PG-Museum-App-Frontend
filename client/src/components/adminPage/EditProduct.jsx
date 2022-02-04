@@ -9,18 +9,21 @@ import { useDispatch, useSelector } from 'react-redux'
 
 
 const EditProduct = () => {
+  const artworkTypes = useSelector(state => state.galleryReducer.types);
   //gets action type from url to display in title - toma el tipo de accion de la url para mostrar en el titulo
   const params = useParams()
   //redux
   const dispatch = useDispatch()
   const fa = useSelector(state => state.adminProductsReducer.fetchedArtwork)
 
-  const categoryOptions = [
-    { value: "1", label: "Painting" },
-    { value: "6", label: "Sculpture" },
-    { value: "4", label: "Ceramic" },
-    { value: "9", label: "Textile" }
-  ]
+  const categoryOptions = artworkTypes
+
+  // const categoryOptions = [
+  //   { value: "1", label: "Painting" },
+  //   { value: "6", label: "Sculpture" },
+  //   { value: "4", label: "Ceramic" },
+  //   { value: "9", label: "Textile" }
+  // ]
 
   //form state - state del form
   const [formInfo, setFormInfo] = useState({
@@ -48,7 +51,7 @@ const EditProduct = () => {
   //handles every change but submit's - maneja todo change excepto el del select
   const handleChange = e => {
     let name = e.target.name
-    console.log(e.target.name, e.target.value)
+    // console.log(e.target.name, e.target.value)
     setFormInfo({
       ...formInfo,
       [name]: e.target.value
@@ -57,7 +60,7 @@ const EditProduct = () => {
 
   //handles changes on inputs, adds to state - maneja los cambios en el inputs, añade al state
   const handleSelectChange = e => {
-    let valueArr = e.map(el => el.value)
+    let valueArr = e.map(el => el.type)
     setFormInfo({
       ...formInfo,
       categories: valueArr
@@ -76,17 +79,16 @@ const EditProduct = () => {
   // }
 
   function processImage(e) {
-        const imageFile = e.target.files[0];
-        const imageUrl = new FileReader();
-        imageUrl?.readAsDataURL(imageFile)
-        imageUrl.onload = (e) => {
-            console.log("e es ", e.target)
-            setFormInfo({
-                ...formInfo,
-                images: e.target.result
-            })
-        };
+    const imageFile = e.target.files[0];
+    const imageUrl = new FileReader();
+    imageUrl?.readAsDataURL(imageFile)
+    imageUrl.onload = (e) => {
+      setFormInfo({
+        ...formInfo,
+        images: e.target.result
+      })
     };
+  };
 
   const handleCheckChange = e => {
     setFormInfo({
@@ -96,10 +98,10 @@ const EditProduct = () => {
   }
 
   useEffect(() => {
-    
+
     dispatch(getArtwork(params.id))
     const fillForm = () => {
-      if(formInfo!==fa)
+      if (formInfo !== fa)
         setFormInfo(fa)
     }
     console.log("formInfo before function: \n", formInfo)
@@ -107,7 +109,7 @@ const EditProduct = () => {
     fillForm()
     console.log("fa after function:", fa)
     console.log("formInfo after function: \n", formInfo)
-    
+
   }, [dispatch])
 
   return (
@@ -141,11 +143,13 @@ const EditProduct = () => {
       <label htmlFor="categories">Categories</label>
       <Select
         onChange={handleSelectChange}
-        isMulti
         name="categories"
         options={categoryOptions}
         className="basic-multi-select"
         classNamePrefix="select"
+        getOptionLabel={(option) => option.type}
+        getOptionValue={(option) => option.id}
+        isMulti
       />
 
       <div style={{ width: "200px", border: "1px solid black", margin: "20px auto", overflow: "hidden" }}>
@@ -159,8 +163,8 @@ const EditProduct = () => {
 
       <label htmlFor="image">Image</label>
       <input onChange={(e) => processImage(e)} name="images" type="file" accept="image/*"
-                            placeholder="Select image"
-                        />
+        placeholder="Select image"
+      />
 
       {/*NO LOGRO QUE SE REGISTRE EL CAMBIO DE TRUE A FALSE */}
       <label htmlFor="stock">Stock</label>
