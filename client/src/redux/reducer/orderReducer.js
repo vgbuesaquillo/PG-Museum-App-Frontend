@@ -1,4 +1,4 @@
-import { GET_ORDER, GET_ORDER_ID, PUT_ORDER, FILTER_ORDER } from '../types/index'
+import { GET_ORDER, GET_ORDER_ID, PUT_ORDER, FILTER_ORDER, POST_NEW_ORDER } from '../types/index'
 
 const initialState = {
   allOrder: [],
@@ -36,6 +36,14 @@ export default function orderReducer(state = initialState, action) {
         ...state,
         filterState: action.payload
     }
+
+    case POST_NEW_ORDER:
+    console.log("action_order", action.payload)
+    return {
+        ...state,
+        
+    }
+
 
     default:return state;
  }

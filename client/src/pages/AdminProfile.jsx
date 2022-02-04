@@ -25,10 +25,16 @@ function AdminProfile() {
     var esEmail = user[0].username 
     var bandera = false
     esEmail.slice(esEmail.length - 10, esEmail.length) === '@gmail.com' ? bandera = true : console.log(bandera)
+    var orderUser
+    if(user[0].roles[0] === 'ROLE_USER'){
+        orderUser = order.filter(o => o.userId === user[0].id)
+        console.log(orderUser)
+    }
+
 
     useEffect(() => {
         dispatch(getAllOrder())
-
+       
         if (!localStorage.getItem("session")) {
             window.location.href = "./login";
         }
@@ -36,7 +42,12 @@ function AdminProfile() {
     
     function handleSelect(e) {
         e.preventDefault();
-		dispatch(filterState((e.target.value)));
+        if(user[0].roles[0] === 'ROLE_USER'){
+            dispatch(filterState((e.target.value), (user[0].id )));
+        }else{
+            dispatch(filterState((e.target.value)));
+        }
+		
 	}
 
     const handleDeleteUser = () => {
@@ -161,7 +172,12 @@ function AdminProfile() {
                         <section className="admin-box-at">
                             {/* <b>ordenes</b> */}
                             <select className="select_option" name="select" id="" onChange={(e) => handleSelect(e)}>
-                                <option value="ordenes">ordenes</option>
+                                {
+                                    user[0].roles[0] === 'ROLE_ADMIN'?
+                                     <option value="ordenes">ordenes</option>
+                                     :<option value="ordenes">Mis ordenes</option>
+                                }
+                                
                                 <option value="creada">creada</option>
                                 <option value="procesando">procesando</option>
                                 <option value="completa">completa</option>
@@ -169,16 +185,19 @@ function AdminProfile() {
                             </select>   
                             {
 
-                                stateFilter.length > 0 && user[0].roles[0] === 'ROLE_ADMIN'?
-                                stateFilter.map((o)=>{
+                                stateFilter.length > 0 && (user[0].roles[0] === 'ROLE_ADMIN' || user[0].roles[0] === 'ROLE_USER')?
+                                    stateFilter.map((o)=>{
                                     return <OrdenCard key={o.id} pedido={o.id}  inicio={o.date} estado={o.state}  productoId= {o.artworksId}/>
                                 }):
                                 order && user[0].roles[0] === 'ROLE_ADMIN'?
-                                order.map((o)=>{
+                                    order.map((o)=>{
                                     return <OrdenCard key={o.id} pedido={o.id}  inicio={o.date} estado={o.state}  productoId= {o.artworksId}/>
-
                                 })
-                                : null
+                                : orderUser && user[0].roles[0] === 'ROLE_USER'?
+                                    orderUser.map((o)=>{
+                                    return <OrdenCard key={o.id} pedido={o.id}  inicio={o.date} estado={o.state}  productoId= {o.artworksId}/>
+                                }):null
+
                             }
 
                         </section>
