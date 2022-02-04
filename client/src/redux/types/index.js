@@ -19,6 +19,7 @@ export const SORT_GALLERY = "SORT_GALLERY"
 //Artwork SCRUM action types - Tipos de accion para SCRUM de piezas de arte
 export const POST_NEW_ARTWORK = "POST_NEW_ARTWORK"
 export const GET_ARTWORK = "GET_ARTWORK"
+export const GET_ARTWORK_SUCCESS = "GET_ARTWORK_SUCCESS"
 export const PUT_ARTWORK = "PUT_ARTWORK"
 
 //Reviews action types
