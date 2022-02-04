@@ -19,7 +19,7 @@ function Store({ reducer, property, title, editOptions }) {
       <div>
         {
           products?.map((a) => {
-            return <StoreCard key={a.id} title={a.title} url={a.images} pricing={a.price} id={a.id} editOptions={editOptions} />
+            return <StoreCard key={a.id} editOptions={editOptions} info = {a}/>
           })
         }
       </div>
