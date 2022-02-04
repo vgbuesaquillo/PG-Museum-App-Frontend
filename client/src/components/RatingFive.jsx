@@ -11,7 +11,7 @@ const RatingFive = (props) =>
   <div>
     <br />
     <Rating icon='star' defaultRating={props.rating}
-      maxRating={5} size='huge' clearable />
+      maxRating={5} size='huge' disabled />
   </div>
 
 export default RatingFive

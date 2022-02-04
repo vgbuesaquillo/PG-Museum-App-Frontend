@@ -1,14 +1,18 @@
 import './styles/OrdenCard.css';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { getOrderId } from '../redux/actions/orderAction'
 
 
 
 
 function OrdenCard({inicio, pedido, estado, productoId}) {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleClick = (e)=>{
         e.preventDefault();
+        dispatch(getOrderId(pedido))
         navigate("/Admin/ordenDetails")
     }
 

@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import StoreCard from './StoreCard';
+import MercadoPagoForm from "../components/MercadoPagoForm";
 import './styles/Store.css'
 import { useSelector } from 'react-redux'
 
 //store component can be used for different lists - el componente store ahora puede usarse para otras listas
-function Store({reducer, property, title, editOptions}) {
+function Store({ reducer, property, title, editOptions }) {
 
   //reducer store and property comes from props - el store y la propiedad vienen de props
   const products = useSelector(state => state[reducer][property])
@@ -21,6 +22,9 @@ function Store({reducer, property, title, editOptions}) {
             return <StoreCard key={a.id} editOptions={editOptions} info = {a}/>
           })
         }
+      </div>
+      <div className='detail__content--footer'>
+        <MercadoPagoForm />
       </div>
     </div>
 

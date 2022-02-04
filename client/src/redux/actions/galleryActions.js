@@ -3,7 +3,7 @@ import axios from 'axios'
 const url = process.env.REACT_APP_URL
 
 //fetches the list of artworks - recibe la lista de piezas de arte
-export const getAllGallery = (id) => {
+export const getAllGallery = () => {
     return async function dispatch(dispatch) {
         const response = await fetch(`${url}/artwork/all`);
         const json = await response.json();

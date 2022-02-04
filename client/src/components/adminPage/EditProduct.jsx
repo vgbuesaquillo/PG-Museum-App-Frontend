@@ -6,13 +6,23 @@ import axios from 'axios'
 
 const EditProduct = () => {
   const url = process.env.REACT_APP_URL
-  const categoryOptions = [
-    { value: "1", label: "Painting" },
-    { value: "6", label: "Sculpture" },
-    { value: "4", label: "Ceramic" },
-    { value: "9", label: "Textile" }
-  ]
   localStorage.getItem("itemInfo")
+  const artworkTypes = useSelector(state => state.galleryReducer.types);
+  //gets action type from url to display in title - toma el tipo de accion de la url para mostrar en el titulo
+//   const params = useParams()
+  //redux
+//   const dispatch = useDispatch()
+//   const fa = useSelector(state => state.adminProductsReducer.fetchedArtwork)
+
+  const categoryOptions = artworkTypes
+
+  // const categoryOptions = [
+  //   { value: "1", label: "Painting" },
+  //   { value: "6", label: "Sculpture" },
+  //   { value: "4", label: "Ceramic" },
+  //   { value: "9", label: "Textile" }
+  // ]
+  
   //form state - state del form
   const [formInfo, setFormInfo] = useState(JSON.parse(localStorage.getItem("itemInfo")))
   console.log(formInfo)
@@ -27,7 +37,7 @@ const EditProduct = () => {
 
   //handles changes on inputs, adds to state - maneja los cambios en el inputs, añade al state
   const handleSelectChange = e => {
-    let valueArr = e.map(el => el.value)
+    let valueArr = e.map(el => el.type)
     setFormInfo({
       ...formInfo,
       categories: valueArr
@@ -39,7 +49,6 @@ const EditProduct = () => {
     const imageUrl = new FileReader();
     imageUrl?.readAsDataURL(imageFile)
     imageUrl.onload = (e) => {
-      console.log("e es ", e.target)
       setFormInfo({
         ...formInfo,
         images: e.target.result
@@ -53,8 +62,7 @@ const EditProduct = () => {
       [e.target.name]: e.target.checked
     })
   }
-
-  
+ 
   //handle dispatch action
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -62,6 +70,16 @@ const EditProduct = () => {
     const {data} = request
     console.log(data)
   }
+
+//   useEffect(() => {
+//     dispatch(getArtwork(params.id))
+//     const fillForm = () => {
+//       if (formInfo !== fa)
+//         setFormInfo(fa)
+//     }
+//     fillForm()
+//   }, [dispatch])
+
 
   return (
     <form onSubmit={handleSubmit} style={{margin:"50px auto"}} >
@@ -94,11 +112,13 @@ const EditProduct = () => {
       <label htmlFor="categories">Categories</label>
       <Select
         onChange={handleSelectChange}
-        isMulti
         name="categories"
         options={categoryOptions}
         className="basic-multi-select"
         classNamePrefix="select"
+        getOptionLabel={(option) => option.type}
+        getOptionValue={(option) => option.id}
+        isMulti
       />
 
       <div style={{ width: "200px", border: "1px solid black", margin: "20px auto", overflow: "hidden" }}>

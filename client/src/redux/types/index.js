@@ -24,3 +24,10 @@ export const PUT_ARTWORK = "PUT_ARTWORK"
 
 //Reviews action types
 export const POST_REVIEW = "POST_REVIEW"
+
+//Order action types
+export const POST_NEW_ORDER = "POST_NEW_ORDER"
+export const FILTER_ORDER = "FILTER_ORDER"
+export const GET_ORDER_ID = "GET_ORDER_ID"
+export const GET_ORDER = "GET_ORDER"
+export const PUT_ORDER = "PUT_ORDER"
