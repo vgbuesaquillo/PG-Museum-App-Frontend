@@ -1,6 +1,6 @@
 import Select from 'react-select'
 import { Button } from 'semantic-ui-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { postNewArtwork } from '../../redux/actions/adminProductsActions'
 import InputComponent from './InputComponent'
