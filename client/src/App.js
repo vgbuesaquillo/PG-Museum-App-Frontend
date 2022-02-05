@@ -42,7 +42,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/resetPasswordPost" element={<ResetPasswordPost />} />
-        <Route path="/resetPasswordPut" element={<ResetPasswordPut />} />
+        <Route path="/reset-password" element={<ResetPasswordPut />} />
       </Routes>
     </div>
   );
