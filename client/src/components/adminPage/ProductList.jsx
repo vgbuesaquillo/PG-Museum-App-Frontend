@@ -12,11 +12,11 @@ const ProductList = () => {
   }, [])
 
   return (
-    <section style={{overflow:"scroll"}}>
+    <section style={{margin:"50px auto"}}>
       <Store
         reducer={"galleryReducer"}
         property={"allGallery"}
-        title={"Product List"}
+        title={"Admin Product List"}
         editOptions={true}
       />
     </section>

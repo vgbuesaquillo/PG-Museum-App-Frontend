@@ -126,7 +126,6 @@ function AdminProfile() {
                 <div className="admin-profile-top-info">
                     <div >
                         <h5>{user[0].email}</h5>
-                        {console.log(user[0]?.roles)}
                         {
                             user[0]?.roles[0]?.includes('ROLE_ADMIN ') ? 
                             <button className="admin-profile-top-info-butt" onClick={bandera? DeleteUserGoogle: handleDeleteUser}> Eliminar cuenta</button> : null
@@ -144,7 +143,6 @@ function AdminProfile() {
                             {/* <b>name: {' ' + user[0].name}</b> */}
                             <b>correo {' ' + user[0].email}</b>
                             <b>Tipo: {' ' + user[0].roles}</b>
-                            {console.log(user[0])}
 
                             { 
                                 user[0]?.roles[0] === "ROLE_ADMIN"? <div>
