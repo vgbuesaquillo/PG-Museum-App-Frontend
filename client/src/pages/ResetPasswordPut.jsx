@@ -9,7 +9,7 @@ import queryString from 'query-string';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { accountService, alertService} from '../services'
-import {history} from '../utils/history'
+// import {history} from '../utils/history'
 import validate from '../utils/validatePassword';
 
 
@@ -59,7 +59,7 @@ function ResetPasswordPut({ history }) {
             accountService.resetPassword({ token, password, confirmPassword })
                 .then(() => {
                     alertService.success('Password reset successful, you can now login', { keepAfterRouteChange: true });
-                    history.push('/login');
+//                     history.push('/login');
                 })
                 .catch(error => {
                     setSubmitting(false);
