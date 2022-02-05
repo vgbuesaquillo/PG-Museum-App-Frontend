@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login';
 import NavBar from './components/NavBar.jsx'
@@ -17,6 +17,8 @@ import ResetPasswordPut from './pages/ResetPasswordPut.jsx';
 import ProductList from './components/adminPage/ProductList';
 import EditProduct from './components/adminPage/EditProduct';
 import OrdenDetail from './pages/OrdenDetail';
+import Checkout from './components/checkout/Checkout';
+import MercadoPagoForm from './components/MercadoPagoForm';
 
 function App() {
   return (
@@ -27,15 +29,15 @@ function App() {
         <Route path="/favorite" element={<> <NavBar /><Favorite /></>} />
         <Route path="/setting" element={<> <NavBar /><Setting /></>} />
         <Route path="/github" element={<> <NavBar /><GitHub /></>} />
-        
+
         <Route path="/Admin" element={<> <NavBar /><AdminProfile /></>} />
-        <Route path="/Admin/new" element={<> <NavBar /><NewProduct/> </>} />
-        <Route path="/Admin/ordenDetails" element={<> <NavBar /><OrdenDetail/></>} />
-        <Route path="/Admin/edit-product/:id" element={<> <NavBar /><EditProduct/> </>} />
+        <Route path="/Admin/new" element={<> <NavBar /><NewProduct /> </>} />
+        <Route path="/Admin/ordenDetails" element={<> <NavBar /><OrdenDetail /></>} />
+        <Route path="/Admin/edit-product/:id" element={<> <NavBar /><EditProduct /> </>} />
         <Route path="/Admin/product-list" element={<> <NavBar /> <ProductList /> </>} />
 
         <Route path="/User/:id" element={<> <NavBar /><AdminProfile /></>} />
-        
+
 
         <Route path="/store" element={<> <NavBar /><Store reducer={"allProductsReducer"} property={"allproducts"} title={"My Cart"} /></>} />
         <Route path="/:id" element={<> <NavBar /><Detail /></>} />
@@ -43,6 +45,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/resetPasswordPost" element={<ResetPasswordPost />} />
         <Route path="/resetPasswordPut" element={<ResetPasswordPut />} />
+        <Route path="/checkoutForm" element={<Checkout />} />
+        <Route path="/mercadoPagoForm" element={<MercadoPagoForm />} />
       </Routes>
     </div>
   );
