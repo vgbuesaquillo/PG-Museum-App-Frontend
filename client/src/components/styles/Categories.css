@@ -1,6 +1,6 @@
 .categoriesHome {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   /* vertical-align: top;
   overflow: hidden; */
   color: gray;
