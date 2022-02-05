@@ -18,17 +18,29 @@ const GalleryCard = (props) => {
     const { Meta } = Card;
     const cookies = new Cookies();
     const user = localStorage?.session ? JSON.parse(localStorage.session) : null
-
+    
     useEffect(() => {
         // storing input name
-        localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
-        const allStorage = () => {
 
+        localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
+        
+        const allStorage = () => {
             var values = []
             var keys = Object.keys(localStorage)
             var i = keys.length;
 
             while (i--) {
+
+                // if((JSON.parse(localStorage.getItem(keys[i])))){
+                //     try{
+                //         values.push(JSON(localStorage.getItem(keys[i])));
+                //     }
+                //     catch(err){
+                //         console.error("Not a JSON response", err)
+                //     }
+                // } 
+
+
                 values.push(JSON.parse(localStorage.getItem(keys[i])));
             }
 

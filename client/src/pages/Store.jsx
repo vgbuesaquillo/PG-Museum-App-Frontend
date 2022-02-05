@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import StoreCard from './StoreCard';
 import MercadoPagoForm from "../components/MercadoPagoForm";
+import EmailSending from "../components/EmailSending";
 import './styles/Store.css'
 import { useSelector } from 'react-redux'
 
@@ -23,8 +24,11 @@ function Store({ reducer, property, title, editOptions }) {
           })
         }
       </div>
-      <div className='detail__content--footer'>
-        <MercadoPagoForm />
+      <div className='sendEmail__content--footer'>
+        <EmailSending/>
+      </div>
+      <div className='passPago__content--footer'>
+        <MercadoPagoForm products={products}/>
       </div>
     </div>
 
