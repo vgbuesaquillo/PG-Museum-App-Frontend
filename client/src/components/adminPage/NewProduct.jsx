@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { postNewArtwork } from '../../redux/actions/adminProductsActions'
 import InputComponent from './InputComponent'
+import { categoriesTypes } from "../../redux/actions/galleryActions"
 
 const NewProduct = () => {
   const artworkTypes = useSelector(state => state.galleryReducer.types);
@@ -37,6 +38,12 @@ const NewProduct = () => {
     dispatch(postNewArtwork(formInfo))
   }
 
+  
+  useEffect(() => {
+    dispatch(categoriesTypes());
+  }, [dispatch])
+
+  
   //handles every change but submit's - maneja todo change excepto el del select
   const handleChange = e => {
     let name = e.target.name
