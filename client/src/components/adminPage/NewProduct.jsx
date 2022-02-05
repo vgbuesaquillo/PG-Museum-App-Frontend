@@ -3,6 +3,7 @@ import { Button } from 'semantic-ui-react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { postNewArtwork } from '../../redux/actions/adminProductsActions'
+import InputComponent from './InputComponent'
 
 const NewProduct = () => {
   const artworkTypes = useSelector(state => state.galleryReducer.types);
@@ -11,25 +12,20 @@ const NewProduct = () => {
 
   const categoryOptions = artworkTypes
 
-  // const categoryOptions = [
-  //   { value: "1", label: "Painting" },
-  //   { value: "6", label: "Sculpture" },
-  //   { value: "4", label: "Ceramic" },
-  //   { value: "9", label: "Textile" }
-  // ]
 
   //form state - state del form
   const [formInfo, setFormInfo] = useState({
     title: "",
     creators_description: "",
     technique: "",
-    culture: "",
+    culture: [],
     creation_date: "",
     current_location: "",
     collection: "",
+    dimensions_height: "",
+    dimensions_width: "",
     price: "",
-    types: [],
-    stock: true,
+    type: [],
     images: null,
     description: ""
   })
@@ -44,6 +40,7 @@ const NewProduct = () => {
   //handles every change but submit's - maneja todo change excepto el del select
   const handleChange = e => {
     let name = e.target.name
+    if(name === "culture") return setFormInfo({...formInfo, culture:[e.target.value]})
     setFormInfo({
       ...formInfo,
       [name]: e.target.value
@@ -52,76 +49,82 @@ const NewProduct = () => {
 
   //handles changes on submit, adds to state - maneja los cambios en el submit, añade al state
   const handleSelectChange = e => {
-    let valueArr = e.map(el => el.type)
+    let valueArr = e.map(el => el.id)
+    console.log(valueArr)
     setFormInfo({
       ...formInfo,
-      types: valueArr
+      type: valueArr
     })
   }
 
-  const handleImagesChange = e => {
-    if (e.target.files && e.target.files.length > 0) {
+  function processImage(e) {
+    const imageFile = e.target.files[0];
+    const imageUrl = new FileReader();
+    imageUrl?.readAsDataURL(imageFile)
+    imageUrl.onload = (e) => {
       setFormInfo({
         ...formInfo,
-        images: URL.createObjectURL(e.target.files[0])
+        images: e.target.result
       })
-    }
-  }
+    };
+  };
 
   return (
-    <form encType="multipart/form-data" onSubmit={handleSubmit} style={{ margin: "50px auto" }}>
-      <h2>New product</h2>
+    <form encType="multipart/form-data" onSubmit={handleSubmit} style={{ margin: "50px auto", display: "grid", gridTemplateColumns: "repeat(2, 1fr)", width: "600px" }}>
+      <h2 style={{ gridColumn: "1/3" }} >New product</h2>
+      <div style={{ width: "280px", margin: "auto" }}>
+        <InputComponent labelTxt={"Title"} name={"title"} propVal={formInfo.title} handleFunc={handleChange} />
 
-      <label htmlFor="title">Title</label>
-      <input type="text" name='title' onChange={handleChange} />
+        <InputComponent labelTxt={"Artist Details"} name={"creators_description"} propVal={formInfo.creators_description} handleFunc={handleChange} />
 
-      <label htmlFor="creators_description">Artist Details</label>
-      <input type="text" name='creators_description' onChange={handleChange} />
+        <InputComponent labelTxt={"Technique"} name={"technique"} propVal={formInfo.technique} handleFunc={handleChange} />
 
-      <label htmlFor="technique">Technique</label>
-      <input type="text" name='technique' onChange={handleChange} />
+        <InputComponent labelTxt={"Culture"} name={'culture'} propVal={formInfo.culture} handleFunc={handleChange} />
 
-      <label htmlFor="culture">Culture</label>
-      <input type="text" name='culture' onChange={handleChange} />
+        <InputComponent labelTxt={"Creation Date"} name={"creation_date"} propVal={formInfo.creation_date} handleFunc={handleChange} />
 
-      <label htmlFor="creation_date">Creation Date</label>
-      <input type="text" name='creation_date' onChange={handleChange} />
+        <InputComponent labelTxt={'Current Location'} name={'current_location'} propVal={formInfo.current_location} handleFunc={handleChange} />
 
-      <label htmlFor="current_location">Current Location</label>
-      <input type="text" name='current_location' onChange={handleChange} />
+        <InputComponent labelTxt={'Collection'} name={'collection'} propVal={formInfo.collection} handleFunc={handleChange} />
 
-      <label htmlFor="collection">Collection</label>
-      <input type="text" name='collection' onChange={handleChange} />
+        <InputComponent labelTxt={'Price'} name={'price'} propVal={formInfo.price} handleFunc={handleChange} />
 
-      <label htmlFor="price">Price</label>
-      <input type="text" name='price' onChange={handleChange} />
 
-      <label htmlFor="type">Type</label>
-      <Select
-        onChange={handleSelectChange}
-        name="type"
-        options={categoryOptions}
-        className="basic-multi-select"
-        classNamePrefix="select"
-        getOptionLabel={(option) => option.type}
-        getOptionValue={(option) => option.id}
-        isMulti
-      />
-
-      <div style={{ width: "150px", height: "200px", border: "1px solid black", margin: "20px auto", overflow: "hidden" }}>
-        {formInfo.images !== null ? (
-          <img src={formInfo.images} alt="" style={{ width: "100%", objectFit: "contain", objectPosition: "center center" }} />
-        ) : null}
+        <label htmlFor="type">Type</label>
+        <Select
+          onChange={handleSelectChange}
+          name="type"
+          options={categoryOptions}
+          className="basic-multi-select"
+          classNamePrefix="select"
+          getOptionLabel={(option) => option.type}
+          getOptionValue={(option) => option.id}
+          isMulti
+        />
       </div>
-      <label htmlFor="images">Images</label>
-      <input accept='image/*' type="file" name="image" onChange={handleImagesChange} />
+
+      <div style={{ width: "280px", margin: "auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)" }}>
+          <InputComponent labelTxt={'Height'} name={'dimensions_height'} propVal={formInfo.dimensions_height} handleFunc={handleChange} />
+
+          <InputComponent labelTxt={'Width'} name={'dimensions_width'} propVal={formInfo.dimensions_width} handleFunc={handleChange} />
+        </div>
+
+        <div style={{ width: "200px", border: "1px solid black", margin: "20px auto", overflow: "hidden" }}>
+
+          <img src={formInfo.images} alt="" style={{ width: "100%", objectFit: "contain", objectPosition: "center center" }} />
+        </div>
+
+        <label htmlFor="image">Image</label>
+        <input onChange={(e) => processImage(e)} name="images" type="file" accept="image/*" placeholder="Select image" />
 
 
-      <label htmlFor="description">Description</label>
-      <br />
-      <textarea name="description" id="" cols="30" rows="5" onChange={handleChange} ></textarea>
-      <br />
-      <Button primary>Submit</Button>
+        <label htmlFor="description">Description</label>
+        <br />
+        <textarea name="description" id="" cols="30" rows="5" onChange={handleChange} ></textarea>
+        <br />
+        <Button primary>Submit</Button>
+      </div>
     </form>
   );
 }

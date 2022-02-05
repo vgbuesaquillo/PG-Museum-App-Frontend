@@ -9,7 +9,7 @@ function Store({ reducer, property, title, editOptions }) {
 
   //reducer store and property comes from props - el store y la propiedad vienen de props
   const products = useSelector(state => state[reducer][property])
-
+  console.log(products)
   return (
     <div className="container_cards">
       <div className='top_cards'>
@@ -24,7 +24,7 @@ function Store({ reducer, property, title, editOptions }) {
         }
       </div>
       <div className='detail__content--footer'>
-        <MercadoPagoForm />
+        {!editOptions? <MercadoPagoForm />: null}
       </div>
     </div>
 
