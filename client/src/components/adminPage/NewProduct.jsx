@@ -1,20 +1,22 @@
 import Select from 'react-select'
 import { Button } from 'semantic-ui-react'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { postNewArtwork } from '../../redux/actions/adminProductsActions'
 
 const NewProduct = () => {
+  const artworkTypes = useSelector(state => state.galleryReducer.types);
 
   const dispatch = useDispatch()
 
+  const categoryOptions = artworkTypes
 
-  const categoryOptions = [
-    { value: "1", label: "Painting" },
-    { value: "6", label: "Sculpture" },
-    { value: "4", label: "Ceramic" },
-    { value: "9", label: "Textile" }
-  ]
+  // const categoryOptions = [
+  //   { value: "1", label: "Painting" },
+  //   { value: "6", label: "Sculpture" },
+  //   { value: "4", label: "Ceramic" },
+  //   { value: "9", label: "Textile" }
+  // ]
 
   //form state - state del form
   const [formInfo, setFormInfo] = useState({
@@ -50,9 +52,10 @@ const NewProduct = () => {
 
   //handles changes on submit, adds to state - maneja los cambios en el submit, añade al state
   const handleSelectChange = e => {
+    let valueArr = e.map(el => el.type)
     setFormInfo({
       ...formInfo,
-      types: [e.value]
+      types: valueArr
     })
   }
 
@@ -100,6 +103,9 @@ const NewProduct = () => {
         options={categoryOptions}
         className="basic-multi-select"
         classNamePrefix="select"
+        getOptionLabel={(option) => option.type}
+        getOptionValue={(option) => option.id}
+        isMulti
       />
 
       <div style={{ width: "150px", height: "200px", border: "1px solid black", margin: "20px auto", overflow: "hidden" }}>

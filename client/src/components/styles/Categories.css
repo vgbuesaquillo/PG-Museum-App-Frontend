@@ -1,19 +1,34 @@
-.cotegories {
-  display: inline-block;
-  vertical-align: top;
-  overflow: hidden;
+.categoriesHome {
+  display: flex;
+  justify-content: flex-end;
+  /* vertical-align: top;
+  overflow: hidden; */
+  color: gray;
+  font-weight: 900;
 }
 
-.categories__multiple {
+.categoriesHome__options {
+  background: white;
+}
+
+.categoriesHome__sort {
+  display: flex;
+}
+
+.categoriesHome__sort label {
+  margin: 10px;
+}
+
+.categoriesHome__multiple {
   appearance: none;
   -webkit-appearance: none;
   /* background-color: transparent; */
   border: 0;
-  padding: 10px;
+  /* padding: 10px; */
   overflow: hidden;
   height: 3rem;
-  margin: 5px;
-  width: 20%;
+  /* margin: 5px; */
+  width: 50%;
   cursor: pointer;
 }
 

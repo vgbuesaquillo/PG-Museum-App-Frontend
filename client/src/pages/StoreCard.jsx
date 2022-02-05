@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 
 
 //props destructure for easier use in code - destructure a props para facilitar uso en código
-function StoreCard({id, url, title, pricing, editOptions}) {
-   
+function StoreCard({info, editOptions}) {
+  const {id, images:url, title, pricing} = info
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -36,6 +36,11 @@ function StoreCard({id, url, title, pricing, editOptions}) {
     dispatch(localstorage(values))
   }
 
+  //saves item info to localstorage to prevent render lag - Guarda info del item en localstorage para prevenir atraso de frames
+  const toLocal = ()=>{
+    localStorage.setItem("itemInfo", JSON.stringify(info))
+  }
+
   return (
 
     <div className="card_cont">
@@ -54,7 +59,11 @@ function StoreCard({id, url, title, pricing, editOptions}) {
         {/* <button className="btn_green"><b>Buy</b> </button> */}
         <button className='btn_red' onClick={deleteItem}>Delete</button>
         {editOptions === true ?
-          <Link to={`/admin/edit-product/${id}`}><button className='btn_green'>Edit</button></Link>
+          <Link to={`/admin/edit-product/${id}`}>
+            <button className='btn_green' onClick={toLocal}>
+              Edit
+            </button>
+          </Link>
         :null}
       </div>
     </div>
