@@ -2,14 +2,17 @@ import React, { useState, useEffect} from 'react'
 import { Link, useResolvedPath, useMatch } from 'react-router-dom'
 import { Modal, Button, List, Avatar, Skeleton } from 'antd';
 import Cookies from 'universal-cookie'
+import { useDispatch } from 'react-redux';
 import './styles/NavBar.css'
 import 'antd/dist/antd.min.css'
 import {MdOutlineFavorite, MdHomeFilled, MdStore, MdOutlineLogout, MdAddBox} from 'react-icons/md'
 import image from '../images/Group 1.svg'
 import {RiFlashlightFill} from 'react-icons/ri'
 import Swal from 'sweetalert2'
+import { getAllGallery} from '../redux/actions/galleryActions'
 
 
+const url = process.env.REACT_APP_URL;
 function CustomLink({ children, to, ...props }) {
     let resolved = useResolvedPath(to);
     let match = useMatch({ path: resolved.pathname, end: true });
@@ -29,17 +32,19 @@ function CustomLink({ children, to, ...props }) {
 
 const NavBar = () => {
 
-  const cookies = new Cookies();
-  const users = process.env.REACT_APP_USERS;
+  // const cookies = new Cookies();
+  // const users = process.env.REACT_APP_USERS;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [state, setState] = useState()
   const [ok, setOk] = useState(null)
+  const dispatch = useDispatch();
   const user = localStorage?.session ? JSON.parse(localStorage.session) : null
 
   useEffect(() => {
-    fetch(`${users}`)
+    fetch(`${url}/user/all`)
     .then(data => data.json())
     .then(result => setState(result))
+    dispatch(getAllGallery())
   },[isModalVisible, ok])
 
   const showModal = () => {
@@ -68,7 +73,7 @@ const NavBar = () => {
       confirmButtonText: 'Yes, Convert to Admin'
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5040/user/put/${id}`,{
+        fetch(`${url}/user/put/${id}`,{
           method: 'PUT',
           body: JSON.stringify(handleAdmin),
           headers:{
@@ -95,7 +100,7 @@ const NavBar = () => {
   }
 
   const deleteUser = (id) => {
-    fetch(`http://localhost:5040/user/delete/${id}`, {
+    fetch(`${url}/user/delete/${id}`, {
       method: 'DELETE'
     })
     .then(data => data.json())
@@ -154,7 +159,7 @@ const NavBar = () => {
                             className="demo-loadmore-list"
                             itemLayout="horizontal"
                             // FALTA VALIDAR PARA SACAR A TODOS LOS ADMINS DE ESTA LISTA Y QUE EL BOTON CONVERT ADMIN YA NO SE VUELVA A CLICKEAR
-                            dataSource={state?.data?.filter(admin => admin.username !== 'admin')}
+                            dataSource={state?.data?.filter(admin => admin?.roles?.includes('ROLE_ADMIN'))}
                             renderItem={item => (
                               <List.Item
                                 actions={[

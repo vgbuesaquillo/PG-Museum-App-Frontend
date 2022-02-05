@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import StoreCard from './StoreCard';
-import MercadoPagoForm from "../components/MercadoPagoForm";
 import EmailSending from "../components/EmailSending";
+
 import './styles/Store.css'
 import { useSelector } from 'react-redux'
 
@@ -20,15 +20,20 @@ function Store({ reducer, property, title, editOptions }) {
       <div>
         {
           products?.map((a) => {
-            return <StoreCard key={a.id} title={a.title} url={a.images} pricing={a.price} id={a.id} editOptions={editOptions} />
+            return <StoreCard key={a.id} editOptions={editOptions} info={a} />
           })
         }
       </div>
+
       <div className='sendEmail__content--footer'>
         <EmailSending/>
       </div>
-      <div className='passPago__content--footer'>
-        <MercadoPagoForm products={products}/>
+ 
+      <div className='checkoutForm'>
+        <NavLink to="/checkoutForm">Buy</NavLink>
+      </div>
+      <div className='detail__content--footer'>
+        <NavLink to="/mercadoPagoForm">Mercado pago</NavLink>
       </div>
     </div>
 
