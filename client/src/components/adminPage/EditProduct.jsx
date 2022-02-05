@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import InputComponent from './InputComponent'
+import { categoriesTypes } from "../../redux/actions/galleryActions"
 
 
 const EditProduct = () => {
