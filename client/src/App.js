@@ -45,8 +45,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/resetPasswordPost" element={<ResetPasswordPost />} />
 
-//         <Route path="/reset-password" element={<ResetPasswordPut />} />
-        <Route path="/resetPasswordPut" element={<ResetPasswordPut />} />
+        <Route path="/reset-password" element={<ResetPasswordPut />} />
         <Route path="/checkoutForm" element={<Checkout />} />
         <Route path="/mercadoPagoForm" element={<MercadoPagoForm />} />
 
