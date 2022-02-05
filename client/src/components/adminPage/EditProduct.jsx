@@ -1,12 +1,13 @@
 import Select from 'react-select'
 import { Button } from 'semantic-ui-react'
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import InputComponent from './InputComponent'
 
 
 const EditProduct = () => {
+  const dispatch = useDispatch()
 
   //===== PUT REQUEST
   const url = process.env.REACT_APP_URL
@@ -29,6 +30,10 @@ const EditProduct = () => {
       [name]: e.target.value
     })
   }
+
+  useEffect(() => {
+    dispatch(categoriesTypes());
+  }, [dispatch])
 
   //handles changes on inputs, adds to state - maneja los cambios en el inputs, añade al state
   const handleSelectChange = e => {
