@@ -47,7 +47,7 @@ function App() {
 
         <Route path="/reset-password" element={<ResetPasswordPut />} />
         <Route path="/checkoutForm" element={<Checkout />} />
-        <Route path="/mercadoPagoForm" element={<MercadoPagoForm />} />
+        {/* <Route path="/mercadoPagoForm" element={<MercadoPagoForm />} /> */}
 
       </Routes>
     </div>
