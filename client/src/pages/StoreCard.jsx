@@ -12,9 +12,11 @@ import { Link } from 'react-router-dom';
 //props destructure for easier use in code - destructure a props para facilitar uso en código
 function StoreCard({info, editOptions}) {
 
+
   const artworkShop = useSelector(state => state.galleryReducer.allGallery);
-  const {id, images:url, title, pricing} = info
   const user = localStorage?.session ? JSON.parse(localStorage.session) : null
+  const {id, images:url, title, price} = info
+
   const dispatch = useDispatch()
   console.log("info", info)
 
@@ -71,7 +73,9 @@ function StoreCard({info, editOptions}) {
       </div>
       <div className="card__info">
         <div><h2>{title}</h2></div>
-        <div><h4>Pricing: $ {' ' + info.price}</h4></div>
+
+        <div><h4>Pricing: $ {' ' + price}</h4></div>
+
       </div>
       <div className="card_bott">
         <button className="btn_green" onClick={user? handleAddShop: () => alert("Registrate para comprar")}><b>Buy</b></button>

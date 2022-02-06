@@ -7,6 +7,9 @@ import { NavLink, useNavigate } from "react-router-dom"
 // import { resetPasswordPost } from '../redux/actions/userActions'
 import './styles/ResetPasswordPost.css'
 import axios from 'axios';
+import Swal from "sweetalert2";
+
+
 
 const ResetPasswordPost = () => {
     let navigate = useNavigate();
@@ -23,7 +26,7 @@ const ResetPasswordPost = () => {
                     return response.data
                 })
                 .then(response => {
-                    alert(response.message)
+                    Swal.fire(response.message);
                     navigate('/login');
                 })
                 .catch((error) => {
