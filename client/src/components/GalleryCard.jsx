@@ -13,9 +13,11 @@ import 'antd/dist/antd.min.css';
 
 
 const GalleryCard = (props) => {
+    console.log("props", props)
     const dispatch = useDispatch();
     const artworkShop = useSelector(state => state.galleryReducer.allGallery);
     const { storage } = useSelector(state => state.storageReducer);
+    console.log("storage", storage)
     const { Meta } = Card;
     // const cookies = new Cookies();
     const user = localStorage?.session ? JSON.parse(localStorage.session) : null;
@@ -44,7 +46,7 @@ const GalleryCard = (props) => {
         allStorage()
         dispatch(totalProduct())
 
-    }, [storage, dispatch]);
+    }, [storage]);
 
     // const handleAddShop = () => {
     //     let hoy = new Date();

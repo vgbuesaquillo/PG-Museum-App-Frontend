@@ -14,7 +14,7 @@ function StoreCard({info, editOptions}) {
 
   const artworkShop = useSelector(state => state.galleryReducer.allGallery);
   const user = localStorage?.session ? JSON.parse(localStorage.session) : null
-  const {id, images:url, title, price} = info
+  const {id, images:url, title, stock, price} = info
   const dispatch = useDispatch()
   console.log("info", info)
 
@@ -60,7 +60,7 @@ function StoreCard({info, editOptions}) {
   }
 
   return (
-
+    stock?
     <div className="card_cont">
       <div>
         <img
@@ -85,6 +85,7 @@ function StoreCard({info, editOptions}) {
         :null}
       </div>
     </div>
+    :null
   )
 }
 

@@ -16,18 +16,27 @@ const INITIAL_STATE = {
 };
 
 export default function MercadoPagoForm(props) {
+    let productsFilter = [];
+    let totalFilter = 0;
+    props?.products.map((p)=> {
+        let product = p.price;
+        productsFilter.push(product);
+        totalFilter += p.price;
+    })
+    console.log("totalFilter" ,totalFilter)
+    
     const [state, setState] = useState(INITIAL_STATE);
     //const resultPayment = useMercadoPago();
     const user = localStorage?.session ? JSON.parse(localStorage.session) : null
     const [resultPayment, setResultPayment] = useState(undefined);
-
+    console.log("resultPayment", resultPayment)
     const { MercadoPago } = useScript(
         "https://sdk.mercadopago.com/js/v2",
         "MercadoPago"
     );
 
     useEffect(() => {
-        if (MercadoPago) {
+        if (MercadoPago && totalFilter > 0) {
             const VITE_PUBLIC_KEY_MP = "TEST-a444b3ce-cbb6-4f66-b2d9-4a850880f115";
             const mp = new MercadoPago(VITE_PUBLIC_KEY_MP);
             
@@ -58,7 +67,7 @@ export default function MercadoPagoForm(props) {
                             paymentMethodId: payment_method_id,
                             issuerId: issuer_id,
                             cardholderEmail: email,
-                            amount,
+                            // amount,
                             token,
                             installments,
                             identificationNumber,
@@ -66,16 +75,10 @@ export default function MercadoPagoForm(props) {
                         } = cardForm.getCardFormData();
 
                         fetch(
-                            `${url}/payment/post`,
+                            "http://localhost:5040/payment/post",
                             {
                                 // entry point backend
                                 method: "POST",
-                                headers: {
-                                    "Access-Control-Allow-Origin": "*",
-                                    "Access-Control-Request-Method":
-                                        "GET, POST, DELETE, PUT, OPTIONS",
-                                    "Content-Type": "application/json",
-                                },
                                 body: JSON.stringify({
                                     token,
                                     issuer_id,
@@ -91,6 +94,12 @@ export default function MercadoPagoForm(props) {
                                         },
                                     },
                                 }),
+                                headers: {
+                                    "Access-Control-Allow-Origin": "*",
+                                    "Access-Control-Request-Method":
+                                    "GET, POST, DELETE, PUT, OPTIONS",
+                                    "Content-Type": "application/json",
+                                },
                             }
                         )
                             .then((res) => res.json())
@@ -111,6 +120,9 @@ export default function MercadoPagoForm(props) {
                     },
                 },
             });
+        }else{
+
+            console.log("No hay obras")
         }
     }, [MercadoPago]);
 
@@ -128,7 +140,7 @@ export default function MercadoPagoForm(props) {
 
 
     useEffect(() => {
-        if (resultPayment) {
+        if (resultPayment && totalFilter > 0) {
             JSON.stringify(resultPayment);
             const user_id = "user_id";
             const username = "username";
@@ -136,7 +148,7 @@ export default function MercadoPagoForm(props) {
             resultPayment[user_id] = user[0].id;
             let products = [];
             let total = 0;
-            props?.products.map((p)=> {
+            props?.products.map((p) => {
                 let product = p.id + " - " + p.title + " - " + p.price;
                 products.push(product);
                 total += p.price;
@@ -152,7 +164,7 @@ export default function MercadoPagoForm(props) {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Access-Control-Request-Method":
-                                "GET, POST, DELETE, PUT, OPTIONS",
+                            "GET, POST, DELETE, PUT, OPTIONS",
                             "Content-Type": "application/json",
                         },
                     }
@@ -161,6 +173,8 @@ export default function MercadoPagoForm(props) {
                 console.log(data);
             };
             paymentFetch();
+        }else{
+            console.log("No hay obras")
         }
     }, [resultPayment]);
 
