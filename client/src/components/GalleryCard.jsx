@@ -29,20 +29,12 @@ const GalleryCard = (props) => {
             var values = []
             var keys = Object.keys(localStorage)
             var i = keys.length;
-
+            
             while (i--) {
-
-
-                // if((JSON.parse(localStorage.getItem(keys[i])))){
-                //     try{
-                //         values.push(JSON(localStorage.getItem(keys[i])));
-                //     }
-                //     catch(err){
-                //         console.error("Not a JSON response", err)
-                //     }
-                // } 
-
-                values.push(JSON?.parse(localStorage?.getItem(keys[i])));
+                
+                if (parseInt(keys[i])) {
+                    values.push(JSON?.parse(localStorage?.getItem(keys[i])));
+                }
 
             }
 

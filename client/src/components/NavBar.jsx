@@ -160,6 +160,7 @@ const NavBar = () => {
                             itemLayout="horizontal"
                             // FALTA VALIDAR PARA SACAR A TODOS LOS ADMINS DE ESTA LISTA Y QUE EL BOTON CONVERT ADMIN YA NO SE VUELVA A CLICKEAR
                             // dataSource={state?.data?.filter(admin => admin?.roles?.includes('ROLE_ADMIN'))}
+
                             dataSource={state?.data?.filter(admin => admin?.username !== 'admin')}
                             renderItem={item => (
                               <List.Item
