@@ -59,7 +59,7 @@ export const postOrder = ( date, total, userId, artworksId, image  ) => {
                 credit_card: "200000",
                 total: total,
                 userId:userId,
-                artworksId:[artworksId, artworksId],
+                artworksId:artworksId,
                 image:image,
             }),
             headers: {
