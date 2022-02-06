@@ -33,10 +33,9 @@ function StoreCard({info, editOptions}) {
     var i = keys.length;
 
     while (i--) {
-      if (keys.length === 0) {
+      if (parseInt(keys[i])) {
+          values.push(JSON?.parse(localStorage?.getItem(keys[i])));
       }
-      values.push(JSON.parse(localStorage.getItem(keys[i])));
-
     }
     dispatch(postProducts(values))
     dispatch(localstorage(values))
