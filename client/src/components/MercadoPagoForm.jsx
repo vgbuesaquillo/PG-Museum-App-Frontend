@@ -296,3 +296,4 @@ export default function MercadoPagoForm(props) {
         </div>
     );
 }
+
