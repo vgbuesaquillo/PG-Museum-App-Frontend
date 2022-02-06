@@ -15,6 +15,7 @@ import { postProducts, totalProduct } from '../redux/actions/allProductsActions'
 import { postReview } from '../redux/actions/detailAction'
 import axios from 'axios';
 import { getAllGallery} from '../redux/actions/galleryActions'
+import SizeComparison from "../components/SizeComparison";
 
 const requestApi = () => {
     
@@ -180,13 +181,16 @@ const Detail = () => {
                             Department: <br />
                             Technique: <span>{artwork?.technique}</span>
                         </p>
-                        <button className="detail__content--data--text--header--button" onClick={handleAddShop}><MdShoppingBasket /> Add in card</button>
+                        <button className="detail__content--data--text--header--button" onClick={handleAddShop}><MdShoppingBasket /> Add to cart</button>
                     </div>
                     <div className='detail__content--data--text--description'>
                         <p>{artwork?.description}</p>
                     </div>
                 </div>
             </div>
+
+            <SizeComparison height={artwork.dimensions_height} width={artwork.dimensions_width} images={artwork.images}/>
+
             <div className='detail__content--comment'>
                 <div className='detail__content--comment--stars--title'>
                     <label>Comments {reviews?.length}</label>

@@ -1,0 +1,40 @@
+.compare-container{
+  margin: 15px auto;
+}
+.size-comparison{
+  height:360px; 
+  width:400px; border:1px solid grey; 
+  position:relative;
+  background-image: url("../../../public/wall.jpg");
+  background-position: center center;
+}
+.person{
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+}
+.height-num{
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+}
+.artwork{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  
+  border: 5px double goldenrod ;
+}
+.center-absolute{
+  transform: translate(-50%, -50%);
+}
+.num{
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  padding: 0 5px;
+  position: absolute;
+}
+.person-height{
+  bottom: 5px;
+  left: 20px;
+}
