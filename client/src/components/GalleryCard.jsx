@@ -28,9 +28,13 @@ const GalleryCard = (props) => {
             var values = []
             var keys = Object.keys(localStorage)
             var i = keys.length;
-
+            
             while (i--) {
-                values.push(JSON?.parse(localStorage?.getItem(keys[i])));
+                
+                if (parseInt(keys[i])) {
+                    values.push(JSON?.parse(localStorage?.getItem(keys[i])));
+                }
+
             }
 
             dispatch(postProducts(values));

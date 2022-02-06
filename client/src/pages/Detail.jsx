@@ -42,7 +42,10 @@ const Detail = () => {
             var i = keys.length;
             
             while (i--) {
-                values.push(JSON.parse(localStorage.getItem(keys[i])));
+
+                if (parseInt(keys[i])) {
+                    values.push(JSON.parse(localStorage.getItem(keys[i])));
+                }
             }
             
             dispatch(postProducts(values));
