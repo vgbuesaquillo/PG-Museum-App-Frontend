@@ -33,7 +33,7 @@ function Store({ reducer, property, title, editOptions }) {
         <NavLink to="/checkoutForm">Buy</NavLink>
       </div>
       <div className='detail__content--footer'>
-        <NavLink to="/mercadoPagoForm">Mercado pago</NavLink>
+        <NavLink to="/mercadoPagoForm" >Mercado pago</NavLink>
       </div>
     </div>
 

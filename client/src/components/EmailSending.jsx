@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 
 export default class email_sending extends Component {
+    
     email = React.createRef();
     subject = React.createRef();
     message = React.createRef();
@@ -30,11 +31,12 @@ export default class email_sending extends Component {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
+    // `${url}/`
     async handleSubmit(e) {
         e.preventDefault();
+        const url = process.env.REACT_APP_URL;
         const { email, subject, message } = this.state;
-        const form = await axios.post('http://localhost:5040/sendemail', { 
+        const form = await axios.post(`${url}/sendemail`, { 
             email, 
             subject, 
             message });

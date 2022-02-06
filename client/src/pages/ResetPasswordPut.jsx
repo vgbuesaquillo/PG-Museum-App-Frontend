@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect ,} from 'react'
 import { useDispatch } from 'react-redux'
 import { NavLink, useNavigate, Link } from "react-router-dom"
@@ -9,7 +8,7 @@ import queryString from 'query-string';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { accountService, alertService} from '../services'
-import {history} from '../utils/history'
+// import {history} from '../utils/history'
 import validate from '../utils/validatePassword';
 
 
@@ -59,7 +58,7 @@ function ResetPasswordPut({ history }) {
             accountService.resetPassword({ token, password, confirmPassword })
                 .then(() => {
                     alertService.success('Password reset successful, you can now login', { keepAfterRouteChange: true });
-                    history.push('/login');
+//                     history.push('/login');
                 })
                 .catch(error => {
                     setSubmitting(false);
@@ -122,7 +121,6 @@ function ResetPasswordPut({ history }) {
 
 /* 
 const ResetPasswordPut = () => {
-
     const TokenStatus = {
         Validating: 'Validating',
         Valid: 'Valid',
@@ -131,13 +129,10 @@ const ResetPasswordPut = () => {
     
     const [token, setToken] = useState(null);
     const [tokenStatus, setTokenStatus] = useState(TokenStatus.Validating);
-
     useEffect(() => {
         const { token } = queryString.parse(location.search);
-
         // remove token from url to prevent http referer leakage
         history.replace(location.pathname);
-
         accountService.validateResetToken(token)
             .then(() => {
                 setToken(token);
@@ -147,9 +142,7 @@ const ResetPasswordPut = () => {
                 setTokenStatus(TokenStatus.Invalid);
             });
     }, []);
-
     ////////////////////
-
     const url = process.env.REACT_APP_URL;
     let navigate = useNavigate();
     const [input, setInput] = useState({
@@ -158,7 +151,6 @@ const ResetPasswordPut = () => {
     });
     const [errors, setErrors] = useState({})
     // const dispatch = useDispatch()
-
     const handleSend = async function (e) {
         try {
             if (Object.keys(errors).length === 0 && errors.constructor === Object && input.password !== '') {
@@ -181,11 +173,9 @@ const ResetPasswordPut = () => {
             console.log(error)
         }
     }
-
     const handleSubmit = (e) => {
         e.preventDefault();
     }
-
     const handleChange = e => {
         setInput({
             ...input,
@@ -196,7 +186,6 @@ const ResetPasswordPut = () => {
             [e.target.name]: e.target.value
         }))
     }
-
     return (<div className="resetpasswordput">
         <div className="resetpasswordput__text">
             <h2>New password</h2>
@@ -205,7 +194,6 @@ const ResetPasswordPut = () => {
                 Please enter your new password below.
             </p>
         </div>
-
         <div className='resetpasswordput__form'>
             <form onSubmit={handleSubmit} className='resetpasswordput__form--form'>
                 <div>
@@ -220,7 +208,6 @@ const ResetPasswordPut = () => {
                     {errors.passwordbis && <p className="signup__body--inputs--errors">{errors.passwordbis}</p>}
                 </div>
                 <button onClick={handleSend}>Submit</button>
-
             </form>
             <span className='resetpasswordput__form--span'>
                 <NavLink to="/login">

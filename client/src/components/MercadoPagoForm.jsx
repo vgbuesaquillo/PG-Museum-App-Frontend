@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from 'react-redux'
 import useScript from "./useScript";
 import { formConfig } from "./formConfig";
 import Card from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 const url = process.env.REACT_APP_URL;
+
+
 
 const INITIAL_STATE = {
     cvc: "",
@@ -16,11 +19,14 @@ const INITIAL_STATE = {
 };
 
 export default function MercadoPagoForm(props) {
+    const products = useSelector(state => state.allproducts)
+    console.log("prooooo__", products);
+    console.log("props es", props)
     const [state, setState] = useState(INITIAL_STATE);
     //const resultPayment = useMercadoPago();
-    const user = localStorage?.session ? JSON.parse(localStorage.session) : null
+    const user = localStorage?.getItem("session") ? JSON.parse(localStorage.getItem("session")) : null
     const [resultPayment, setResultPayment] = useState(undefined);
-
+    console.log("userrrrrrrrres", user)
     const { MercadoPago } = useScript(
         "https://sdk.mercadopago.com/js/v2",
         "MercadoPago"
@@ -127,42 +133,42 @@ export default function MercadoPagoForm(props) {
 
 
 
-    useEffect(() => {
-        if (resultPayment) {
-            JSON.stringify(resultPayment);
-            const user_id = "user_id";
-            const username = "username";
-            resultPayment[username] = user[0].username;
-            resultPayment[user_id] = user[0].id;
-            let products = [];
-            let total = 0;
-            props?.products.map((p)=> {
-                let product = p.id + " - " + p.title + " - " + p.price;
-                products.push(product);
-                total += p.price;
-            })
-            resultPayment["products"] = products;
-            resultPayment["total"] = total;
-            const paymentFetch = async () => {
-                const response = await fetch(
-                    `${url}/payment/db/post`,
-                    {
-                        method: "POST",
-                        body: JSON.stringify(resultPayment),
-                        headers: {
-                            "Access-Control-Allow-Origin": "*",
-                            "Access-Control-Request-Method":
-                                "GET, POST, DELETE, PUT, OPTIONS",
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
-                const data = await response.json();
-                console.log(data);
-            };
-            paymentFetch();
-        }
-    }, [resultPayment]);
+    // useEffect(() => {
+    //     if (resultPayment) {
+    //         JSON.stringify(resultPayment);
+    //         const user_id = "user_id";
+    //         const username = "username";
+    //         resultPayment[username] = user[0].username;
+    //         resultPayment[user_id] = user[0].id;
+    //         let products = [];
+    //         let total = 0;
+    //         props?.products.map((p)=> {
+    //             let product = p.id + " - " + p.title + " - " + p.price;
+    //             products.push(product);
+    //             total += p.price;
+    //         })
+    //         resultPayment["products"] = products;
+    //         resultPayment["total"] = total;
+    //         const paymentFetch = async () => {
+    //             const response = await fetch(
+    //                 `${url}/payment/db/post`,
+    //                 {
+    //                     method: "POST",
+    //                     body: JSON.stringify(resultPayment),
+    //                     headers: {
+    //                         "Access-Control-Allow-Origin": "*",
+    //                         "Access-Control-Request-Method":
+    //                             "GET, POST, DELETE, PUT, OPTIONS",
+    //                         "Content-Type": "application/json",
+    //                     },
+    //                 }
+    //             );
+    //             const data = await response.json();
+    //             console.log(data);
+    //         };
+    //         paymentFetch();
+    //     }
+    // }, [resultPayment]);
 
   
 

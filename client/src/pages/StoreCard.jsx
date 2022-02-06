@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 //props destructure for easier use in code - destructure a props para facilitar uso en código
 function StoreCard({info, editOptions}) {
-  const {id, images:url, title, pricing} = info
+  const {id, images:url, title, price} = info
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -53,7 +53,7 @@ function StoreCard({info, editOptions}) {
       </div>
       <div className="card__info">
         <div><h2>{title}</h2></div>
-        <div><h4>Pricing: $ {' ' + pricing}</h4></div>
+        <div><h4>Pricing: $ {' ' + price}</h4></div>
       </div>
       <div className="card_bott">
         {/* <button className="btn_green"><b>Buy</b> </button> */}

@@ -19,33 +19,27 @@ const GalleryCard = (props) => {
     const { Meta } = Card;
     // const cookies = new Cookies();
     const user = localStorage?.session ? JSON.parse(localStorage.session) : null
-    
+
     useEffect(() => {
         // storing input name
 
         localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
-        
+
         const allStorage = () => {
             var values = []
             var keys = Object.keys(localStorage)
             var i = keys.length;
 
             while (i--) {
-
-
-                // if((JSON.parse(localStorage.getItem(keys[i])))){
-                //     try{
-                //         values.push(JSON(localStorage.getItem(keys[i])));
-                //     }
-                //     catch(err){
-                //         console.error("Not a JSON response", err)
-                //     }
-                // } 
-
-                values.push(JSON?.parse(localStorage?.getItem(keys[i])));
-
+                // if (localStorage.getItem("trafficLightBase64") || localStorage.getItem("trafficLightWhitelist") || localStorage.getItem("trafficLightTTL") || localStorage.getItem("trafficLightSendData")) {
+                // // // if (typeof localStorage.getItem() === "number"){
+                // } else {
+                //     values.push(JSON?.parse(localStorage?.getItem(keys[i])));
+                // }
+                values.push(JSON?.parse(localStorage?.getItem(keys[i])))
+                console.log("values filter traffic is:__", values)
             }
-
+            
             dispatch(postProducts(values));
         }
 
@@ -102,4 +96,3 @@ const GalleryCard = (props) => {
 }
 
 export default GalleryCard;
-
