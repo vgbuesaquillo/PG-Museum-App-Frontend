@@ -15,10 +15,10 @@ const INITIAL_STATE = {
     issuer: "",
 };
 
-export default function MercadoPagoForm() {
+export default function MercadoPagoForm(props) {
     const [state, setState] = useState(INITIAL_STATE);
     //const resultPayment = useMercadoPago();
-    
+    const user = localStorage?.session ? JSON.parse(localStorage.session) : null
     const [resultPayment, setResultPayment] = useState(undefined);
 
     const { MercadoPago } = useScript(
@@ -124,6 +124,51 @@ export default function MercadoPagoForm() {
     const handleInputFocus = (e) => {
         setState({ ...state, focus: e.target.dataset.name || e.target.name });
     };
+
+
+
+    useEffect(() => {
+        if (resultPayment) {
+            JSON.stringify(resultPayment);
+            const user_id = "user_id";
+            const username = "username";
+            resultPayment[username] = user[0].username;
+            resultPayment[user_id] = user[0].id;
+            let products = [];
+            let total = 0;
+            props?.products.map((p)=> {
+                let product = p.id + " - " + p.title + " - " + p.price;
+                products.push(product);
+                total += p.price;
+            })
+            resultPayment["products"] = products;
+            resultPayment["total"] = total;
+            const paymentFetch = async () => {
+                const response = await fetch(
+                    `${url}/payment/db/post`,
+                    {
+                        method: "POST",
+                        body: JSON.stringify(resultPayment),
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Request-Method":
+                                "GET, POST, DELETE, PUT, OPTIONS",
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+                const data = await response.json();
+                console.log(data);
+            };
+            paymentFetch();
+        }
+    }, [resultPayment]);
+
+  
+
+
+
+
 
     return (
         <div className="container">
@@ -251,3 +296,4 @@ export default function MercadoPagoForm() {
         </div>
     );
 }
+
