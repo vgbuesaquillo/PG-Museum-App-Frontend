@@ -16,37 +16,37 @@ function Store({ reducer, property, title, editOptions }) {
   const user = localStorage?.session ? JSON.parse(localStorage.session) : null
   const total = useSelector(state => state.allProductsReducer.totalCount)
   const dispatch = useDispatch();
-
   const handleAddShop = () => {
     let hoy = new Date();
     const obras = products.map((a) => a.id);
     const img = []
-    products.map((a) => img.push(a.images)); 
+    products.map((a) => img.push(a.images));
     let arr2 = []
     arr2.push(hoy)
     for (let i = 0; i < products.length; i++) {
       fetch(
-          `${url}/artwork/put/${products[i].id}`,
-          {
-              // entry point backend
-              method: "PUT",
-              body: JSON.stringify({
-                    stock: false
-                  }),
-              headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Access-Control-Request-Method":
-                  "GET, POST, DELETE, PUT, OPTIONS",
-                  "Content-Type": "application/json",
-              },
-          }
+        `${url}/artwork/put/${products[i].id}`,
+        {
+          // entry point backend
+          method: "PUT",
+          body: JSON.stringify({
+            stock: false
+          }),
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Request-Method":
+              "GET, POST, DELETE, PUT, OPTIONS",
+            "Content-Type": "application/json",
+          },
+        }
       )
-          .then((res) => res.json())
-          .then((data) => console.log(" data" ,data))
+        .then((res) => res.json())
+        .then((data) => console.log(" data", data))
     }
 
     dispatch(postOrder(arr2, total, user[0].id, obras, img))
   }
+ 
 
     return (
       <div className="container_cards">
@@ -60,6 +60,12 @@ function Store({ reducer, property, title, editOptions }) {
             return <StoreCard key={a.id} editOptions={editOptions} info={a} />
           })
         }
+      </div>
+     <div className='detail__content--footer'>
+            {/* <MercadoPagoForm products={products} /> */}
+            {!editOptions ? <NavLink to="/mercadoPagoForm"
+              state={{ products: products }}
+            >Mercado pago</NavLink> : null}
       </div>
     </div>
   )

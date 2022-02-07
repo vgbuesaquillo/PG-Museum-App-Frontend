@@ -14,7 +14,6 @@ import Swal from "sweetalert2";
 const ResetPasswordPost = () => {
     const location = useLocation()
     const state = location.state
-    console.log(state.email)
     let navigate = useNavigate();
     // const dispatch = useDispatch()
     const url = process.env.REACT_APP_URL
@@ -23,7 +22,7 @@ const ResetPasswordPost = () => {
     })
 
     const handleSend = async function () {
-        if (state.status) {
+        if (state) {
             try {
                 axios.post(`${url}/forgot-password`, { email: state.email })
                     .then((response) => {
@@ -75,7 +74,7 @@ const ResetPasswordPost = () => {
 
     return (<div className='resetpaswordpost'>
         {
-            !state.status ?
+            !state ?
                 <div className='resetpaswordpost__text'>
                     <h2>Password reset</h2>
                     <h3>Let us help you retrieve your password.</h3>
@@ -89,12 +88,12 @@ const ResetPasswordPost = () => {
         <div className=''>
             <form onSubmit={handleSubmit}>
                 {
-                    !state.status ?
+                    !state ?
                         <input type="email" name="email" onChange={handleChange} value={input.email} ></input>
                         : null
                 }
                 {
-                    !state.status ?
+                    !state ?
                         <button onClick={handleSend}>Submit</button>
                         : <button onClick={handleSend}>Submit reset password</button>
                 }
