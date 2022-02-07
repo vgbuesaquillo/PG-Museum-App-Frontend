@@ -14,12 +14,20 @@ export default function allProductsReducer(state = initialState, action) {
       }
     case TOTAL_PRODUCT:
       let count = 0
-      state.allproducts.map(element => {
-        count += element.price
-      })
-      return {
-        ...state,
-        totalCount: count
+
+      if (state.allproducts.length > 0) {
+        state.allproducts.map(element => {
+          count += element.price
+        })
+        return {
+          ...state,
+          totalCount: count
+        }
+      } else {
+         return {
+           ...state, 
+           totalCount: 0
+         }
       }
     default:
       return state
