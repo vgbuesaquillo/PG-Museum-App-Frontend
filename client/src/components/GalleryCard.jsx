@@ -50,7 +50,7 @@ const GalleryCard = (props) => {
         allStorage()
         dispatch(totalProduct())
 
-    }, [storage, stockB]);
+    }, [storage]);
 
     // const handleAddShop = () => {
     //     let hoy = new Date();
