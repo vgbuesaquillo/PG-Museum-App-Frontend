@@ -69,6 +69,16 @@ const GalleryCard = (props) => {
         <Card
             style={{ width: 230 }}
             cover={
+                props.className === 'galleryCardSold'? 
+                <> 
+                <Img
+                    alt="example"
+                    src={props.img}
+                    className={'galleryCardSold'}
+                />
+                <h4 className='H4CardSold'>Sold out</h4>
+                </>
+                 :
                 <Img
                     alt="example"
                     src={props.img}
