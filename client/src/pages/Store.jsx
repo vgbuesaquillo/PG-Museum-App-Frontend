@@ -63,9 +63,9 @@ function Store({ reducer, property, title, editOptions }) {
       </div>
      <div className='detail__content--footer'>
             {/* <MercadoPagoForm products={products} /> */}
-            {!editOptions ? <NavLink to="/mercadoPagoForm"
+            {!editOptions ? <Link to="/mercadoPagoForm"
               state={{ products: products }}
-            >Mercado pago</NavLink> : null}
+            >Mercado pago</Link> : null}
       </div>
     </div>
   )
