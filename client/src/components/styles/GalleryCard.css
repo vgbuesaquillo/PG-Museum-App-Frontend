@@ -19,6 +19,20 @@
   border-radius: 5px;
 }
 
+.detail__content--data--text--header--button{
+  background: darken(light, 10%);
+  padding: 4px;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  margin: -1px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgb(159, 177, 226);
+  cursor: pointer;
+}
+
 /* .gallery_card-router {
   color: gray;
   margin: 0px;

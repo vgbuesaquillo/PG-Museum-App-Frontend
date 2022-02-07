@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import './styles/GalleryCard.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { MdOutlineFavorite, MdShoppingBag } from 'react-icons/md'
+import { MdOutlineFavorite, MdShoppingBasket } from 'react-icons/md'
 import { localstorage } from '../redux/actions/storageActions'
 import { postProducts, totalProduct } from '../redux/actions/allProductsActions'
 // import { postOrder } from '../redux/actions/orderAction'
@@ -75,11 +75,9 @@ const GalleryCard = (props) => {
             }
             actions={
                 user !== null ? !user[0]?.roles?.includes('ROLE_ADMIN') ? [
-                    <Button onClick={handleAddShop} type="text"><MdShoppingBag style={{ fontSize: '18px', color: '#A3DA8D' }} /></Button>,
-                    <Button onClick={handleAddShop} type="text"><MdOutlineFavorite style={{ fontSize: '18px', color: '#FF5959' }} /></Button>
+                    <Button className="detail__content--data--text--header--button" onClick={handleAddShop} type="text"><MdShoppingBasket style={{ fontSize: '18px', color: '#A3DA8D' }} />Add To Cart</Button>
                 ] : null : [
-                    <Button onClick={handleAddShop} type="text"><MdShoppingBag style={{ fontSize: '18px', color: '#A3DA8D' }} /></Button>,
-                    <Button onClick={handleAddShop} type="text"><MdOutlineFavorite style={{ fontSize: '18px', color: '#FF5959' }} /></Button>
+                    <Button className="detail__content--data--text--header--button" onClick={handleAddShop} type="text"><MdShoppingBasket style={{ fontSize: '18px', color: '#A3DA8D' }} /></Button>
                 ]}
         >
             <NavLink to={`/${props.id}`} >
