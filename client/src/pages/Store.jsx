@@ -15,80 +15,80 @@ function Store({ reducer, property, title, editOptions }) {
   const user = localStorage?.session ? JSON.parse(localStorage.session) : null
   const total = useSelector(state => state.allProductsReducer.totalCount)
   const dispatch = useDispatch();
-  
+
   console.log("products", products)
   console.log("total", total)
-  
+
 
   const handleAddShop = () => {
     let hoy = new Date();
     const obras = products.map((a) => a.id);
     const img = []
-    products.map((a) => img.push(a.images)); 
+    products.map((a) => img.push(a.images));
     let arr2 = []
     arr2.push(hoy)
     for (let i = 0; i < products.length; i++) {
       fetch(
-          `${url}/artwork/put/${products[i].id}`,
-          {
-              // entry point backend
-              method: "PUT",
-              body: JSON.stringify({
-                    stock: false
-                  }),
-              headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Access-Control-Request-Method":
-                  "GET, POST, DELETE, PUT, OPTIONS",
-                  "Content-Type": "application/json",
-              },
-          }
+        `${url}/artwork/put/${products[i].id}`,
+        {
+          // entry point backend
+          method: "PUT",
+          body: JSON.stringify({
+            stock: false
+          }),
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Request-Method":
+              "GET, POST, DELETE, PUT, OPTIONS",
+            "Content-Type": "application/json",
+          },
+        }
       )
-          .then((res) => res.json())
-          .then((data) => console.log(" data" ,data))
+        .then((res) => res.json())
+        .then((data) => console.log(" data", data))
     }
-    
-//       products.map( async(a) => {
-//       await fetch(
-//       `${url}/artwork/put/:${a.id}`,
-//       {
-//           // entry point backend
-//           method: "PUT",
-//           body: JSON.stringify({
-//             stock: false
-//           }),
-//           headers: {
-//               "Access-Control-Allow-Origin": "*",
-//               "Content-Type": "application/json",
-//           },
-//       }
-//   )
-// })
+
+    //       products.map( async(a) => {
+    //       await fetch(
+    //       `${url}/artwork/put/:${a.id}`,
+    //       {
+    //           // entry point backend
+    //           method: "PUT",
+    //           body: JSON.stringify({
+    //             stock: false
+    //           }),
+    //           headers: {
+    //               "Access-Control-Allow-Origin": "*",
+    //               "Content-Type": "application/json",
+    //           },
+    //       }
+    //   )
+    // })
     dispatch(postOrder(arr2, total, user[0].id, obras, img))
   }
-    // let hoy = new Date();
-    // hoy = hoy.toTimeString()
-    // const obras = products.map((a) => Number(a.id));
-    // const img = []
-    // products.map((a) => img.push(a.images)); 
-    // let arr2 = []
-    // arr2.push(hoy)
-    // console.log("obras", obras)
-    // console.log("arr2", arr2)
-    // console.log("img", img)
-    // console.log()
+  // let hoy = new Date();
+  // hoy = hoy.toTimeString()
+  // const obras = products.map((a) => Number(a.id));
+  // const img = []
+  // products.map((a) => img.push(a.images)); 
+  // let arr2 = []
+  // arr2.push(hoy)
+  // console.log("obras", obras)
+  // console.log("arr2", arr2)
+  // console.log("img", img)
+  // console.log()
 
   return (
     <div className="container_cards">
       <div className='top_cards'>
         <div><h1>{title} - {products?.length} Items</h1></div>
-        <button className = 'top_Link' onClick={handleAddShop}><b>Buy all</b></button>
+        <button className='top_Link' onClick={handleAddShop}><b>Buy all</b></button>
         {/* <div className = 'top_Link' onClick={handleAddShop}><b>Buy all</b></div> */}
       </div>
       <div>
         {
           // products.stock === true?
-          
+
           products?.map((a) => {
             return <StoreCard key={a.id} editOptions={editOptions} info={a} />
           })
@@ -98,20 +98,22 @@ function Store({ reducer, property, title, editOptions }) {
           //   console.log("a", a);
           //   console.log("editOptions", editOptions);
           // })
-          
+
         }
       </div>
 
       <div className='sendEmail__content--footer'>
-        <EmailSending/>
+        <EmailSending />
       </div>
- 
+
       <div className='checkoutForm'>
         <NavLink to="/checkoutForm">Buy</NavLink>
       </div>
       <div className='detail__content--footer'>
-        <MercadoPagoForm products={products} />
-        {/* {!editOptions? <NavLink to="/mercadoPagoForm">Mercado pago</NavLink>: null} */}
+        {/* <MercadoPagoForm products={products} /> */}
+        {!editOptions ? <NavLink to="/mercadoPagoForm"
+          state={{ products: products }}
+        >Mercado pago</NavLink> : null}
       </div>
     </div>
 
