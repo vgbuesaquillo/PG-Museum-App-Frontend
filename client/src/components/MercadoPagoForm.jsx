@@ -75,7 +75,7 @@ export default function MercadoPagoForm(props) {
                         } = cardForm.getCardFormData();
 
                         fetch(
-                            "http://localhost:5040/payment/post",
+                            `${url}/payment/post`,
                             {
                                 // entry point backend
                                 method: "POST",
