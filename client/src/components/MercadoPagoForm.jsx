@@ -149,7 +149,7 @@ export default function MercadoPagoForm(props) {
             let products = [];
             let total = 0;
             props?.products.map((p) => {
-                let product = p.id + " - " + p.title + " - " + p.price;
+                let product = p.id;
                 products.push(product);
                 total += p.price;
             })

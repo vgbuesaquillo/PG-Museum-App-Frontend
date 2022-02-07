@@ -55,15 +55,10 @@ const Home = () => {
                                 price={art.price} id={art.id} key={art.id} />
 
                             }else{
-                                return <GalleryCard className='galleryCardSold' img={art.images} title={art.title.length > 20 ? art.title.slice(0, 30) + "..." : art.title}
-                                price={art.price} id={art.id} key={art.id} />
+                                return <GalleryCard img={art.images} title={"SOLD"}  
+                                price={0} id={art.id} key={art.id} />
+                            }
 
-                            } 
-//                                 else{
-//                                 return <GalleryCard img={art.images} title={"SOLD"}  
-//                                 price={0} id={art.id} key={art.id} />
-
-//                             }
                             
                         })
                     }
