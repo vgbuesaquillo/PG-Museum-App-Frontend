@@ -85,7 +85,31 @@ function StoreCard({info, editOptions}) {
         :null}
       </div>
     </div>
-    :null
+    :
+    <div className="card_cont">
+      <div>
+        <img
+          height={205}
+          src={url}
+          alt={title}
+        />
+      </div>
+      <div className="card__info">
+        <div><h2>Sorry, this work has been SOLD</h2></div>
+        <div><h4>Pricing: $ {0}</h4></div>
+      </div>
+      <div className="card_bott">
+        <button className="btn_green" onClick={user? handleAddShop: () => alert("Registrate para comprar")}><b>Buy</b></button>
+        <button className='btn_red' onClick={deleteItem}>Delete</button>
+        {editOptions === true ?
+          <Link to={`/admin/edit-product/${id}`}>
+            <button className='btn_green' onClick={toLocal}>
+              Edit
+            </button>
+          </Link>
+        :null}
+      </div>
+    </div>
   )
 }
 
