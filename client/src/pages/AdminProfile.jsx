@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
 import { CgProfile } from 'react-icons/cg';
-import { Button } from 'semantic-ui-react'
+import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import 'antd/dist/antd.min.css'
@@ -146,8 +146,8 @@ function AdminProfile() {
 
                             { 
                                 user[0]?.roles[0] === "ROLE_ADMIN"? <div>
-                                        <Link to={'new'}> <Button secondary>New Product</Button></Link>
-                                        <Link to={'product-list'}> <Button secondary>Product List</Button></Link>
+                                        <Link to={'new'}> <Button type="primary">New Product</Button></Link>
+                                        <Link to={'product-list'}> <Button>Product List</Button></Link>
                                     </div>: null
 
                             }

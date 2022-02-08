@@ -71,7 +71,6 @@ function ResetPasswordPut() {
       <div className="resetpasswordput">
         <div className="resetpasswordput__text">
           <h2>New password</h2>
-          <h3>Let us help you retrieve your password.</h3>
           <p>Please enter your new password below.</p>
         </div>
 
@@ -83,10 +82,7 @@ function ResetPasswordPut() {
           {({ errors, touched, isSubmitting }) => (
             <Form>
               <div className="resetpasswordput__form">
-                <div
-                  className="form-group"
-                  className="resetpasswordput__form--form"
-                >
+                <div className="form-group resetpasswordput__form--form">
                   <label>Password</label>
                   <Field
                     name="password"
@@ -125,8 +121,7 @@ function ResetPasswordPut() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="btn btn-primary"
->
+                      className="btn btn-primary">
                       {isSubmitting && (
                         <span className="spinner-border spinner-border-sm mr-1"></span>
                       )}
@@ -163,7 +158,7 @@ function ResetPasswordPut() {
   }
 
   return (
-    <div>
+    <div className="card-container">
       <div className="card-body">{getBody()}</div>
     </div>
   );
