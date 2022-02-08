@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import Select from 'react-select'
 import { useDispatch, useSelector } from 'react-redux';
-import { categoriesTypes, categories, getAllGallery } from "../../redux/actions/galleryActions"
+import { categoriesTypes, getAllGallery } from "../../redux/actions/galleryActions"
 import swal from 'sweetalert2'
 import axios from 'axios'
 import '../styles/adminStyles/CategoriesAdmin.css'
@@ -13,6 +14,9 @@ const CategoriesAdmin = () => {
     const [select, setSelect] = useState('')
     let dispatch = useDispatch()
 
+    useEffect(() => {
+        dispatch(categoriesTypes());
+    }, [dispatch])
 
     function handleInputChange(e) {
         e.preventDefault()
@@ -20,11 +24,10 @@ const CategoriesAdmin = () => {
     }
 
     function onSelectMultipleChange(e) {
-        setSelect(e.target.value)
+        setSelect(e.type)
     }
 
     function handleClickAdd(e) {
-        dispatch(categories());
         dispatch(getAllGallery())
         dispatch(categoriesTypes());
         const typeRepete = artworkTypes.filter(el => el.type.trim() === input.trim());
@@ -58,16 +61,16 @@ const CategoriesAdmin = () => {
                             timer: 3000,
                         }).then(res => {
                             setInput('')
+                        }).then(() => {
+                            dispatch(categoriesTypes());
                         })
                     )
-                dispatch(categoriesTypes());
             } catch (error) {
                 console.log(error)
             }
         }
     }
     function handleClickDelete(e) {
-        dispatch(categories());
         dispatch(getAllGallery())
         dispatch(categoriesTypes());
         let artworkCategoriesDelete = artworkCategories.filter(art => {
@@ -90,22 +93,33 @@ const CategoriesAdmin = () => {
                 timer: 4000,
             })
         } else if (artworkCategoriesDelete.length === 0) {
-            const id = typeDelete[0].id
-            axios.delete(`${url}/types/delete/${id}`)
-                .then(res => {
-                    swal.fire({
-                        title: "Done!",
-                        text: "Category deleted",
-                        icon: "success",
-                        timer: 4000,
+            const id = typeDelete[0]?.id
+            if (id) {
+                axios.delete(`${url}/types/delete/${id}`)
+                    .then(() => {
+                        swal.fire({
+                            title: "Done!",
+                            text: "Category deleted",
+                            icon: "success",
+                            timer: 4000,
+                        })
+                    }).then(() => {
+                        dispatch(categoriesTypes());
                     })
-                    dispatch(categoriesTypes());
+                    .catch(err => {
+                        console.log(err)
+                    });
+            } else {
+                swal.fire({
+                    title: "Problem!",
+                    text: "Select a type",
+                    icon: 'error',
+                    timer: 4000,
                 })
-                .catch(err => {
-                    console.log(err)
-                });
+            }
         }
     }
+
 
     return (<div className="categoriesadmin">
         <label htmlFor="#">Categories control: </label>
@@ -115,13 +129,16 @@ const CategoriesAdmin = () => {
             <button onClick={handleClickAdd}>Add</button>
         </div>
         <div className='categoriesadmin__delete'>
-            <select name="select" onChange={onSelectMultipleChange}
-                defaultValue={'DEFAULT'} className='categories__multiple'>
-                <option value="DEFAULT" disabled>Select a type of artwork for delete: </option>
-                {artworkTypes?.map((option) => (
-                    <option value={option.type} key={option.id}>{option.type}</option>
-                ))}
-            </select>
+            <Select
+                onChange={onSelectMultipleChange}
+                name="select"
+                options={artworkTypes}
+                className="basic-multi-select"
+                classNamePrefix="select"
+                getOptionValue={(option) => option.id}
+                getOptionLabel={(option) => option.type}
+                placeholder="Select type: "
+            />
             <button onClick={handleClickDelete}>Delete</button>
         </div>
     </div>);
