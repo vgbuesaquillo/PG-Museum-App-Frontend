@@ -1,21 +1,15 @@
-
-// import React, { useState, useEffect } from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
-import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react'
 import { NavLink, useNavigate, useLocation } from "react-router-dom"
-// import { resetPasswordPost } from '../redux/actions/userActions'
 import './styles/ResetPasswordPost.css'
 import axios from 'axios';
 import Swal from "sweetalert2";
 
 
-
 const ResetPasswordPost = () => {
     const location = useLocation()
     const state = location.state
+    console.log("state", state)
     let navigate = useNavigate();
-    // const dispatch = useDispatch()
     const url = process.env.REACT_APP_URL
     const [input, setInput] = useState({
         email: '',
@@ -30,7 +24,7 @@ const ResetPasswordPost = () => {
                     })
                     .then(response => {
                         Swal.fire(response.message);
-                        navigate('/login');
+                        navigate('/admin');
                     })
                     .catch((error) => {
                         // Falta validación específica del error o mensaje de cual fue el error
