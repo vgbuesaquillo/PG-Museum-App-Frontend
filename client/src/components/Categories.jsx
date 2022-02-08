@@ -31,10 +31,10 @@ const Categories = () => {
 
     return (<div className='categoriesHome'>
         <div className="categoriesHome__options">
-            <label htmlFor="#">Select one type: </label>
+            <label htmlFor="#">Types of artwork: &nbsp;&nbsp;&nbsp;&nbsp;</label>
             <select name="select" onChange={onSelectMultipleChange}
-                defaultValue={'DEFAULT'} className='categoriesHome__multiple'>
-                <option value="DEFAULT" disabled> type of artwork: </option>
+                defaultValue={'all'} className='categoriesHome__multiple'>
+                <option value="all" > &nbsp;&nbsp;&nbsp;&nbsp;All </option>
                 {artworkTypes?.map((option) => (
                     <option value={option.type} key={option.id}>{option.type}</option>
                 ))}
