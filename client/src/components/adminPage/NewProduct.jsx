@@ -1,5 +1,5 @@
 import Select from 'react-select'
-import { Button } from 'semantic-ui-react'
+import { Button } from 'antd'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { postNewArtwork } from '../../redux/actions/adminProductsActions'
@@ -130,7 +130,7 @@ const NewProduct = () => {
         <br />
         <textarea name="description" id="" cols="30" rows="5" onChange={handleChange} ></textarea>
         <br />
-        <Button primary>Submit</Button>
+        <Button type="primary" onClick={handleSubmit}>Submit</Button>
       </div>
     </form>
   );
