@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
 import {useSelector} from 'react-redux'
 import '../styles/checkout.css'
@@ -41,7 +42,7 @@ const Checkout = () => {
         .then(data => data.json())
         .then(result => {
             setState({name: '', username: '', email: '', address: '', country: '', state: ''}) 
-            window.location.href= '/mercadoPagoForm'
+            // window.location.href= '/mercadoPagoForm'
         })
     }
 
@@ -140,7 +141,11 @@ return (
                             </div>
                         </div>
                         <hr class="mb-4" />
-                        <button class="btn btn-primary btn-lg btn-block" type="button" onClick={handleNextCheckout}>Continue to checkout</button>
+                        <Link to="/mercadoPagoForm"
+              state={{ products: products }}
+              onClick={handleNextCheckout}
+            >Mercado pago</Link>
+                        {/* <button class="btn btn-primary btn-lg btn-block" type="button" onClick={handleNextCheckout}>Continue to checkout</button> */}
                     </form>
                 </div>
             </div>
