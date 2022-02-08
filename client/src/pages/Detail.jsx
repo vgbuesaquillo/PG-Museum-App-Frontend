@@ -4,7 +4,6 @@ import { useParams } from "react-router";
 import { Link } from 'react-router-dom'
 import { BsFillXCircleFill } from "react-icons/bs";
 import { MdShoppingBasket } from 'react-icons/md';
-import RatingFive from "../components/RatingFive";
 import './styles/Detail.css'
 import { Rate, Button, Modal, Alert } from 'antd';
 import 'antd/dist/antd.min.css'

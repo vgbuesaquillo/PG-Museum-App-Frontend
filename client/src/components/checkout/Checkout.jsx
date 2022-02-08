@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
 import {useSelector} from 'react-redux'
 import '../styles/checkout.css'
@@ -7,6 +8,8 @@ const Checkout = () => {
     const user = localStorage?.session ? JSON.parse(localStorage.session) : null
     const total = useSelector(state => state.allProductsReducer.totalCount)
     const products = useSelector(state => state.allProductsReducer.allproducts)
+    const url = process.env.REACT_APP_URL;
+
 
     const [state , setState] = useState({
         name: '',
@@ -23,6 +26,25 @@ const Checkout = () => {
     }
 
     console.log(state);
+
+    const handleNextCheckout = () => {
+        fetch(`${url}/sendemail`, {
+            method: 'POST',
+            body: JSON.stringify({
+                email: state.email, 
+                subject: 'Confirm checkout',
+                message: `Esperamos la confirmacion del pago para que llegue a tu direccion ${state.address} ${state.state} ${state.country}`
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(data => data.json())
+        .then(result => {
+            setState({name: '', username: '', email: '', address: '', country: '', state: ''}) 
+            // window.location.href= '/mercadoPagoForm'
+        })
+    }
 
 
 return (
@@ -119,7 +141,11 @@ return (
                             </div>
                         </div>
                         <hr class="mb-4" />
-                        <button class="btn btn-primary btn-lg btn-block" type="button">Continue to checkout</button>
+                        <Link to="/mercadoPagoForm"
+              state={{ products: products }}
+              onClick={handleNextCheckout}
+            >Mercado pago</Link>
+                        {/* <button class="btn btn-primary btn-lg btn-block" type="button" onClick={handleNextCheckout}>Continue to checkout</button> */}
                     </form>
                 </div>
             </div>
