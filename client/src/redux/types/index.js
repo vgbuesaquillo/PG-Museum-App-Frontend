@@ -1,6 +1,7 @@
 //Gallery action types
 export const GET_ALL_GALLERY = 'GET_ALL_GALLERY'
 export const GET_FIND_GALLERY = 'GET_FIND_GALLERY'
+export const GET_GALLERY_ID = 'GET_GALLERY_ID'
 
 //LocalStorage action types
 export const LOCALSTORAGE = 'LOCALSTORAGE'
@@ -31,3 +32,4 @@ export const FILTER_ORDER = "FILTER_ORDER"
 export const GET_ORDER_ID = "GET_ORDER_ID"
 export const GET_ORDER = "GET_ORDER"
 export const PUT_ORDER = "PUT_ORDER"
+export const GET_PAY = "GET_PAY"

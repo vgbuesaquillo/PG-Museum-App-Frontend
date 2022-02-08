@@ -7,21 +7,27 @@ import { postOrder } from '../redux/actions/orderAction'
 import { useDispatch, useSelector } from 'react-redux'
 import { localstorage } from '../redux/actions/storageActions'
 import { Link } from 'react-router-dom';
+import { getGalleryById } from '../redux/actions/galleryActions';
 
 
 //props destructure for easier use in code - destructure a props para facilitar uso en código
 function StoreCard({info, editOptions}) {
 
   const artworkShop = useSelector(state => state.galleryReducer.allGallery);
+  const filterId = useSelector(state => state.galleryReducer.filterId);
   const user = localStorage?.session ? JSON.parse(localStorage.session) : null
   const {id, images:url, title, stock, price} = info
   const dispatch = useDispatch()
   console.log("info", info)
+  console.log("filterId", filterId)
 
 
   useEffect(() => {
-
+    dispatch(getGalleryById(id))
     // dispatch(totalProduct())
+    if (filterId?.stock === false && filterId?.id === Number(id)) {
+      deleteItem()
+    }
   }, [dispatch])
 
   const deleteItem = () => {
@@ -39,6 +45,7 @@ function StoreCard({info, editOptions}) {
     }
     dispatch(postProducts(values))
     dispatch(localstorage(values))
+
   }
 
   console.log(info);

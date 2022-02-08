@@ -1,4 +1,4 @@
-import { GET_ALL_GALLERY, GET_FIND_GALLERY, CATEGORIES, SORT_GALLERY, TYPES } from '../types'
+import { GET_ALL_GALLERY, GET_FIND_GALLERY, CATEGORIES, SORT_GALLERY, TYPES, GET_GALLERY_ID } from '../types'
 import axios from 'axios'
 const url = process.env.REACT_APP_URL
 
@@ -9,6 +9,18 @@ export const getAllGallery = () => {
         const json = await response.json();
         dispatch({
             type: GET_ALL_GALLERY,
+            payload: json
+        });
+    }
+}
+
+export const getGalleryById = (id) => {
+    return async function dispatch(dispatch) {
+        const response = await fetch(`${url}/artwork/${id}`);
+        const json = await response.json();
+        console.log("json",json)
+        dispatch({
+            type: GET_GALLERY_ID,
             payload: json
         });
     }

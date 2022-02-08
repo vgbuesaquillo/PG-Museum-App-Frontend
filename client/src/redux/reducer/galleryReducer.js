@@ -1,6 +1,7 @@
-import { GET_ALL_GALLERY, GET_FIND_GALLERY, CATEGORIES, SORT_GALLERY, TYPES } from '../types'
+import { GET_ALL_GALLERY, GET_FIND_GALLERY, CATEGORIES, SORT_GALLERY, TYPES, GET_GALLERY_ID } from '../types'
 
 const initialState = {
+  filterId:[],
   allGallery: [],
   types: []
 }
@@ -13,6 +14,13 @@ export default function galleryReducer(state = initialState, action) {
         ...state,
         allGallery: action.payload
       }
+    
+    case GET_GALLERY_ID:
+      return {
+        ...state,
+        filterId: action.payload
+      }
+  
 
     case GET_FIND_GALLERY:
       return {

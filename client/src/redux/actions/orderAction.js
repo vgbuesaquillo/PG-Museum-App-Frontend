@@ -1,4 +1,4 @@
-import { GET_ORDER, GET_ORDER_ID, PUT_ORDER, FILTER_ORDER, POST_NEW_ORDER } from '../types/index'
+import { GET_ORDER, GET_ORDER_ID, PUT_ORDER, FILTER_ORDER, POST_NEW_ORDER, GET_PAY } from '../types/index'
 import axios from 'axios'
 const url = process.env.REACT_APP_URL
 
@@ -85,6 +85,17 @@ export const filterState = (e, u) => {
         dispatch({
             type: FILTER_ORDER,
             payload:filtro
+        });
+    }
+}
+
+export const getPay = (id) => {
+    return async function dispatch(dispatch) {
+        const response = await axios.get(`${url}/payment/db/${id}`);
+        const r = response.data;    
+        dispatch({
+            type: GET_PAY,
+            payload:r
         });
     }
 }
