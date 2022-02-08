@@ -15,6 +15,7 @@ const Home = () => {
 
     const dispatch = useDispatch()
     const { allGallery } = useSelector(state => state.galleryReducer)
+    const filterId = useSelector(state => state.galleryReducer.filterId);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(12);
@@ -26,6 +27,8 @@ const Home = () => {
 
     // Change page
     const paginate = pageNumber => setCurrentPage(pageNumber);
+
+    // console.log("filterId in home", filterId)
 
     useEffect(() => {
         dispatch(getAllGallery())

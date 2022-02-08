@@ -15,6 +15,7 @@ function Store({ reducer, property, title, editOptions }) {
   const products = useSelector(state => state[reducer][property])
   const user = localStorage?.session ? JSON.parse(localStorage.session) : null
   const total = useSelector(state => state.allProductsReducer.totalCount)
+  const filterId = useSelector(state => state.galleryReducer.filterId);
   const dispatch = useDispatch();
   const handleAddShop = () => {
     let hoy = new Date();
@@ -51,14 +52,18 @@ function Store({ reducer, property, title, editOptions }) {
     return (
       <div className="container_cards">
       <div className='top_cards'>
+
+
         <div><h1>{title} - {products?.length} Items</h1></div>
         <Link to="/checkoutForm"><Button onClick={handleAddShop}>Buy all</Button></Link>
       </div>
       <div>
         {
+          
           products?.map((a) => {
             return <StoreCard key={a.id} editOptions={editOptions} info={a} />
           })
+          
         }
       </div>
      <div className='detail__content--footer'>

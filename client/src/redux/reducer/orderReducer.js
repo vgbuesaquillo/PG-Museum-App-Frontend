@@ -1,10 +1,11 @@
-import { GET_ORDER, GET_ORDER_ID, PUT_ORDER, FILTER_ORDER, POST_NEW_ORDER } from '../types/index'
+import { GET_ORDER, GET_ORDER_ID, PUT_ORDER, FILTER_ORDER, POST_NEW_ORDER, GET_PAY } from '../types/index'
 
 const initialState = {
   allOrder: [],
   filterOrder:[],
   putOrder:[],
-  filterState:[]
+  filterState:[],
+  pay:[]
 }
 
 export default function orderReducer(state = initialState, action) {
@@ -42,6 +43,13 @@ export default function orderReducer(state = initialState, action) {
     return {
         ...state,
         
+    }
+
+    case GET_PAY:
+    console.log("action_order", action.payload)
+    return {
+        ...state,
+        pay: action.payload
     }
 
 

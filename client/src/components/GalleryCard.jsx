@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineFavorite, MdShoppingBasket } from 'react-icons/md'
 import { localstorage } from '../redux/actions/storageActions'
 import { postProducts, totalProduct } from '../redux/actions/allProductsActions'
+import { getGalleryById } from '../redux/actions/galleryActions'
 // import { postOrder } from '../redux/actions/orderAction'
 import { NavLink } from 'react-router-dom';
 import Img from "react-cool-img";
@@ -16,12 +17,19 @@ const GalleryCard = (props) => {
     const dispatch = useDispatch();
     const artworkShop = useSelector(state => state.galleryReducer.allGallery);
     const { storage } = useSelector(state => state.storageReducer);
+
+    const filterId = useSelector(state => state.galleryReducer.filterId);
+    console.log("storage", storage)
+
     const { Meta } = Card;
     // const cookies = new Cookies();
     const user = localStorage?.session ? JSON.parse(localStorage.session) : null;
+    console.log("filterId", filterId)
     
     useEffect(() => {
         // storing input name
+        let id = props.id
+        dispatch(getGalleryById(id))
 
         localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
         
@@ -58,9 +66,20 @@ const GalleryCard = (props) => {
     //     dispatch(postOrder(arr2, props.price, user[0].id, arr, findGallery.images))
     // }
     const handleAddShop = () => {
+
+        
         let id = props.id
-        let findGallery = artworkShop.find(element => element.id === Number(id))
-        dispatch(localstorage(findGallery))
+        // dispatch(getGalleryById(id))
+        
+        if (filterId?.stock === true && filterId?.id === id) {
+            let findGallery = artworkShop.find(element => element.id === Number(id) && element.stock === true )
+            dispatch(localstorage(findGallery))
+        }
+        // else{
+        //     dispatch(getGalleryById(id))
+        //     alert("Obra comprada")
+        // }
+        
     }
 
     return (

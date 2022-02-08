@@ -71,7 +71,7 @@ export default function MercadoPagoForm() {
                             paymentMethodId: payment_method_id,
                             issuerId: issuer_id,
                             cardholderEmail: email,
-                            // amount,
+                            amount,
                             token,
                             installments,
                             identificationNumber,
@@ -144,7 +144,7 @@ export default function MercadoPagoForm() {
 
 
     useEffect(() => {
-        if (resultPayment && totalFilter > 0) {
+        if (resultPayment ) {
             JSON.stringify(resultPayment);
             const user_id = "user_id";
             const username = "username";
