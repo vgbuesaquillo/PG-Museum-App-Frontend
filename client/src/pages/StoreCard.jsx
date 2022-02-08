@@ -37,11 +37,11 @@ function StoreCard({ info, editOptions }) {
         values.push(JSON?.parse(localStorage?.getItem(keys[i])));
       }
     }
-    const stockB = values.map(el => {
-      if (el.stock === false) {
-        return el.stock
-      }
-    })
+    // const stockB = values.map(el => {
+    //   if (el.stock === false) {
+    //     return el.stock
+    //   }
+    // })
     dispatch(postProducts(values))
     dispatch(localstorage(values))
   }
