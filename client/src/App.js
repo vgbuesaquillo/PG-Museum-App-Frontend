@@ -20,6 +20,7 @@ import OrdenDetail from './pages/OrdenDetail';
 import Checkout from './components/checkout/Checkout';
 import MercadoPagoForm from './components/MercadoPagoForm';
 
+
 function App() {
   return (
     <div className="App">
@@ -40,14 +41,14 @@ function App() {
 
 
         <Route path="/store" element={<> <NavBar /><Store reducer={"allProductsReducer"} property={"allproducts"} title={"My Cart"} /></>} />
+        
         <Route path="/:id" element={<> <NavBar /><Detail /></>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/resetPasswordPost" element={<ResetPasswordPost />} />
-
-        <Route path="/reset-password" element={<> <ResetPasswordPut /> </> } />
+        <Route path="/reset-password" element={<ResetPasswordPut />} />
         <Route path="/checkoutForm" element={<Checkout />} />
-        <Route path="/mercadoPagoForm" element={<MercadoPagoForm />} />
+        {/* <Route path="/mercadoPagoForm" element={<MercadoPagoForm />} /> */}
 
       </Routes>
     </div>
