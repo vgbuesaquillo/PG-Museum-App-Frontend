@@ -3,7 +3,7 @@ import axios from 'axios'
 const url = process.env.REACT_APP_URL
 
 
-export const getAllOrder = () => {
+export const getAllOrder = (id) => {
     return async function dispatch(dispatch) {
         const response = await axios.get(`${url}/order`);
         const r = response.data;    

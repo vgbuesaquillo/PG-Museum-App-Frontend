@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
 
 
 export default class email_sending extends Component {
@@ -47,15 +45,15 @@ export default class email_sending extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                        <input type="text" ref={this.email} placeholder="Email" />
+                        <input type="text" ref={this.email} onChange={this.handleChange} placeholder="Email" />
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Subject</label>
-                        <input type="text" ref={this.subject} placeholder="Subject" />
+                        <input type="text" ref={this.subject} onChange={this.handleChange} placeholder="Subject" />
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                        <textarea ref={this.message} placeholder="Message" />
+                        <textarea ref={this.message} onChange={this.handleChange} placeholder="Message" />
                     </div>
                     <div class="mb-3">
                         <button type="submit">Send</button>

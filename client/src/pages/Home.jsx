@@ -48,9 +48,18 @@ const Home = () => {
                 </div> :
                 <div className='galleryGrid'>
                     {
+
                         currentGalleries.map(art => {
-                            return <GalleryCard img={art.images} title={art.title.length > 20 ? art.title.slice(0, 30) + "..." : art.title}
+                            if(art.stock === true){
+                                return <GalleryCard img={art.images} title={art.title.length > 20 ? art.title.slice(0, 30) + "..." : art.title}
                                 price={art.price} id={art.id} key={art.id} />
+
+                            }else{
+                                return <GalleryCard img={art.images} title={"SOLD"}  
+                                price={0} id={art.id} key={art.id} />
+                            }
+
+                            
                         })
                     }
                 </div>

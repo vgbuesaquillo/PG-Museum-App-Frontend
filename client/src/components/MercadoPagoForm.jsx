@@ -3,6 +3,7 @@ import useScript from "./useScript";
 import { formConfig } from "./formConfig";
 import Card from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
+import { useLocation } from "react-router-dom"
 const url = process.env.REACT_APP_URL;
 
 const INITIAL_STATE = {
@@ -15,22 +16,34 @@ const INITIAL_STATE = {
     issuer: "",
 };
 
-export default function MercadoPagoForm(props) {
+export default function MercadoPagoForm() {
+    const location = useLocation()
+    const stateProducts = location.state
+    console.log("stateProducts", stateProducts)
+    let productsFilter = [];
+    let totalFilter = 0;
+    stateProducts?.products.map((p) => {
+        let product = p.price;
+        productsFilter.push(product);
+        totalFilter += p.price;
+    })
+    console.log("totalFilter", totalFilter)
+
     const [state, setState] = useState(INITIAL_STATE);
     //const resultPayment = useMercadoPago();
     const user = localStorage?.session ? JSON.parse(localStorage.session) : null
     const [resultPayment, setResultPayment] = useState(undefined);
-
+    console.log("resultPayment", resultPayment)
     const { MercadoPago } = useScript(
         "https://sdk.mercadopago.com/js/v2",
         "MercadoPago"
     );
 
     useEffect(() => {
-        if (MercadoPago) {
+        if (MercadoPago && totalFilter > 0) {
             const VITE_PUBLIC_KEY_MP = "TEST-a444b3ce-cbb6-4f66-b2d9-4a850880f115";
             const mp = new MercadoPago(VITE_PUBLIC_KEY_MP);
-            
+
             const cardForm = mp.cardForm({
                 amount: "100.5",
                 autoMount: true,
@@ -53,12 +66,12 @@ export default function MercadoPagoForm(props) {
                     },
                     onSubmit: (event) => {
                         event.preventDefault();
-                        
+
                         const {
                             paymentMethodId: payment_method_id,
                             issuerId: issuer_id,
                             cardholderEmail: email,
-                            amount,
+                            // amount,
                             token,
                             installments,
                             identificationNumber,
@@ -70,12 +83,6 @@ export default function MercadoPagoForm(props) {
                             {
                                 // entry point backend
                                 method: "POST",
-                                headers: {
-                                    "Access-Control-Allow-Origin": "*",
-                                    "Access-Control-Request-Method":
-                                        "GET, POST, DELETE, PUT, OPTIONS",
-                                    "Content-Type": "application/json",
-                                },
                                 body: JSON.stringify({
                                     token,
                                     issuer_id,
@@ -91,6 +98,12 @@ export default function MercadoPagoForm(props) {
                                         },
                                     },
                                 }),
+                                headers: {
+                                    "Access-Control-Allow-Origin": "*",
+                                    "Access-Control-Request-Method":
+                                        "GET, POST, DELETE, PUT, OPTIONS",
+                                    "Content-Type": "application/json",
+                                },
                             }
                         )
                             .then((res) => res.json())
@@ -111,6 +124,9 @@ export default function MercadoPagoForm(props) {
                     },
                 },
             });
+        } else {
+
+            console.log("No hay obras")
         }
     }, [MercadoPago]);
 
@@ -128,7 +144,7 @@ export default function MercadoPagoForm(props) {
 
 
     useEffect(() => {
-        if (resultPayment) {
+        if (resultPayment && totalFilter > 0) {
             JSON.stringify(resultPayment);
             const user_id = "user_id";
             const username = "username";
@@ -136,11 +152,13 @@ export default function MercadoPagoForm(props) {
             resultPayment[user_id] = user[0].id;
             let products = [];
             let total = 0;
-            props?.products.map((p)=> {
-                let product = p.id + " - " + p.title + " - " + p.price;
+            stateProducts?.products.map((p) => {
+                let product = p.id;
                 products.push(product);
                 total += p.price;
             })
+            console.log("products", products)
+            console.log("total", total)
             resultPayment["products"] = products;
             resultPayment["total"] = total;
             const paymentFetch = async () => {
@@ -161,10 +179,12 @@ export default function MercadoPagoForm(props) {
                 console.log(data);
             };
             paymentFetch();
+        } else {
+            console.log("No hay obras")
         }
     }, [resultPayment]);
 
-  
+
 
 
 

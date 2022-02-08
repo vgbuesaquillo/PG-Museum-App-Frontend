@@ -11,40 +11,45 @@ import Img from "react-cool-img";
 import { Card, Button } from 'antd';
 import 'antd/dist/antd.min.css';
 
-
 const GalleryCard = (props) => {
+    console.log("props", props)
     const dispatch = useDispatch();
     const artworkShop = useSelector(state => state.galleryReducer.allGallery);
     const { storage } = useSelector(state => state.storageReducer);
+    console.log("storage", storage)
     const { Meta } = Card;
     // const cookies = new Cookies();
     const user = localStorage?.session ? JSON.parse(localStorage.session) : null;
-    
+
     useEffect(() => {
         // storing input name
 
         localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
-        
+
         const allStorage = () => {
             var values = []
             var keys = Object.keys(localStorage)
             var i = keys.length;
-            
+
             while (i--) {
-                
+
                 if (parseInt(keys[i])) {
                     values.push(JSON?.parse(localStorage?.getItem(keys[i])));
                 }
 
             }
-
+            const stockB = values.map(el => {
+                if (el.stock === false) {
+                    return el.stock
+                }
+            })
             dispatch(postProducts(values));
         }
 
         allStorage()
         dispatch(totalProduct())
 
-    }, [storage, dispatch]);
+    }, [storage]);
 
     // const handleAddShop = () => {
     //     let hoy = new Date();
@@ -67,11 +72,21 @@ const GalleryCard = (props) => {
         <Card
             style={{ width: 230 }}
             cover={
-                <Img
-                    alt="example"
-                    src={props.img}
-                    className='card__img-avatar'
-                />
+                props.className === 'galleryCardSold' ?
+                    <>
+                        <Img
+                            alt="example"
+                            src={props.img}
+                            className={'galleryCardSold'}
+                        />
+                        <h4 className='H4CardSold'>Sold out</h4>
+                    </>
+                    :
+                    <Img
+                        alt="example"
+                        src={props.img}
+                        className='card__img-avatar'
+                    />
             }
             actions={
                 user !== null ? !user[0]?.roles?.includes('ROLE_ADMIN') ? [
@@ -92,4 +107,3 @@ const GalleryCard = (props) => {
 }
 
 export default GalleryCard;
-
