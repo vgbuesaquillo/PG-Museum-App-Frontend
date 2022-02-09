@@ -17,6 +17,8 @@ function Store({ reducer, property, title, editOptions }) {
   const total = useSelector(state => state.allProductsReducer.totalCount)
   const filterId = useSelector(state => state.galleryReducer.filterId);
   const dispatch = useDispatch();
+
+  
   const handleAddShop = () => {
     let hoy = new Date();
     const obras = products.map((a) => a.id);

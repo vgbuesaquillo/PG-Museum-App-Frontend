@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineFavorite, MdShoppingBasket } from 'react-icons/md'
 import { localstorage } from '../redux/actions/storageActions'
 import { postProducts, totalProduct } from '../redux/actions/allProductsActions'
-import { getGalleryById } from '../redux/actions/galleryActions'
+import { getGalleryById, getAllGallery } from '../redux/actions/galleryActions'
 // import { postOrder } from '../redux/actions/orderAction'
 import { NavLink } from 'react-router-dom';
 import Img from "react-cool-img";
@@ -30,6 +30,7 @@ const GalleryCard = (props) => {
         // storing input name
         let id = props.id
         dispatch(getGalleryById(id))
+        dispatch(getAllGallery())
 
         localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
         
@@ -69,12 +70,12 @@ const GalleryCard = (props) => {
 
         
         let id = props.id
-        // dispatch(getGalleryById(id))
+        dispatch(getGalleryById(id))
         
-        if (filterId?.stock === true && filterId?.id === id) {
+        // if (filterId?.stock === true && filterId?.id === id) {
             let findGallery = artworkShop.find(element => element.id === Number(id) && element.stock === true )
             dispatch(localstorage(findGallery))
-        }
+        // }
         // else{
         //     dispatch(getGalleryById(id))
         //     alert("Obra comprada")
@@ -86,6 +87,16 @@ const GalleryCard = (props) => {
         <Card
             style={{ width: 230 }}
             cover={
+                props.className === 'galleryCardSold'? 
+                <> 
+                <Img
+                    alt="example"
+                    src={props.img}
+                    className='galleryCardSold'
+                />
+                <h4 className='H4CardSold'>Sold out</h4>
+                </>
+                 :
                 <Img
                     alt="example"
                     src={props.img}
