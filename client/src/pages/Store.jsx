@@ -21,10 +21,9 @@ function Store({ reducer, property, title, editOptions }) {
   const dispatch = useDispatch();
 
 
-  const handleAddShop = (e) => {
-    e.preventDefault()
+  const handleAddShop = () => {
     console.log("user es ", user)
-    if (user !== null) {
+    if (user !== null && typeof user[0].id === "number") {
 
       let hoy = new Date();
       const obras = products.map((a) => a.id);

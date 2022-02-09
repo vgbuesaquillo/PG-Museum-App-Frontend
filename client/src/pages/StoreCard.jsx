@@ -63,9 +63,8 @@ function StoreCard({ info, editOptions }) {
   }
 
 
-  const handleAddShop = (e) => {
-    e.preventDefault()
-    if (user !== null) {
+  const handleAddShop = () => {
+    if (user !== null && typeof user[0].id === "number") {
       let id = info.id
       let findGallery = artworkShop.find(element => element.id === Number(id))
       let arr = []
