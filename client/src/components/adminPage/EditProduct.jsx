@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import InputComponent from './InputComponent'
 import { categoriesTypes } from "../../redux/actions/galleryActions"
+import Swal from 'sweetalert2'
 
 
 const EditProduct = () => {
@@ -68,10 +69,18 @@ const EditProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const request = await axios.put(`${url}/artwork/put/${formInfo.id}`, formInfo)
-    const { data } = request
-    console.log(data)
-  }
+    const { data } = request  
+    console.log(request)
+    if (request?.status === 200) return Swal.fire({
+      title: "Success!",
+      text: data.msg,
+      icon: "success",
+      timer: 3000,
+      showConfirmButton:false
+    })
 
+  }
+  
   return (
     <form onSubmit={handleSubmit} style={{ margin: "50px auto", display: "grid", gridTemplateColumns: "repeat(2, 1fr)", width: "600px" }} >
       <h2 style={{ gridColumn: "1/3" }} >Edit product</h2>

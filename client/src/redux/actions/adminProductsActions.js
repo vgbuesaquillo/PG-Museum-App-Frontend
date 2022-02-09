@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { POST_NEW_ARTWORK, GET_ARTWORK,GET_ARTWORK_SUCCESS, PUT_ARTWORK } from "../types";
+import { POST_NEW_ARTWORK, GET_ARTWORK, GET_ARTWORK_SUCCESS, PUT_ARTWORK } from "../types";
 const url = process.env.REACT_APP_URL
 
 export const getArtwork = (id) => {
@@ -17,9 +17,9 @@ export const getArtwork = (id) => {
       const json = await response.json()
 
       dispatch({
-        type:GET_ARTWORK_SUCCESS,
-        payload:{
-          loading:false,
+        type: GET_ARTWORK_SUCCESS,
+        payload: {
+          loading: false,
           json
         }
       })
@@ -32,14 +32,20 @@ export const getArtwork = (id) => {
 
 export const postNewArtwork = (info) => {
   return async function (dispatch) {
-    console.log(info)
-
-    const response = await axios.post(`${url}/artwork/post`, info)
-
-    console.log(response)
-    dispatch({
-      type: POST_NEW_ARTWORK,
-      payload: response.data
-    })
+    try {
+      const response = await axios.post(`${url}/artwork/post`, info)
+      console.log(response)
+      dispatch({
+        type: POST_NEW_ARTWORK,
+        payload: response.data
+      })
+    }catch(error){
+      console.log(error)
+      dispatch({
+        type: POST_NEW_ARTWORK,
+        payload: {msg:"Every input must be filled"}
+      })
+    }
+    
   }
 }

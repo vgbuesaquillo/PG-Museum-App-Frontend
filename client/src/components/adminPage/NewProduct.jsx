@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { postNewArtwork } from '../../redux/actions/adminProductsActions'
 import InputComponent from './InputComponent'
 import { categoriesTypes } from "../../redux/actions/galleryActions"
+import Swal from 'sweetalert2'
 
 const NewProduct = () => {
   const artworkTypes = useSelector(state => state.galleryReducer.types);
-
+  const { sendArtwork } = useSelector(state => state.adminProductsReducer)
   const dispatch = useDispatch()
 
   const categoryOptions = artworkTypes
@@ -34,20 +35,34 @@ const NewProduct = () => {
   //
   const handleSubmit = e => {
     e.preventDefault()
-
+  
     dispatch(postNewArtwork(formInfo))
+    if(Object.keys(sendArtwork) === 0) return Swal.fire({
+      title: "Error!",
+      text: sendArtwork.msg,
+      icon: "success",
+      timer: 3000,
+      showConfirm:false
+    })
+    if (sendArtwork?.status === 200) Swal.fire({
+      title: "Success!",
+      text: sendArtwork.msg,
+      icon: "success",
+      timer: 3000,
+      showConfirm:false
+    })
   }
 
-  
+
   useEffect(() => {
     dispatch(categoriesTypes());
   }, [dispatch])
 
-  
+
   //handles every change but submit's - maneja todo change excepto el del select
   const handleChange = e => {
     let name = e.target.name
-    if(name === "culture") return setFormInfo({...formInfo, culture:[e.target.value]})
+    if (name === "culture") return setFormInfo({ ...formInfo, culture: [e.target.value] })
     setFormInfo({
       ...formInfo,
       [name]: e.target.value
