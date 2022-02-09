@@ -46,6 +46,103 @@ const Checkout = () => {
         })
     }
 
+    const handleNextCheckout2 = () => {
+
+        // const paymentFetch = async () => {
+
+        //     let resultPayment = {
+        //         total: 51200,
+        //         products: ["id:13589"],
+        //         state: "in_process",
+        //         userId: 2
+        //     }
+        //     const response = await fetch(
+        //         `${url}/payment/db/post`,
+        //         {
+        //             method: "POST",
+        //             body: JSON.stringify(resultPayment),
+        //             headers: {
+        //                 "Access-Control-Allow-Origin": "*",
+        //                 "Access-Control-Request-Method":
+        //                     "GET, POST, DELETE, PUT, OPTIONS",
+        //                 "Content-Type": "application/json",
+        //             },
+        //         }
+        //     );
+        //     const data = await response.json();
+        //     console.log(data);
+        // };
+        
+
+        // fetch(
+        //     `${url}/payment/db/post`,
+        //     {
+        //         method: "POST",
+        //         body: JSON.stringify(resultPayment),
+        //         headers: {
+        //             "Access-Control-Allow-Origin": "*",
+        //             "Access-Control-Request-Method":
+        //             "GET, POST, DELETE, PUT, OPTIONS",
+        //             "Content-Type": "application/json",
+        //         },
+        //     }
+        // )
+        // .then(data => data.json())
+        // .then( response => console.log("response", response))
+
+        fetch(`${url}/sendemail`, {
+            method: 'POST',
+            body: JSON.stringify({
+                email: state.email, 
+                subject: 'Confirm checkout',
+                message: `Le enviamos el sigiente codigo QR para su orden de compra, recuerde que tiene 24 horas para realizar el pago. => https://latam.kaspersky.com/content/es-mx/images/repository/isc/2020/9910/a-guide-to-qr-codes-and-how-to-scan-qr-codes-2.png ${state.address} ${state.state} ${state.country}`
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(data => data.json())
+        .then(result => {
+            setState({name: '', username: '', email: '', address: '', country: '', state: ''}) 
+            // window.location.href= '/mercadoPagoForm'
+        })
+    }
+
+    // const handlePaymentQR = () => {
+    //     const paymentFetch = async () => {
+    //         let qr = {
+    //             status: 'in_process',
+    //             status_detail: 'accredited',
+    //             id: 1245935830,
+    //             date_created: '2022-02-09T11:34:14.118-04:00',
+    //             date_approved: '2022-02-09T11:34:14.224-04:00',
+    //             operation_type: 'regular_payment',
+    //             issuer_id: 2,
+    //             payment_type_id: 'credit_card',
+    //             currency_id: 'ARS',
+
+    //         }
+    //         const response = await fetch(
+    //             `${url}/payment/db/post`,
+    //             {
+    //                 method: "POST",
+    //                 body: JSON.stringify(qr),
+    //                 headers: {
+    //                     "Access-Control-Allow-Origin": "*",
+    //                     "Access-Control-Request-Method":
+    //                         "GET, POST, DELETE, PUT, OPTIONS",
+    //                     "Content-Type": "application/json",
+    //                 },
+    //             }
+    //         );
+    //         const data = await response.json();
+    //         console.log(data);
+    //     };
+    //     paymentFetch();
+    // }
+
+    
+
 
 return (
     <div className="maincontainer w-100">
@@ -145,7 +242,7 @@ return (
               state={{ products: products }}
               onClick={handleNextCheckout}
             >Mercado pago</Link>
-                        {/* <button class="btn btn-primary btn-lg btn-block" type="button" onClick={handleNextCheckout}>Continue to checkout</button> */}
+                        <button class="btn btn-primary btn-lg btn-block" type="button" onClick={handleNextCheckout2}>QR Code</button>
                     </form>
                 </div>
             </div>
