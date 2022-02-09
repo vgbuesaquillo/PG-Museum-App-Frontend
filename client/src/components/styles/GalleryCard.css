@@ -19,18 +19,9 @@
   border-radius: 5px;
 }
 
-.detail__content--data--text--header--button{
-  background: darken(light, 10%);
-  padding: 4px;
-  display: inline-block;
-  outline: 0;
-  border: 0;
-  margin: -1px;
-  border-radius: 3px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: rgb(159, 177, 226);
-  cursor: pointer;
+.detail--button {
+  font-family: "Poppins";
+  font-weight: 500;
 }
 
 /* .gallery_card-router {
@@ -58,7 +49,7 @@
   font-weight: bolder;
   font-size: 15px;
   color: #ffab76;
-} 
+}
 
 /*
 .gallery_card-functions {
@@ -70,7 +61,7 @@
   cursor: pointer;
 } */
 
-.galleryCardSold{
+.galleryCardSold {
   width: 100%;
   height: 270px;
   object-fit: cover;
@@ -78,9 +69,9 @@
   opacity: 0.6;
 }
 
-.H4CardSold{
+.H4CardSold {
   backdrop-filter: blur(3px);
-  background-color:rgba(0, 0, 0, 0.212);
+  background-color: rgba(0, 0, 0, 0.212);
   position: absolute;
   top: 2rem;
   height: 5rem;

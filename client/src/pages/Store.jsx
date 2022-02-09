@@ -11,6 +11,7 @@ import './styles/Store.css'
 //store component can be used for different lists - el componente store ahora puede usarse para otras listas
 function Store({ reducer, property, title, editOptions }) {
   let navigate = useNavigate();
+  const artworkShop = useSelector(state => state.galleryReducer.allGallery);
 
   const url = process.env.REACT_APP_URL;
   //reducer store and property comes from props - el store y la propiedad vienen de props
@@ -61,21 +62,27 @@ function Store({ reducer, property, title, editOptions }) {
         });
     }
   }
-
-
+  var num = 0;
+  products?.map((a) => {
+    let bandera = artworkShop.filter(el => el.id === a.id)
+    if (bandera[0].stock !== false) {
+      num++
+    }
+  })
   return (
     <div className="container_cards">
       <div className='top_cards'>
-
-
-        <div><h1>{title} - {products?.length} Items</h1></div>
+        <div><h1>{title} - {num} Items</h1></div>
         <Link to="/checkoutForm"><Button onClick={handleAddShop}>Buy all</Button></Link>
       </div>
       <div>
         {
-
           products?.map((a) => {
-            return <StoreCard key={a.id} editOptions={editOptions} info={a} />
+            let bandera = artworkShop.filter(el => el.id === a.id)
+            if (bandera[0].stock !== false) {
+              num++
+              return <StoreCard key={a.id} editOptions={editOptions} info={a} />
+            }
           })
 
         }

@@ -53,16 +53,16 @@ const Home = () => {
                     {
 
                         currentGalleries.map(art => {
-                            if(art.stock === true){
+                            if (art.stock === true) {
                                 return <GalleryCard img={art.images} title={art.title.length > 20 ? art.title.slice(0, 30) + "..." : art.title}
-                                price={art.price} id={art.id} key={art.id} />
+                                    price={art.price} id={art.id} key={art.id} />
 
-                            }else{
-                                return <GalleryCard className='galleryCardSold' img={art.images}   
-                                price={0} id={art.id} key={art.id} />
+                            } else {
+                                return <GalleryCard className='galleryCardSold' img={art.images}
+                                    price={0} id={art.id} key={art.id} stock={art.stock} />
                             }
 
-                            
+
                         })
                     }
                 </div>

@@ -25,7 +25,7 @@ const GalleryCard = (props) => {
     // const cookies = new Cookies();
     const user = localStorage?.session ? JSON.parse(localStorage.session) : null;
     //console.log("filterId", filterId)
-    
+
     useEffect(() => {
         // storing input name
         let id = props.id
@@ -35,14 +35,14 @@ const GalleryCard = (props) => {
         }
 
         localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
-        
+
         const allStorage = () => {
             var values = []
             var keys = Object.keys(localStorage)
             var i = keys.length;
-            
+
             while (i--) {
-                
+
                 if (parseInt(keys[i])) {
                     values.push(JSON?.parse(localStorage?.getItem(keys[i])));
                 }
@@ -70,46 +70,46 @@ const GalleryCard = (props) => {
     // }
     const handleAddShop = () => {
 
-        
+
         let id = props.id
         dispatch(getGalleryById(id))
-        
+
         // if (filterId?.stock === true && filterId?.id === id) {
-            let findGallery = artworkShop.find(element => element.id === Number(id) && element.stock === true )
-            dispatch(localstorage(findGallery))
+        let findGallery = artworkShop.find(element => element.id === Number(id) && element.stock === true)
+        dispatch(localstorage(findGallery))
         // }
         // else{
         //     dispatch(getGalleryById(id))
         //     alert("Obra comprada")
         // }
-        
+
     }
 
     return (
         <Card
             style={{ width: 230 }}
             cover={
-                props.className === 'galleryCardSold'? 
-                <> 
-                <Img
-                    alt="example"
-                    src={props.img}
-                    className='galleryCardSold'
-                />
-                <h4 className='H4CardSold'>Sold out</h4>
-                </>
-                 :
-                <Img
-                    alt="example"
-                    src={props.img}
-                    className='card__img-avatar'
-                />
+                props.className === 'galleryCardSold' ?
+                    <>
+                        <Img
+                            alt="example"
+                            src={props.img}
+                            className='galleryCardSold'
+                        />
+                        <h4 className='H4CardSold'>Sold out</h4>
+                    </>
+                    :
+                    <Img
+                        alt="example"
+                        src={props.img}
+                        className='card__img-avatar'
+                    />
             }
             actions={
                 user !== null ? !user[0]?.roles?.includes('ROLE_ADMIN') ? [
-                    <Button className="detail__content--data--text--header--button" onClick={handleAddShop} type="text"><MdShoppingBasket style={{ fontSize: '18px', color: '#A3DA8D' }} />Add To Cart</Button>
+                    <Button className="detail--button" onClick={handleAddShop} type="primary" disabled={localStorage.getItem(props.id) || props?.stock === false ? true : false}><MdShoppingBasket style={{ fontSize: '18px', color: '#A3DA8D' }} />Add To Cart</Button>
                 ] : null : [
-                    <Button className="detail__content--data--text--header--button" onClick={handleAddShop} type="text"><MdShoppingBasket style={{ fontSize: '18px', color: '#A3DA8D' }} /></Button>
+                    <Button className="detail--button" onClick={handleAddShop} type="primary" disabled={localStorage.getItem(props.id) || props?.stock === false ? true : false}><MdShoppingBasket style={{ fontSize: '18px', color: '#A3DA8D' }} /></Button>
                 ]}
         >
             <NavLink to={`/${props.id}`} >
