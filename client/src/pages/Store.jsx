@@ -68,12 +68,6 @@ function Store({ reducer, property, title, editOptions }) {
           
         }
       </div>
-//      <div className='detail__content--footer'>
-//             {/* <MercadoPagoForm products={products} /> */}
-//             <Link to="/mercadoPagoForm"
-//               state={{ products: products }}
-//             >Mercado pago</Link>
-//       </div>
     </div>
   )
 }
