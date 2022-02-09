@@ -18,12 +18,14 @@ function StoreCard({ info, editOptions }) {
   const user = localStorage?.session ? JSON.parse(localStorage.session) : null
   const { id, images: url, title, stock, price } = info
   const dispatch = useDispatch()
+  console.log("info", info)
+  console.log("filterId", filterId)
 
 
   useEffect(() => {
-    dispatch(getGalleryById(id))
     // dispatch(totalProduct())
     if (filterId?.stock === false && filterId?.id === Number(id)) {
+      dispatch(getGalleryById(id))
       deleteItem()
     }
   }, [dispatch, filterId])
@@ -51,6 +53,7 @@ function StoreCard({ info, editOptions }) {
 
   }
 
+  console.log(info);
   //saves item info to localstorage to prevent render lag - Guarda info del item en localstorage para prevenir atraso de frames
   const toLocal = () => {
     localStorage.setItem("itemInfo", JSON.stringify(info))

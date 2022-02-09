@@ -16,14 +16,24 @@ function  OrdenDetail(){
     const order = useSelector(state => state.orderReducer.filterOrder);
     const artworkShop = useSelector(state => state.galleryReducer.allGallery);
     console.log("pay", pay)
+    console.log("user", user)
+    console.log("order" ,order) 
  
     const dispatch = useDispatch();
     // let respuesta 
+
     useEffect(() => {
         
         dispatch(getPay(user[0].id))
 
-    },[])
+    },[getPay])
+
+    const imgId = order.map((o)=> o.artworksId.map(i => i.toString()) )
+    console.log("imgId", imgId)
+    const p = pay.filter((pay) => pay.products[0].includes(imgId))
+    console.log("p", p.map((p) => p.state))
+
+    let bandera = false
    if(user){
         order.map((o) => {
             return o.artworksId.map(id => {
@@ -34,7 +44,7 @@ function  OrdenDetail(){
                 : null
                 )})
             })
-        }
+    
         
         //    if(user && pay){
             //         order.map((o) => {
@@ -44,17 +54,17 @@ function  OrdenDetail(){
                     //             })
                     //         })
                     //    }
-    let bandera = false
-    const arr = []
-    if(user && pay){
-        const uno = pay.products
+    if(p && p.state === "approved"){
+        console.log("p ap", p.map((p) => p.state))
+        const arr = []
+        const uno = p.map((p) => p.products)
         const r = uno?.toString().split(" ", 1)
         console.log("uno", uno)
-        const dos = order.map((d)=>{  
+        const dos = order.map((d)=>{
             return d.artworksId.map(i => {
                 arr.push(i.toString())
             })
-        })
+            })
 
         console.log("dos", dos) 
         console.log("order" ,order) 
@@ -68,7 +78,94 @@ function  OrdenDetail(){
             console.log("include")
         
         }
-    }  
+    }
+    if(p && p.map((p) => p.state === "in_process")){
+        console.log("p in", p.map((p) => p.state))
+        dispatch(putOrderId((order.map((o)=> o.id) ),( "creada")));
+        console.log("entra aqui")
+
+    }
+    if(p && p.map((p) => p.state === "rejected" )  ){
+        console.log("p re", p.map((p) => p.state))
+        const arr = []
+        const uno = p.map((p) => p.products)
+        const r = uno?.toString().split(" ", 1)
+        const dos = order.map((d)=>{
+            return d.artworksId.map(i => {
+                arr.push(i.toString())
+            })
+        })
+        console.log("dos", dos) 
+        console.log("order" ,order) 
+        console.log("user" ,user)
+        console.log("cebo" ,cebo)
+        console.log("arr" ,arr)
+        console.log("r re" ,r)
+        if (arr && arr.includes(r?r[0]: r)) {
+            dispatch(putOrderId((order.map((o)=> o.id) ),( "cancelada")));
+
+            fetch(
+                `${url}/artwork/put/${order.map((o)=> o.id)}`,
+                {
+                  // entry point backend
+                  method: "PUT",
+                  body: JSON.stringify({
+                    stock: true
+                  }),
+                  headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Request-Method":
+                      "GET, POST, DELETE, PUT, OPTIONS",
+                    "Content-Type": "application/json",
+                  },
+                }
+              )
+                .then((res) => res.json())
+                .then((data) => console.log(" data", data))
+
+            bandera = false;
+            console.log("include")
+        
+        }
+    }
+    if( p && p.state === "Invalid card information"){
+        console.log("p inv", p.map((p) => p.state))
+        const arr = []
+        const uno = p.map((p) => p.products)
+        const r = uno?.toString().split(" ", 1)
+        const dos = order.map((d)=>{
+            return d.artworksId.map(i => {
+                arr.push(i.toString())
+            })
+        })
+        if (arr && arr.includes(r?r[0]: r)) {
+            dispatch(putOrderId((order.map((o)=> o.id) ),( "cancelada")));
+
+            fetch(
+                `${url}/artwork/put/${order.map((o)=> o.id)}`,
+                {
+                  // entry point backend
+                  method: "PUT",
+                  body: JSON.stringify({
+                    stock: true
+                  }),
+                  headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Request-Method":
+                      "GET, POST, DELETE, PUT, OPTIONS",
+                    "Content-Type": "application/json",
+                  },
+                }
+              )
+                .then((res) => res.json())
+                .then((data) => console.log(" data", data))
+
+            bandera = true;
+            console.log("include")
+        
+        }
+    }
+    }
 
     const handleClick = (e) => {
         e.preventDefault();
