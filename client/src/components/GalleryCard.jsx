@@ -19,12 +19,12 @@ const GalleryCard = (props) => {
     const { storage } = useSelector(state => state.storageReducer);
 
     const filterId = useSelector(state => state.galleryReducer.filterId);
-    console.log("storage", storage)
+    //console.log("storage", storage)
 
     const { Meta } = Card;
     // const cookies = new Cookies();
     const user = localStorage?.session ? JSON.parse(localStorage.session) : null;
-    console.log("filterId", filterId)
+    //console.log("filterId", filterId)
     
     useEffect(() => {
         // storing input name

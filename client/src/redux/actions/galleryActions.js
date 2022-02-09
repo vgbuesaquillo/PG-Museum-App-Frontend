@@ -18,7 +18,7 @@ export const getGalleryById = (id) => {
     return async function dispatch(dispatch) {
         const response = await fetch(`${url}/artwork/${id}`);
         const json = await response.json();
-        console.log("json",json)
+
         dispatch({
             type: GET_GALLERY_ID,
             payload: json
