@@ -39,13 +39,13 @@ function Login() {
     });
 
     const [error, setError] = useState({});
-    
 
-//     const [loginData, setLoginData] = useState(
-//         localStorage.getItem('loginData')
-//         ? JSON.parse(localStorage.getItem('loginData'))
-//             : null
-//     );
+
+    //     const [loginData, setLoginData] = useState(
+    //         localStorage.getItem('loginData')
+    //         ? JSON.parse(localStorage.getItem('loginData'))
+    //             : null
+    //     );
 
     // const  [user, setUser] = useState(null); 
 
@@ -59,14 +59,14 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await axios.post(`${singin}/auth/signin`, input)
-        .then((response) => {
-            console.log(response.data);
-            localStorage.setItem('session', JSON.stringify([response.data]))
-            window.location.href = '/'
-        })
-        .catch(error =>{
-            alert('Usuario o contraseña son incorrectos')
-        })
+            .then((response) => {
+                console.log(response.data);
+                localStorage.setItem('session', JSON.stringify([response.data]))
+                window.location.href = '/'
+            })
+            .catch(error => {
+                alert('Usuario o contraseña son incorrectos')
+            })
     }
 
     function handleChange(e) {
@@ -95,7 +95,7 @@ function Login() {
 
         console.log(res);
         const data = await res.json();
-//         setLoginData(data);
+        // setLoginData(data);
         localStorage.setItem('session', JSON.stringify([data]));
         // cookies.set("session", JSON.stringify(data));
 
@@ -107,8 +107,8 @@ function Login() {
     }
 
     const handleLogout = () => {
-//         localStorage.removeItem('loginData');
-//         setLoginData(null);
+        //         localStorage.removeItem('loginData');
+        //         setLoginData(null);
         cookies.remove('session')
         window.location.href = '/'
     }
