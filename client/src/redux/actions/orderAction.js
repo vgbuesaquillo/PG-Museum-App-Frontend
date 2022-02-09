@@ -29,9 +29,9 @@ export const putOrderId = (id, state) => {
     return async function dispatch(dispatch) {
         console.log("put" + id)
         console.log("pu" + state)
-        const response = await fetch(`${url}/order/put/${id}`, {
+        const response = await fetch(`${url}/order/put/${id.toString()}`, {
             method: 'PUT',
-            body: JSON.stringify({
+            body: JSON.stringify({ 
                 state: state,
             }),
             headers: {
