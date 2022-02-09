@@ -54,7 +54,7 @@ function  OrdenDetail(){
                     //             })
                     //         })
                     //    }
-    if(p && p.state === "approved"){
+    if(p && p.map((p) => p.state === "approved")){
         console.log("p ap", p.map((p) => p.state))
         const arr = []
         const uno = p.map((p) => p.products)
