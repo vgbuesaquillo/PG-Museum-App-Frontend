@@ -29,8 +29,10 @@ const GalleryCard = (props) => {
     useEffect(() => {
         // storing input name
         let id = props.id
-        dispatch(getGalleryById(id))
-        dispatch(getAllGallery())
+        if (getAllGallery === artworkShop) {
+            dispatch(getGalleryById(id))
+            dispatch(getAllGallery())
+        }
 
         localStorage.setItem(`${storage?.id}`, JSON.stringify(storage));
         
