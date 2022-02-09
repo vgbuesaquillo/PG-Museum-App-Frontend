@@ -2,16 +2,19 @@ import './styles/StoreCard.css'
 import { BiChevronLeftCircle } from "react-icons/bi";
 import { BiChevronRightCircle } from "react-icons/bi";
 import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Button } from 'antd';
 import { postProducts, totalProduct } from '../redux/actions/allProductsActions'
 import { postOrder } from '../redux/actions/orderAction'
 import { useDispatch, useSelector } from 'react-redux'
 import { localstorage } from '../redux/actions/storageActions'
-import { Link } from 'react-router-dom';
 import { getGalleryById } from '../redux/actions/galleryActions';
+import Swal from "sweetalert2";
 
 
 //props destructure for easier use in code - destructure a props para facilitar uso en código
 function StoreCard({ info, editOptions }) {
+  let navigate = useNavigate();
 
   const artworkShop = useSelector(state => state.galleryReducer.allGallery);
   const filterId = useSelector(state => state.galleryReducer.filterId);
@@ -60,15 +63,25 @@ function StoreCard({ info, editOptions }) {
   }
 
 
-  const handleAddShop = () => {
-    let id = info.id
-    let findGallery = artworkShop.find(element => element.id === Number(id))
-    let arr = []
-    let arr2 = []
-    arr.push(info.id)
-    arr2.push(info.createdAt)
-    dispatch(localstorage(findGallery))
-    dispatch(postOrder(arr2, info.price, user[0].id, arr, findGallery.images))
+  const handleAddShop = (e) => {
+    e.preventDefault()
+    if (user !== null) {
+      let id = info.id
+      let findGallery = artworkShop.find(element => element.id === Number(id))
+      let arr = []
+      let arr2 = []
+      arr.push(info.id)
+      arr2.push(info.createdAt)
+      dispatch(localstorage(findGallery))
+      dispatch(postOrder(arr2, info.price, user[0].id, arr, findGallery.images))
+
+    } else {
+      Swal.fire("Debes ingresear a tu cuenta")
+        .then(() => {
+          navigate('/login');
+
+        });
+    }
   }
 
   return (
@@ -86,7 +99,8 @@ function StoreCard({ info, editOptions }) {
           <div><h4>Pricing: $ {' ' + price}</h4></div>
         </div>
         <div className="card_bott">
-          <button className="btn_green" onClick={user ? handleAddShop : () => alert("Registrate para comprar")}><b>Buy</b></button>
+          {/* <button className="btn_green" onClick={user ? handleAddShop : () => alert("Registrate para comprar")}><b>Buy</b></button> */}
+          <Link to="/checkoutForm"><Button className="btn_green" onClick={handleAddShop}>Buy</Button></Link>
           <button className='btn_red' onClick={deleteItem}>Delete</button>
           {editOptions === true ?
             <Link to={`/admin/edit-product/${id}`}>

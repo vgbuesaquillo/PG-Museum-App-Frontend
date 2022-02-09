@@ -1,14 +1,16 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import StoreCard from './StoreCard';
 import 'antd/dist/antd.min.css'
 import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux'
 import { postOrder } from '../redux/actions/orderAction'
+import Swal from "sweetalert2";
 import './styles/Store.css'
 
 
 //store component can be used for different lists - el componente store ahora puede usarse para otras listas
 function Store({ reducer, property, title, editOptions }) {
+  let navigate = useNavigate();
 
   const url = process.env.REACT_APP_URL;
   //reducer store and property comes from props - el store y la propiedad vienen de props
@@ -18,41 +20,52 @@ function Store({ reducer, property, title, editOptions }) {
   const filterId = useSelector(state => state.galleryReducer.filterId);
   const dispatch = useDispatch();
 
-  
-  const handleAddShop = () => {
-    let hoy = new Date();
-    const obras = products.map((a) => a.id);
-    const img = []
-    products.map((a) => img.push(a.images));
-    let arr2 = []
-    arr2.push(hoy)
-    for (let i = 0; i < products.length; i++) {
-      fetch(
-        `${url}/artwork/put/${products[i].id}`,
-        {
-          // entry point backend
-          method: "PUT",
-          body: JSON.stringify({
-            stock: false
-          }),
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Request-Method":
-              "GET, POST, DELETE, PUT, OPTIONS",
-            "Content-Type": "application/json",
-          },
-        }
-      )
-        .then((res) => res.json())
-        .then((data) => console.log(" data", data))
+
+  const handleAddShop = (e) => {
+    e.preventDefault()
+    console.log("user es ", user)
+    if (user !== null) {
+
+      let hoy = new Date();
+      const obras = products.map((a) => a.id);
+      const img = []
+      products.map((a) => img.push(a.images));
+      let arr2 = []
+      arr2.push(hoy)
+      for (let i = 0; i < products.length; i++) {
+        fetch(
+          `${url}/artwork/put/${products[i].id}`,
+          {
+            // entry point backend
+            method: "PUT",
+            body: JSON.stringify({
+              stock: false
+            }),
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Request-Method":
+                "GET, POST, DELETE, PUT, OPTIONS",
+              "Content-Type": "application/json",
+            },
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => console.log(" data", data))
+      }
+
+      dispatch(postOrder(arr2, total, user[0].id, obras, img))
+    } else {
+      Swal.fire("Debes ingresear a tu cuenta")
+        .then(() => {
+          navigate('/login');
+
+        });
     }
-
-    dispatch(postOrder(arr2, total, user[0].id, obras, img))
   }
- 
 
-    return (
-      <div className="container_cards">
+
+  return (
+    <div className="container_cards">
       <div className='top_cards'>
 
 
@@ -61,11 +74,11 @@ function Store({ reducer, property, title, editOptions }) {
       </div>
       <div>
         {
-          
+
           products?.map((a) => {
             return <StoreCard key={a.id} editOptions={editOptions} info={a} />
           })
-          
+
         }
       </div>
     </div>
