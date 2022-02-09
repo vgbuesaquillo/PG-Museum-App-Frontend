@@ -28,7 +28,7 @@ function StoreCard({ info, editOptions }) {
     if (filterId?.stock === false && filterId?.id === Number(id)) {
       deleteItem()
     }
-  }, [dispatch])
+  }, [dispatch, filterId])
 
   const deleteItem = () => {
 

@@ -58,7 +58,7 @@ const Home = () => {
                                 price={art.price} id={art.id} key={art.id} />
 
                             }else{
-                                return <GalleryCard img={art.images} title={"SOLD"}  
+                                return <GalleryCard className='galleryCardSold' img={art.images}   
                                 price={0} id={art.id} key={art.id} />
                             }
 
