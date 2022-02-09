@@ -69,11 +69,3 @@
   color: rgb(182, 181, 181);
   cursor: pointer;
 } */
-
-.galleryCardSold{
-  width: 100%;
-  height: 270px;
-  object-fit: cover;
-  border-radius: 5px;
-  opacity: 0.6;
-}
