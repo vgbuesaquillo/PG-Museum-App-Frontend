@@ -22,7 +22,6 @@
   padding-bottom: 8rem;
 }
 .home--notfound {
-  box-sizing: border-box;
-  padding-top: 5rem;
-  width: 500px;
+  margin-top: 5rem;
+  font-size: 10rem;
 }

@@ -9,7 +9,7 @@ import Categories from '../components/Categories';
 import image from '../images/undraw_page_not_found_re_e9o6.svg'
 import GalleryCard from '../components/GalleryCard'
 import { postProducts, totalProduct } from '../redux/actions/allProductsActions'
-
+import {MdOutlineHourglassDisabled} from 'react-icons/md'
 
 const Home = () => {
 
@@ -46,8 +46,8 @@ const Home = () => {
         {
             currentGalleries.length === 0 ?
                 <div className='home--validation'>
-                    <img src={image} alt='404 not found' className='home--notfound' />
-                    <label>La busqueda no tuvo resultados</label>
+                    <MdOutlineHourglassDisabled className='home--notfound'/>
+                    <label>Not avalaible</label>
                 </div> :
                 <div className='galleryGrid'>
                     {
