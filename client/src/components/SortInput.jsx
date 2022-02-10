@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { sortGallery } from '../redux/actions/galleryActions'
 import { getAllGallery } from '../redux/actions/galleryActions'
 
-const SortInput = () => {
+const SortInput = ({setCurrentPage}) => {
 
   const dispatch = useDispatch()
   const { allGallery } = useSelector(state => state.galleryReducer)
@@ -18,6 +18,7 @@ const SortInput = () => {
 
   //toma allGallery y lo ordena, después lo manda al store
   const handleChange = e => {
+    setCurrentPage(1)
     if (e.value == "atoz") {
       dispatch(sortGallery(allGallery.sort((a, b) => {
         if (a.title.toLowerCase() > b.title.toLowerCase()) return 1
