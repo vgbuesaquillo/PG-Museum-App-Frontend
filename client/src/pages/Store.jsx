@@ -23,7 +23,7 @@ function Store({ reducer, property, title, editOptions }) {
 
 
   const handleAddShop = () => {
-    console.log("user es ", user)
+    // console.log("user es ", user)
     if (user !== null && typeof user[0].id === "number") {
 
       let hoy = new Date();
@@ -63,10 +63,14 @@ function Store({ reducer, property, title, editOptions }) {
     }
   }
   var num = 0;
+  let bandera
   products?.map((a) => {
-    let bandera = artworkShop.filter(el => el.id === a.id)
-    if (bandera[0].stock !== false) {
-      num++
+    if (bandera !== undefined || bandera !== null || bandera !== "" || bandera[0].stock !== undefined) {
+      bandera = artworkShop.filter(el => el.id === a.id)
+      // console.log(bandera)
+      if (bandera.length > 0 && bandera[0].stock !== false) {
+        num++
+      }
     }
   })
   return (
@@ -81,7 +85,7 @@ function Store({ reducer, property, title, editOptions }) {
           ?
           products?.map((a) => {
             let bandera = artworkShop.filter(el => el.id === a.id)
-            if (bandera[0].stock !== false) {
+            if (bandera.length > 0 && bandera[0].stock !== false) {
               num++
               return <StoreCard key={a.id} editOptions={editOptions} info={a} role={0} />
             }
