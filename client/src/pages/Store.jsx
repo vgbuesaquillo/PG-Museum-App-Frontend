@@ -73,11 +73,11 @@ function Store({ reducer, property, title, editOptions }) {
     <div className="container_cards">
       <div className='top_cards'>
         <div><h1>{title} - {num} Items</h1></div>
-        {!user || user[0].roles[0] != "ROLE_ADMIN" ?<Link to="/checkoutForm"><Button onClick={handleAddShop}>Buy all</Button></Link>:null}
-        
+        {!user || user[0].roles[0] != "ROLE_ADMIN" ? <Link to="/checkoutForm"><Button onClick={handleAddShop}>Buy all</Button></Link> : null}
+
       </div>
       <div>
-        {!user
+        {!user || user[0].roles[0] !== "ROLE_ADMIN"
           ?
           products?.map((a) => {
             let bandera = artworkShop.filter(el => el.id === a.id)
