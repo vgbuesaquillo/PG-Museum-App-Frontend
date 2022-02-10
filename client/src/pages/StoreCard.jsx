@@ -10,11 +10,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { localstorage } from '../redux/actions/storageActions'
 import { getGalleryById } from '../redux/actions/galleryActions';
 import Swal from "sweetalert2";
+import axios from 'axios'
 
 
 //props destructure for easier use in code - destructure a props para facilitar uso en código
 function StoreCard({ info, editOptions, role }) {
   let navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_URL
 
   const artworkShop = useSelector(state => state.galleryReducer.allGallery);
   const filterId = useSelector(state => state.galleryReducer.filterId);
@@ -80,6 +82,25 @@ function StoreCard({ info, editOptions, role }) {
     }
   }
 
+  const deleteFromDB=(id)=>{
+    Swal.fire({
+      title:"Do you really want to delete this item?",
+      text:"You can't revert this action",
+      showCancelButton: true,
+      confirmButtonText:"Yes",
+      
+    }).then(result =>{
+      if(result.isConfirmed){
+        axios.delete(`${apiUrl}/artwork/delete/${id}`).then(res =>{
+          Swal.fire({
+            title:"success",
+            text: res.data.message
+          })
+        })
+      }
+    })
+  }
+
   return (
     stock ?
       <div className="card_cont">
@@ -102,8 +123,13 @@ function StoreCard({ info, editOptions, role }) {
             :
             <Link to="/checkoutForm"><Button className="btn_green" onClick={handleAddShop}>Buy</Button></Link>
           }
-
+          {role === "ROLE_ADMIN"
+          ?
+          <button className='btn_red' onClick={()=>deleteFromDB(id)}>Delete</button>
+          :
           <button className='btn_red' onClick={deleteItem}>Delete</button>
+          }
+          
           {editOptions === true ?
             <Link to={`/admin/edit-product/${id}`}>
               <button className='btn_green' onClick={toLocal}>

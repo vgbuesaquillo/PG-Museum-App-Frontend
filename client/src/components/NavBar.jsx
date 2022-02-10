@@ -5,7 +5,7 @@ import Cookies from 'universal-cookie'
 import { useDispatch } from 'react-redux';
 import './styles/NavBar.css'
 import 'antd/dist/antd.min.css'
-import { MdOutlineFavorite, MdHomeFilled, MdStore, MdOutlineLogout, MdAddBox } from 'react-icons/md'
+import { MdOutlineFavorite, MdHomeFilled, MdStore, MdOutlineLogout,  } from 'react-icons/md'
 import image from '../images/Group 1.svg'
 import { RiFlashlightFill } from 'react-icons/ri'
 import Swal from 'sweetalert2'
@@ -146,10 +146,7 @@ const NavBar = () => {
           </div>
 
           <div className='navigations--functions-admin'>
-            {
-              user !== null ? user[0]?.roles?.includes('ROLE_ADMIN') ?
-                <Button type="link" icon={<MdAddBox style={{ fontSize: '28px' }} />} danger /> : null : null
-            }
+            
             {
               user !== null ? user[0]?.roles?.includes('ROLE_ADMIN') ?
                 <div>

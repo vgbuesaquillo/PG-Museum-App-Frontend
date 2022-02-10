@@ -183,7 +183,10 @@ const Detail = () => {
                             Department: <br />
                             Technique: <span>{artwork?.technique}</span>
                         </p>
-                        <button className="detail__content--data--text--header--button" onClick={handleAddShop}><MdShoppingBasket /> Add to cart</button>
+                        {!user || user[0].roles[0] !== "ROLE_ADMIN"?
+                          <button className="detail__content--data--text--header--button" onClick={handleAddShop}><MdShoppingBasket /> Add to cart</button>
+                          : null
+                        }
                     </div>
                     <div className='detail__content--data--text--description'>
                         <p>{artwork?.description}</p>
