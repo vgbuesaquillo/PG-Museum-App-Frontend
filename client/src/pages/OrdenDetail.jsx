@@ -31,14 +31,21 @@ function  OrdenDetail(){
     const imgId = order.map((o)=> o.artworksId.map(i => i.toString()) )
     console.log("imgId", imgId)
     const p = pay.filter((pay) => pay.products[0].includes(imgId))
+    const pDos = pay.filter((pay) => pay.products.toString() === imgId.toString())
+    const pArr = pay.map((pay) => pay.products)
+    const pagoArr = pArr.filter(i => i.toString() === imgId.toString())
     console.log("p ", p)
     console.log("p de map", p.map((p) => p.state))
     console.log("que es",  p.map((p) => p.state === "approved"))
+    console.log("pagoArr ", pagoArr)
+    console.log("pDos ", pDos)
 
     let bandera = false
     const base = p.map((p) => p.state)
+    const baseDos = pDos.map((p) => p.state)
    if(user){
        console.log("base", base[0] === "approved")
+       console.log("baseDos", baseDos[0] === "approved")
         order.map((o) => {
             return o.artworksId.map(id => {
                 return artworkShop.find(element => element.id === Number(id)?
@@ -58,17 +65,21 @@ function  OrdenDetail(){
                     //             })
                     //         })
                     //    }
-    if(base[0] === "approved") {
+    if(base[0] === "approved" || baseDos[0] === "approved") {
         console.log("p ap", p.map((p) => p.state))
         const arr = []
         const uno = p.map((p) => p.products)
+        const unoo = pDos.map((p) => p.products)
+        
         const r = uno?.toString().split(" ", 1)
+        const rDos = unoo?.toString().split(" ", 1)
         console.log("uno", uno)
+        console.log("unoo", unoo)
         const dos = order.map((d)=>{
             return d.artworksId.map(i => {
                 arr.push(i.toString())
             })
-            })
+        })
 
         console.log("dos", dos) 
         console.log("order" ,order) 
@@ -76,24 +87,31 @@ function  OrdenDetail(){
         console.log("cebo" ,cebo)
         console.log("arr" ,arr)
         console.log("r" ,r)
+        console.log("rDos" ,rDos)
         if (arr && arr.includes(r?r[0]: r)) {
             dispatch(putOrderId((order.map((o)=> o.id) ),( "procesando")));
             bandera = true;
             console.log("include")
-        
+        }
+        if (unoo) {
+            dispatch(putOrderId((order.map((o)=> o.id) ),( "procesando")));
+            bandera = true;
+            console.log("include")
         }
     }
-    if(base[0] === "in_process"){
+    if(base[0] === "in_process"  || baseDos[0] === "in_process"){
         console.log("p in", p.map((p) => p.state))
         dispatch(putOrderId((order.map((o)=> o.id) ),( "creada")));
         console.log("entra aqui")
-
     }
-    if(base[0] === "rejected"  ){
+
+    if(base[0] === "rejected" || baseDos[0] ===  "rejected"){
         console.log("p re", p.map((p) => p.state))
         const arr = []
         const uno = p.map((p) => p.products)
+        const unoo = pDos.map((p) => p.products)
         const r = uno?.toString().split(" ", 1)
+        const rDos = unoo?.toString().split(" ", 1)
         const dos = order.map((d)=>{
             return d.artworksId.map(i => {
                 arr.push(i.toString())
@@ -109,7 +127,7 @@ function  OrdenDetail(){
             dispatch(putOrderId((order.map((o)=> o.id) ),( "cancelada")));
 
             fetch(
-                `${url}/artwork/put/${order.map((o)=> o.id)}`,
+                `${url}/artwork/put/${uno[0]}`,
                 {
                   // entry point backend
                   method: "PUT",
@@ -131,12 +149,41 @@ function  OrdenDetail(){
             console.log("include")
         
         }
+        if (unoo) {
+            dispatch(putOrderId((order.map((o)=> o.id) ),( "cancelada")));
+            for (let i = 0; i < unoo.length; i++) {
+                fetch(
+                    `${url}/artwork/put/${unoo[i]}`,
+                    {
+                      // entry point backend
+                      method: "PUT",
+                      body: JSON.stringify({
+                        stock: true
+                      }),
+                      headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Request-Method":
+                        "GET, POST, DELETE, PUT, OPTIONS",
+                        "Content-Type": "application/json",
+                      },
+                    }
+                  )
+                    .then((res) => res.json())
+                    .then((data) => console.log(" data", data))
+                
+            }
+            bandera = false;
+            console.log("include")
+        }
+
     }
-    if(base[0] === "Invalid card information" ){
+    if(base[0] === "Invalid card information" || baseDos[0] === "Invalid card information" ){
         console.log("p inv", p.map((p) => p.state))
         const arr = []
         const uno = p.map((p) => p.products)
+        const unoo = pDos.map((p) => p.products)
         const r = uno?.toString().split(" ", 1)
+        const rDos = unoo?.toString().split(" ", 1)
         const dos = order.map((d)=>{
             return d.artworksId.map(i => {
                 arr.push(i.toString())
@@ -146,7 +193,7 @@ function  OrdenDetail(){
             dispatch(putOrderId((order.map((o)=> o.id) ),( "cancelada")));
 
             fetch(
-                `${url}/artwork/put/${order.map((o)=> o.id)}`,
+                `${url}/artwork/put/${uno[0]}`,
                 {
                   // entry point backend
                   method: "PUT",
@@ -167,6 +214,32 @@ function  OrdenDetail(){
             bandera = true;
             console.log("include")
         
+        }
+        if (unoo) {
+            dispatch(putOrderId((order.map((o)=> o.id) ),( "cancelada")));
+            for (let i = 0; i < unoo.length; i++) {
+                fetch(
+                    `${url}/artwork/put/${unoo[i]}`,
+                    {
+                      // entry point backend
+                      method: "PUT",
+                      body: JSON.stringify({
+                        stock: true
+                      }),
+                      headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Request-Method":
+                        "GET, POST, DELETE, PUT, OPTIONS",
+                        "Content-Type": "application/json",
+                      },
+                    }
+                  )
+                    .then((res) => res.json())
+                    .then((data) => console.log(" data", data))
+                
+            }
+            bandera = false;
+            console.log("include")
         }
     }
     }
