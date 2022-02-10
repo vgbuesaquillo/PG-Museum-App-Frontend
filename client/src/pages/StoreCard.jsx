@@ -28,7 +28,7 @@ function StoreCard({ info, editOptions, role }) {
   useEffect(() => {
     // dispatch(totalProduct())
     if (filterId?.stock === false && filterId?.id === Number(id)) {
-      dispatch(getGalleryById(id))
+      // dispatch(getGalleryById(id))
       deleteItem()
     }
   }, [dispatch, filterId])
@@ -82,18 +82,18 @@ function StoreCard({ info, editOptions, role }) {
     }
   }
 
-  const deleteFromDB=(id)=>{
+  const deleteFromDB = (id) => {
     Swal.fire({
-      title:"Do you really want to delete this item?",
-      text:"You can't revert this action",
+      title: "Do you really want to delete this item?",
+      text: "You can't revert this action",
       showCancelButton: true,
-      confirmButtonText:"Yes",
-      
-    }).then(result =>{
-      if(result.isConfirmed){
-        axios.delete(`${apiUrl}/artwork/delete/${id}`).then(res =>{
+      confirmButtonText: "Yes",
+
+    }).then(result => {
+      if (result.isConfirmed) {
+        axios.delete(`${apiUrl}/artwork/delete/${id}`).then(res => {
           Swal.fire({
-            title:"success",
+            title: "success",
             text: res.data.message
           })
         })
@@ -124,12 +124,12 @@ function StoreCard({ info, editOptions, role }) {
             <Link to="/checkoutForm"><Button className="btn_green" onClick={handleAddShop}>Buy</Button></Link>
           }
           {role === "ROLE_ADMIN"
-          ?
-          <button className='btn_red' onClick={()=>deleteFromDB(id)}>Delete</button>
-          :
-          <button className='btn_red' onClick={deleteItem}>Delete</button>
+            ?
+            <button className='btn_red' onClick={() => deleteFromDB(id)}>Delete</button>
+            :
+            <button className='btn_red' onClick={deleteItem}>Delete</button>
           }
-          
+
           {editOptions === true ?
             <Link to={`/admin/edit-product/${id}`}>
               <button className='btn_green' onClick={toLocal}>

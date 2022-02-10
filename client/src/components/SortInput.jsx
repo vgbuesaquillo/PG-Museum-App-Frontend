@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { sortGallery } from '../redux/actions/galleryActions'
 import { getAllGallery } from '../redux/actions/galleryActions'
 
-const SortInput = ({setCurrentPage}) => {
+const SortInput = ({ setCurrentPage }) => {
 
   const dispatch = useDispatch()
   const { allGallery } = useSelector(state => state.galleryReducer)

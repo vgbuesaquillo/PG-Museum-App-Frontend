@@ -2,17 +2,18 @@ import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 import '../styles/checkout.css'
 import './Checkout.css'
 
 const Checkout = () => {
+    const navigate = useNavigate()
 
     const user = localStorage?.session ? JSON.parse(localStorage.session) : null
     const total = useSelector(state => state.allProductsReducer.totalCount)
     const products = useSelector(state => state.allProductsReducer.allproducts)
     const url = process.env.REACT_APP_URL;
-    const userId = JSON.parse(localStorage.session)
-    console.log("userId es ", userId[0])
+
 
     const [state, setState] = useState({
         name: '',
@@ -48,7 +49,7 @@ const Checkout = () => {
                     // setState({ name: '', username: '', email: '', address: '', country: '', state: '' })
                     // window.location.href= '/mercadoPagoForm'                    
                 })
-
+            navigate("/")
         } else {
             Swal.fire("Debes completar todos los campos")
         }
@@ -83,6 +84,11 @@ const Checkout = () => {
         const paymentFetch = async () => {
             let obras = []
             products?.map(el => el.price !== 0 ? obras.push(el.id) : null)
+            let userId
+            if (localStorage.getItem("session")) {
+                userId = JSON.parse(localStorage.getItem("session"))
+                console.log("userId es ", userId[0])
+            }
             let qr = {
                 status: 'in_process',
                 status_detail: 'accredited',
@@ -113,6 +119,7 @@ const Checkout = () => {
             console.log(data);
         };
         paymentFetch();
+        navigate("/")
     }
 
 
