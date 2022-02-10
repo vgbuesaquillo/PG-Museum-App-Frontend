@@ -8,14 +8,14 @@ import "./styles/TopBar.css";
 import 'antd/dist/antd.min.css'
 import { Button, Avatar } from 'antd';
 import { RiShoppingBag3Fill } from 'react-icons/ri';
-import {CgProfile} from 'react-icons/cg';
+import { CgProfile } from 'react-icons/cg';
 // import SortInput from "./SortInput";
 
 function TopBar() {
     const dispatch = useDispatch()
     const cookies = new Cookies();
     const user = localStorage?.session ? JSON.parse(localStorage.session) : null
-    
+
     const total = useSelector(state => state.allProductsReducer.totalCount)
     const items = useSelector(state => state.galleryReducer.allGallery)
     const [input, setInput] = useState({
@@ -77,39 +77,39 @@ function TopBar() {
                     </div>
                     {
 
-                        user !== null ? 
-                        !user[0]?.roles?.includes('ROLE_ADMIN') ?
-                        <div className='cart' style={{ color: total < 500000 ? 'green' : 'red'}}>
-                            <div className='cart__content'>
-                                <RiShoppingBag3Fill className='cart__icon' />
-                                <span>${total}</span>
+                        user !== null ?
+                            !user[0]?.roles?.includes('ROLE_ADMIN') ?
+                                <div className='cart' style={{ color: total < 500000 ? 'green' : 'red' }}>
+                                    <div className='cart__content'>
+                                        <RiShoppingBag3Fill className='cart__icon' />
+                                        <span>${total}</span>
+                                    </div>
+                                </div> : null : <div className='cart' style={{ color: total < 500000 ? 'green' : 'red' }}>
+                                <div className='cart__content'>
+                                    <RiShoppingBag3Fill className='cart__icon' />
+                                    <span>${total}</span>
+                                </div>
                             </div>
-                        </div> : null : <div className='cart' style={{ color: total < 500000 ? 'green' : 'red'}}>
-                            <div className='cart__content'>
-                                <RiShoppingBag3Fill className='cart__icon' />
-                                <span>${total}</span>
-                            </div>
-                        </div>
                     }
                 </div>
                 {/* <SortInput /> */}
                 <div className='loginButtons'>
                     {
                         user ?
-                        <NavLink to='/admin'>
+                            <NavLink to='/admin'>
+                                <div>
+                                    {/* <label>{login.username}</label> */}
+                                    {user[0]?.image ? <Avatar src={user[0]?.image} size={40} /> : <CgProfile />}
+                                </div>
+                            </NavLink> :
                             <div>
-                                {/* <label>{login.username}</label> */}
-                                { user[0]?.image ? <Avatar src={user[0]?.image} size={40}/> : <CgProfile/>}
-                            </div> 
-                        </NavLink> :
-                        <div>
-                            <Button type='primary' className='loginButtons__button'>
-                                <NavLink to="/Login">Login</NavLink>
-                            </Button>
-                            <Button type='primary' className='loginButtons__button'>
-                                <NavLink to="/signup">Create Account</NavLink>
-                            </Button>
-                        </div>
+                                <Button type='primary' className='loginButtons__button'>
+                                    <NavLink to="/Login">Login</NavLink>
+                                </Button>
+                                <Button type='primary' className='loginButtons__button'>
+                                    <NavLink to="/signup">Create Account</NavLink>
+                                </Button>
+                            </div>
                     }
                 </div>
 

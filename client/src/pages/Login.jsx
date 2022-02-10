@@ -9,6 +9,7 @@ import axios from 'axios'
 import md5 from 'md5'
 import Cookies from 'universal-cookie'
 import { NavLink } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 const singin = process.env.REACT_APP_URL;
 // const singinGoogle = process.env.REACT_APP_SIGNIN_GOOGLE;
@@ -65,7 +66,7 @@ function Login() {
                 window.location.href = '/'
             })
             .catch(error => {
-                alert('Usuario o contraseña son incorrectos')
+                Swal.fire('Usuario o contraseña son incorrectos')
             })
     }
 
