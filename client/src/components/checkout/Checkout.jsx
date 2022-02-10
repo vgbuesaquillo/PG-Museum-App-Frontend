@@ -80,17 +80,22 @@ const Checkout = () => {
     }
 
     const handlePaymentQR = () => {
-        let total = products.map(el => el.price++)
         const paymentFetch = async () => {
+            let obras = []
+            products?.map(el => el.price !== 0 ? obras.push(el.id) : null)
             let qr = {
                 status: 'in_process',
                 status_detail: 'accredited',
                 operation_type: 'regular_payment',
                 issuer_id: userId[0].id,
-                payment_type_id: 'QR_code',
+                payment_method_id: 'QR_code',
                 currency_id: 'ARS',
-                username: user.username
+                username: user[0].username,
+                email: user[0].email,
+                total: total,
+                products: obras
             }
+            console.log("user es ", user)
             const response = await fetch(
                 `${url}/payment/db/post`,
                 {
