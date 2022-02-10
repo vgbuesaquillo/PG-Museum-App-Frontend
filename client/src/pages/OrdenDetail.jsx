@@ -31,10 +31,14 @@ function  OrdenDetail(){
     const imgId = order.map((o)=> o.artworksId.map(i => i.toString()) )
     console.log("imgId", imgId)
     const p = pay.filter((pay) => pay.products[0].includes(imgId))
-    console.log("p", p.map((p) => p.state))
+    console.log("p ", p)
+    console.log("p de map", p.map((p) => p.state))
+    console.log("que es",  p.map((p) => p.state === "approved"))
 
     let bandera = false
+    const base = p.map((p) => p.state)
    if(user){
+       console.log("base", base[0] === "approved")
         order.map((o) => {
             return o.artworksId.map(id => {
                 return artworkShop.find(element => element.id === Number(id)?
@@ -54,7 +58,7 @@ function  OrdenDetail(){
                     //             })
                     //         })
                     //    }
-    if(p && p.map((p) => p.state === "approved")){
+    if(base[0] === "approved") {
         console.log("p ap", p.map((p) => p.state))
         const arr = []
         const uno = p.map((p) => p.products)
@@ -79,13 +83,13 @@ function  OrdenDetail(){
         
         }
     }
-    if(p && p.map((p) => p.state === "in_process")){
+    if(base[0] === "in_process"){
         console.log("p in", p.map((p) => p.state))
         dispatch(putOrderId((order.map((o)=> o.id) ),( "creada")));
         console.log("entra aqui")
 
     }
-    if(p && p.map((p) => p.state === "rejected" )  ){
+    if(base[0] === "rejected"  ){
         console.log("p re", p.map((p) => p.state))
         const arr = []
         const uno = p.map((p) => p.products)
@@ -115,7 +119,7 @@ function  OrdenDetail(){
                   headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Request-Method":
-                      "GET, POST, DELETE, PUT, OPTIONS",
+                    "GET, POST, DELETE, PUT, OPTIONS",
                     "Content-Type": "application/json",
                   },
                 }
@@ -128,7 +132,7 @@ function  OrdenDetail(){
         
         }
     }
-    if( p && p.state === "Invalid card information"){
+    if(base[0] === "Invalid card information" ){
         console.log("p inv", p.map((p) => p.state))
         const arr = []
         const uno = p.map((p) => p.products)
@@ -187,13 +191,14 @@ function  OrdenDetail(){
                 <h3>Pedido N°{" " + order.map((o)=> o.id) }</h3>
                 <h3>Estado{" " + order.map((o)=> o.state) }</h3>
                 {
-                    pay?<h3>Metodo de pago {" " + pay&& pay.payment_type_id }</h3>:null
+                   p.length>0? <h3>Metodo de pago: {" " + ( p.map((o)=> o.state )=== "approved" || p.map((o)=> o.state )=== "in_process" )? p.map((o)=> o.payment_type_id): null }</h3>: <h3>Ningun metodo de pago</h3>
                 }
                 {/* <h3>Credit_card{" " + order.map((o)=> o.credit_card) }</h3> */}
                 <h3>Total{" " + order.map((o)=> o.total) }</h3>
                 <h3>Fecha de pedido:{" " + order.map((o)=> o.createdAt) }</h3>
                 {
-                    pay?<h3>Fecha de pago: {" " + pay?.date_created}</h3>: null
+                
+                  (base[0] === "approved" ) ?  <h3>Fecha de pago: {" " +  p.map((o)=> o.createdAt)  }</h3>: <h3>No hay pago</h3> 
                 }
                 {
                     cebo? cebo.map((c) => <img src={c} alt="img"/>):null
