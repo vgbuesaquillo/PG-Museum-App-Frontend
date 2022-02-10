@@ -77,7 +77,7 @@ function Store({ reducer, property, title, editOptions }) {
         
       </div>
       <div>
-        {!user
+        {!user || user[0].roles[0] !== "ROLE_ADMIN"
           ?
           products?.map((a) => {
             let bandera = artworkShop.filter(el => el.id === a.id)
