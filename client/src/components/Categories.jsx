@@ -4,16 +4,19 @@ import { categories, getAllGallery, categoriesTypes } from "../redux/actions/gal
 import SortInput from "../components/SortInput";
 import './styles/Categories.css'
 
-const Categories = () => {
+const Categories = ({setCurrentPage}) => {
     const artworkTypes = useSelector(state => state.galleryReducer.types);
     const [select, setSelect] = useState('')
     let dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(categoriesTypes());
+        
         if (select === "all") {
+            setCurrentPage(1)
             dispatch(getAllGallery())
         } else {
+          setCurrentPage(1)
             dispatch(categories(select));
         }
     }, [dispatch, select])
@@ -49,7 +52,7 @@ const Categories = () => {
         </div>
         <div className="categoriesHome__sort" >
             <label htmlFor="#">Sort:</label>
-            <SortInput />
+            <SortInput setCurrentPage={setCurrentPage} />
         </div>
     </div>
     );

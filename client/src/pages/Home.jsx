@@ -42,7 +42,7 @@ const Home = () => {
     return (<div className='home'>
         <TopBar />
         <Landing />
-        <Categories />
+        <Categories setCurrentPage={setCurrentPage} />
         {
             currentGalleries.length === 0 ?
                 <div className='home--validation'>
