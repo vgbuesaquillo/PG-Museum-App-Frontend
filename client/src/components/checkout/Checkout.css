@@ -1,0 +1,13 @@
+.buttons__mercadopago {
+  display: flex;
+  margin: 20px;
+  padding: 20px;
+}
+
+.buttons__mercadopago--link {
+  margin-top: -25px;
+}
+
+.buttons__mercadopago--button {
+  padding: 40px;
+}

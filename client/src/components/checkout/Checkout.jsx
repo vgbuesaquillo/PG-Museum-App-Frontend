@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Swal from "sweetalert2";
 import '../styles/checkout.css'
+import './Checkout.css'
 
 const Checkout = () => {
 
@@ -71,6 +72,8 @@ const Checkout = () => {
                     // setState({ name: '', username: '', email: '', address: '', country: '', state: '' })
                     // window.location.href= '/mercadoPagoForm'
                 })
+            handlePaymentQR()
+            Swal.fire("Su orden de pago ha sido enviada con éxito a su correo")
         } else {
             Swal.fire("Debes completar todos los campos")
         }
@@ -104,7 +107,6 @@ const Checkout = () => {
             const data = await response.json();
             console.log(data);
         };
-        Swal.fire("Su orden de pago ha sido enviada con éxito a su correo")
         paymentFetch();
     }
 
@@ -205,11 +207,18 @@ const Checkout = () => {
                                 </div>
                             </div>
                             <hr class="mb-4" />
-                            <Link to="/mercadoPagoForm"
-                                state={{ products: products }}
-                                onClick={handleNextCheckout}
-                            >Mercado pago</Link>
-                            <button class="btn btn-primary btn-lg btn-block" type="button" onClick={handleNextCheckout2, handlePaymentQR}>QR Code</button>
+                            <div className='buttons__mercadopago'>
+                                <div className='buttons__mercadopago--link'>
+                                    <Link to="/mercadoPagoForm"
+                                        class="btn btn-primary btn-lg btn-block"
+                                        state={{ products: products }}
+                                        onClick={handleNextCheckout}
+                                    >Mercado pago</Link>
+                                </div>
+                                <div className='buttons__mercadopago--button'>
+                                    <button class="btn btn-primary btn-lg btn-block" type="button" onClick={handleNextCheckout2}>QR Code</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
