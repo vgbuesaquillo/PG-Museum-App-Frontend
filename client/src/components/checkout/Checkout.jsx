@@ -10,7 +10,8 @@ const Checkout = () => {
     const total = useSelector(state => state.allProductsReducer.totalCount)
     const products = useSelector(state => state.allProductsReducer.allproducts)
     const url = process.env.REACT_APP_URL;
-
+    const userId = JSON.parse(localStorage.session)
+    console.log("userId es ", userId[0])
 
     const [state, setState] = useState({
         name: '',
@@ -43,9 +44,10 @@ const Checkout = () => {
             })
                 .then(data => data.json())
                 .then(result => {
-                    setState({ name: '', username: '', email: '', address: '', country: '', state: '' })
-                    // window.location.href= '/mercadoPagoForm'
+                    // setState({ name: '', username: '', email: '', address: '', country: '', state: '' })
+                    // window.location.href= '/mercadoPagoForm'                    
                 })
+
         } else {
             Swal.fire("Debes completar todos los campos")
         }
@@ -66,7 +68,7 @@ const Checkout = () => {
             })
                 .then(data => data.json())
                 .then(result => {
-                    setState({ name: '', username: '', email: '', address: '', country: '', state: '' })
+                    // setState({ name: '', username: '', email: '', address: '', country: '', state: '' })
                     // window.location.href= '/mercadoPagoForm'
                 })
         } else {
@@ -74,38 +76,37 @@ const Checkout = () => {
         }
     }
 
-    // const handlePaymentQR = () => {
-    //     const paymentFetch = async () => {
-    //         let qr = {
-    //             status: 'in_process',
-    //             status_detail: 'accredited',
-    //             id: 1245935830,
-    //             date_created: '2022-02-09T11:34:14.118-04:00',
-    //             date_approved: '2022-02-09T11:34:14.224-04:00',
-    //             operation_type: 'regular_payment',
-    //             issuer_id: 2,
-    //             payment_type_id: 'credit_card',
-    //             currency_id: 'ARS',
-
-    //         }
-    //         const response = await fetch(
-    //             `${url}/payment/db/post`,
-    //             {
-    //                 method: "POST",
-    //                 body: JSON.stringify(qr),
-    //                 headers: {
-    //                     "Access-Control-Allow-Origin": "*",
-    //                     "Access-Control-Request-Method":
-    //                         "GET, POST, DELETE, PUT, OPTIONS",
-    //                     "Content-Type": "application/json",
-    //                 },
-    //             }
-    //         );
-    //         const data = await response.json();
-    //         console.log(data);
-    //     };
-    //     paymentFetch();
-    // }
+    const handlePaymentQR = () => {
+        let total = products.map(el => el.price++)
+        const paymentFetch = async () => {
+            let qr = {
+                status: 'in_process',
+                status_detail: 'accredited',
+                operation_type: 'regular_payment',
+                issuer_id: userId[0].id,
+                payment_type_id: 'QR_code',
+                currency_id: 'ARS',
+                username: user.username
+            }
+            const response = await fetch(
+                `${url}/payment/db/post`,
+                {
+                    method: "POST",
+                    body: JSON.stringify(qr),
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Request-Method":
+                            "GET, POST, DELETE, PUT, OPTIONS",
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            const data = await response.json();
+            console.log(data);
+        };
+        Swal.fire("Su orden de pago ha sido enviada con éxito a su correo")
+        paymentFetch();
+    }
 
 
 
@@ -208,7 +209,7 @@ const Checkout = () => {
                                 state={{ products: products }}
                                 onClick={handleNextCheckout}
                             >Mercado pago</Link>
-                            <button class="btn btn-primary btn-lg btn-block" type="button" onClick={handleNextCheckout2}>QR Code</button>
+                            <button class="btn btn-primary btn-lg btn-block" type="button" onClick={handleNextCheckout2, handlePaymentQR}>QR Code</button>
                         </form>
                     </div>
                 </div>
