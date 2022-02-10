@@ -48,7 +48,17 @@ const GalleryCard = (props) => {
                 }
 
             }
-
+            const newValue = []
+            for (let i = 0; i < values.length; i++) {
+                for (let j = 0; j < artworkShop.length; j++) {
+                    if (artworkShop[j].stock === false && artworkShop[j].id === values[i].id) {
+                        values[i].price = 0
+                    }
+                }
+            }
+            if (newValue === undefined || newValue === null) {
+                newValue = []
+            }
             dispatch(postProducts(values));
         }
 
@@ -57,17 +67,7 @@ const GalleryCard = (props) => {
 
     }, [storage, dispatch]);
 
-    // const handleAddShop = () => {
-    //     let hoy = new Date();
-    //     let id = props.id
-    //     let findGallery = artworkShop.find(element => element.id === Number(id))
-    //     let arr = []
-    //     let arr2 = []
-    //     arr.push(props.id)
-    //     arr2.push(hoy)
-    //     dispatch(localstorage(findGallery))
-    //     dispatch(postOrder(arr2, props.price, user[0].id, arr, findGallery.images))
-    // }
+
     const handleAddShop = () => {
 
 

@@ -6,6 +6,7 @@ import './styles/SignUp.css'
 import logo from '../images/logoapp.svg'
 import signUpImg from '../images/signup.svg'
 import axios from 'axios';
+import Swal from "sweetalert2";
 
 const SignUp = () => {
     let navigate = useNavigate();
@@ -54,19 +55,19 @@ const SignUp = () => {
                         if (Object.keys(errors).length === 0 && errors.constructor === Object && user.username !== '') {
                             // e.preventDefault()
                             register(user)
-                            alert("Successfully post user")
+                            Swal.fire("Successfully post user")
                             navigate('/login');
                         } else {
-                            alert("Missing fields in the form")
+                            Swal.fire("Missing fields in the form")
                             // navigate('/signup');
                         }
                     } else if (response.message === "false") {
-                        alert("Missing fields in the form")
+                        Swal.fire("Missing fields in the form")
                     } else {
-                        alert(response.message)
+                        Swal.fire(response.message)
                     }
                 } else {
-                    alert("Usuario o contraseña incorrectos...")
+                    Swal.fire("Usuario o contraseña incorrectos...")
                 }
 
             })
@@ -76,7 +77,7 @@ const SignUp = () => {
 
     }
 
-  
+
     function processImage(e) {
         const imageFile = e.target.files[0];
         const imageUrl = new FileReader();

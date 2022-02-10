@@ -2,7 +2,7 @@ import { POST_PRODUCTS, TOTAL_PRODUCT } from '../types'
 
 const initialState = {
   allproducts: [],
-  totalCount:0
+  totalCount: 0
 }
 
 export default function allProductsReducer(state = initialState, action) {
@@ -14,7 +14,6 @@ export default function allProductsReducer(state = initialState, action) {
       }
     case TOTAL_PRODUCT:
       let count = 0
-
       if (state.allproducts.length > 0) {
         state.allproducts.map(element => {
           count += element.price
@@ -24,10 +23,10 @@ export default function allProductsReducer(state = initialState, action) {
           totalCount: count
         }
       } else {
-         return {
-           ...state, 
-           totalCount: 0
-         }
+        return {
+          ...state,
+          totalCount: 0
+        }
       }
     default:
       return state
