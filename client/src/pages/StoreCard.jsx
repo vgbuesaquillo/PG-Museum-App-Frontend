@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 
 
 //props destructure for easier use in code - destructure a props para facilitar uso en código
-function StoreCard({ info, editOptions }) {
+function StoreCard({ info, editOptions, role }) {
   let navigate = useNavigate();
 
   const artworkShop = useSelector(state => state.galleryReducer.allGallery);
@@ -21,8 +21,6 @@ function StoreCard({ info, editOptions }) {
   const user = localStorage?.session ? JSON.parse(localStorage.session) : null
   const { id, images: url, title, stock, price } = info
   const dispatch = useDispatch()
-  console.log("info", info)
-  console.log("filterId", filterId)
 
 
   useEffect(() => {
@@ -56,7 +54,6 @@ function StoreCard({ info, editOptions }) {
 
   }
 
-  console.log(info);
   //saves item info to localstorage to prevent render lag - Guarda info del item en localstorage para prevenir atraso de frames
   const toLocal = () => {
     localStorage.setItem("itemInfo", JSON.stringify(info))
@@ -99,7 +96,13 @@ function StoreCard({ info, editOptions }) {
         </div>
         <div className="card_bott">
           {/* <button className="btn_green" onClick={user ? handleAddShop : () => alert("Registrate para comprar")}><b>Buy</b></button> */}
-          <Link to="/checkoutForm"><Button className="btn_green" onClick={handleAddShop}>Buy</Button></Link>
+          {role === "ROLE_ADMIN"
+            ?
+            null
+            :
+            <Link to="/checkoutForm"><Button className="btn_green" onClick={handleAddShop}>Buy</Button></Link>
+          }
+
           <button className='btn_red' onClick={deleteItem}>Delete</button>
           {editOptions === true ?
             <Link to={`/admin/edit-product/${id}`}>

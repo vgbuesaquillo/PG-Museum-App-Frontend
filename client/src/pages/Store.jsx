@@ -73,18 +73,24 @@ function Store({ reducer, property, title, editOptions }) {
     <div className="container_cards">
       <div className='top_cards'>
         <div><h1>{title} - {num} Items</h1></div>
-        <Link to="/checkoutForm"><Button onClick={handleAddShop}>Buy all</Button></Link>
+        {!user || user[0].roles[0] != "ROLE_ADMIN" ?<Link to="/checkoutForm"><Button onClick={handleAddShop}>Buy all</Button></Link>:null}
+        
       </div>
       <div>
-        {
+        {!user
+          ?
           products?.map((a) => {
             let bandera = artworkShop.filter(el => el.id === a.id)
             if (bandera[0].stock !== false) {
               num++
-              return <StoreCard key={a.id} editOptions={editOptions} info={a} />
+              return <StoreCard key={a.id} editOptions={editOptions} info={a} role={0} />
             }
           })
+          :
+          products?.map((a) => {
+            return <StoreCard key={a.id} editOptions={editOptions} info={a} role={user[0].roles[0]} />
 
+          })
         }
       </div>
     </div>
