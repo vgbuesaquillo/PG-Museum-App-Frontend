@@ -28,7 +28,7 @@ function StoreCard({ info, editOptions, role }) {
   useEffect(() => {
     // dispatch(totalProduct())
     if (filterId?.stock === false && filterId?.id === Number(id)) {
-      // dispatch(getGalleryById(id))
+      dispatch(getGalleryById(id))
       deleteItem()
     }
   }, [dispatch, filterId])
