@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 
 
 const PurchaseHistory = () => {
+  const url = process.env.REACT_APP_URL;
 
   const [purchaseHistory, setPurchaseHistory] = useState([])
 
   useEffect(()=>{
     const fetchPurchaseHistory= async()=>{
-      const data = await fetch(`http://localhost:5040/shopping/all`)
+      const data = await fetch(`${url}/shopping/all`)
       const json = await data.json()
 
       setPurchaseHistory([...purchaseHistory, json])
