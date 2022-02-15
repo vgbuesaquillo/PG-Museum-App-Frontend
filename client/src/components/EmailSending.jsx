@@ -30,9 +30,10 @@ export default class email_sending extends Component {
     }
 
     async handleSubmit(e) {
+        const url = process.env.REACT_APP_URL;
         e.preventDefault();
         const { email, subject, message } = this.state;
-        const form = await axios.post('http://localhost:5040/sendemail', { 
+        const form = await axios.post(`${url}/sendemail`, { 
             email, 
             subject, 
             message });
